@@ -5,6 +5,7 @@ import logoback from './backgrounds/logo-background.png'
 import logo from './logo/logo-black.png';
 
 import jason from './personal/jason.png';
+import resumedownload from './personal/resume.pdf';
 
 import backend from './icons/backend.png';
 import ux from './icons/ux.png';
@@ -99,4 +100,5 @@ export {
   youtube,
   instagram,
   leetcode,
+  resumedownload,
 };
