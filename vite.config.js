@@ -14,9 +14,4 @@ export default defineConfig({
       allowedHeaders: '*',
     },
   },
-  css: {
-    postcss: {
-      plugins: [require('tailwindcss'), require('autoprefixer')],
-    },
-  },
 })
