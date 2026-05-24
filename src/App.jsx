@@ -1,9 +1,10 @@
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
+import { motion } from 'framer-motion';
 import {
+  FiArrowDown,
   FiArrowUpRight,
   FiBriefcase,
   FiCode,
-  FiCpu,
   FiDatabase,
   FiDroplet,
   FiGithub,
@@ -13,6 +14,7 @@ import {
   FiMail,
   FiMapPin,
   FiServer,
+  FiShield,
   FiTarget,
   FiTool,
   FiZap,
@@ -22,79 +24,87 @@ import resume from './assets/personal/resume.pdf';
 
 const navLinks = [
   { href: '#identity', label: 'Identity' },
-  { href: '#work', label: 'Work' },
+  { href: '#work', label: 'Craft' },
   { href: '#projects', label: 'Projects' },
   { href: '#experience', label: 'Experience' },
   { href: '#contact', label: 'Contact' },
 ];
 
-const brandKeywords = [
-  { label: 'Balance', icon: FiTarget },
-  { label: 'Flow', icon: FiDroplet },
-  { label: 'Clarity', icon: FiGlobe },
-  { label: 'Focus', icon: FiTarget },
-  { label: 'Energy', icon: FiZap },
-  { label: 'Elevation', icon: FiArrowUpRight },
+const brandWords = [
+  { label: 'Balance', icon: FiTarget, detail: 'Systems that feel structured, not rigid.' },
+  { label: 'Flow', icon: FiDroplet, detail: 'Interfaces that move users through decisions.' },
+  { label: 'Clarity', icon: FiGlobe, detail: 'Dashboards, docs, and APIs that explain themselves.' },
+  { label: 'Focus', icon: FiShield, detail: 'Scoped builds with measurable outcomes.' },
+  { label: 'Energy', icon: FiZap, detail: 'Fast iteration without messy architecture.' },
+  { label: 'Elevation', icon: FiArrowUpRight, detail: 'A polished layer over practical engineering.' },
 ];
 
-const highlights = [
+const metrics = [
   { value: '3.885', label: 'Rutgers GPA' },
-  { value: '1K+', label: 'ServiceNow tickets analyzed yearly' },
+  { value: '1K+', label: 'tickets analyzed yearly' },
   { value: '95%', label: 'CSAT sustained' },
   { value: '20+', label: 'tickets closed weekly' },
 ];
 
-const capabilities = [
+const craft = [
   {
     icon: FiCode,
-    title: 'Interface systems',
-    body: 'React, Vite, MUI, Tailwind, reusable UI patterns, dashboards, and responsive product surfaces built with a consistent visual language.',
+    title: 'Interface craft',
+    body: 'React, Vite, MUI, Tailwind, reusable component patterns, responsive dashboards, and design-system thinking.',
   },
   {
     icon: FiServer,
-    title: 'Backend foundations',
-    body: 'Django, DRF, FastAPI, Node, PostgreSQL, Supabase, auth flows, API contracts, and deployment-minded project structure.',
+    title: 'Backend architecture',
+    body: 'Django, DRF, FastAPI, Node, PostgreSQL, Supabase, auth flows, API contracts, and deployment-aware project structure.',
   },
   {
     icon: FiTool,
-    title: 'Operational clarity',
-    body: 'ServiceNow analysis, WordPress multisite operations, SharePoint migrations, ITIL runbooks, and support workflows that reduce ambiguity.',
+    title: 'Operational systems',
+    body: 'ServiceNow analysis, WordPress multisite operations, SharePoint migrations, ITIL runbooks, and triage workflows.',
   },
   {
     icon: FiLayers,
-    title: 'Spec-led execution',
-    body: 'Technical specs, scoped PR planning, architecture notes, and implementation checklists that help teams move cleanly from idea to production.',
+    title: 'Spec-led delivery',
+    body: 'Technical specs, scoped PR planning, architecture notes, acceptance criteria, and implementation checklists.',
   },
 ];
 
 const projects = [
   {
+    id: 'certchase',
     name: 'CertChase',
-    type: 'Micro SaaS concept',
+    type: 'Micro SaaS',
+    proof: 'Compliance workflow clarity',
     description:
       'Vendor compliance tracker planned with React, MUI, Django/DRF, and Supabase PostgreSQL using pooler-based database access.',
     stack: ['React', 'MUI', 'Django', 'DRF', 'Supabase'],
     href: 'https://github.com/jason-huang-dev',
   },
   {
+    id: 'wms',
     name: 'DaChong WMS',
-    type: '3PL warehouse platform',
+    type: '3PL platform',
+    proof: 'Warehouse operations structure',
     description:
-      'Multi-tenant WMS direction for inventory, warehouse operations, roles, client accounts, and dashboard-first workflows.',
+      'Multi-tenant WMS direction for inventory, warehouse operations, client accounts, roles, dashboards, and intuitive data filtering.',
     stack: ['React', 'MUI', 'PostgreSQL', 'Docker', 'Django'],
     href: 'https://github.com/jason-huang-dev',
   },
   {
+    id: 'uilibrary',
     name: 'UI-Library',
-    type: 'Design system foundation',
+    type: 'Design system',
+    proof: 'Reusable UI foundations',
     description:
-      'A reusable component library direction with tokens, UIProvider, Surface, Text, Button, overlays, forms, and native/web package boundaries.',
+      'A component library direction with tokens, UIProvider, Surface, Text, Button, forms, overlays, Storybook, and native/web package boundaries.',
     stack: ['React', 'MUI', 'Tokens', 'Storybook', 'pnpm'],
     href: 'https://github.com/jason-huang-dev/UI-Library',
   },
   {
+    id: 'marketbot',
     name: 'Market Bot',
-    type: 'Automation project',
+    type: 'Automation',
+    proof: 'Financial signal retrieval',
     description:
       'Discord bot for market data and news retrieval, built to turn financial signals into faster community updates.',
     stack: ['Python', 'Discord', 'APIs'],
@@ -108,8 +118,8 @@ const experience = [
     org: 'Rutgers University — SC&I IT Helpdesk',
     date: 'Jan 2025 — Jan 2026',
     points: [
-      'Maintained WordPress multisite and supported faculty and departmental web operations across development, staging, and production workflows.',
-      'Built ticket-analysis dashboards across 1,000+ annual ServiceNow tickets to identify repeat incident drivers and improve triage visibility.',
+      'Maintained WordPress multisite operations across development, staging, and production workflows.',
+      'Built ticket-analysis dashboards across 1,000+ annual ServiceNow tickets to identify repeat incident drivers.',
       'Sustained roughly 95% CSAT while closing 20+ tickets per week within SLA expectations.',
     ],
   },
@@ -119,7 +129,7 @@ const experience = [
     date: 'Jul 2024 — Sep 2024',
     points: [
       'Built full-stack projects in small teams, introduced Docker workflows, and standardized imports and project structure.',
-      'Shipped a pantry tracker and scheduling concepts with a focus on rapid iteration and clear user flows.',
+      'Shipped rapid prototypes while balancing UI quality, backend structure, and practical delivery constraints.',
     ],
   },
   {
@@ -164,30 +174,19 @@ const palette = [
   { name: 'Champagne Gold', value: '#D4AF6A' },
 ];
 
-function Surface({ children, className = '', muted = false }) {
-  return (
-    <div className={`surface ${muted ? 'surface--muted' : ''} ${className}`}>{children}</div>
-  );
-}
+const reveal = {
+  hidden: { opacity: 0, y: 34 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.72, ease: [0.22, 1, 0.36, 1] } },
+};
 
-function SectionHeading({ eyebrow, title, body, align = 'left' }) {
-  return (
-    <div className={`section-heading section-heading--${align}`}>
-      <p className="eyebrow">{eyebrow}</p>
-      <h2>{title}</h2>
-      {body ? <p>{body}</p> : null}
-    </div>
-  );
-}
+const stagger = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.08, delayChildren: 0.08 } },
+};
 
 function BrandMark({ compact = false }) {
   return (
-    <svg
-      className={compact ? 'brand-mark brand-mark--compact' : 'brand-mark'}
-      viewBox="0 0 240 240"
-      role="img"
-      aria-label="Jason Huang flow mark"
-    >
+    <svg className={compact ? 'brand-mark brand-mark--compact' : 'brand-mark'} viewBox="0 0 240 240" role="img" aria-label="Jason Huang flow mark">
       <defs>
         <linearGradient id="goldStroke" x1="20%" x2="80%" y1="10%" y2="95%">
           <stop offset="0" stopColor="#F5D58C" />
@@ -196,23 +195,15 @@ function BrandMark({ compact = false }) {
         </linearGradient>
         <linearGradient id="waterStroke" x1="0" x2="1" y1="0" y2="1">
           <stop offset="0" stopColor="#D8F6FF" />
-          <stop offset="0.5" stopColor="#00AFFF" />
+          <stop offset="0.52" stopColor="#00AFFF" />
           <stop offset="1" stopColor="#0B1D3A" />
         </linearGradient>
-        <filter id="waterGlow" x="-30%" y="-30%" width="160%" height="160%">
-          <feGaussianBlur stdDeviation="2.4" result="blur" />
-          <feMerge>
-            <feMergeNode in="blur" />
-            <feMergeNode in="SourceGraphic" />
-          </feMerge>
-        </filter>
       </defs>
-
       <circle className="brand-mark__outer" cx="120" cy="120" r="104" />
-      <path className="brand-mark__water brand-mark__water--top" d="M57 83c34-39 88-42 126-8 18 16 24 34 23 52" />
-      <path className="brand-mark__water brand-mark__water--bottom" d="M183 157c-34 39-88 42-126 8-18-16-24-34-23-52" />
-      <circle className="brand-mark__dot brand-mark__dot--top" cx="120" cy="63" r="16" />
-      <circle className="brand-mark__dot brand-mark__dot--bottom" cx="120" cy="177" r="16" />
+      <path className="brand-mark__water brand-mark__water--top" d="M55 84c34-40 88-42 127-9 18 16 25 35 23 53" />
+      <path className="brand-mark__water brand-mark__water--bottom" d="M185 156c-34 40-88 42-127 9-18-16-25-35-23-53" />
+      <circle className="brand-mark__dot" cx="120" cy="63" r="16" />
+      <circle className="brand-mark__dot" cx="120" cy="177" r="16" />
       <path
         className="brand-mark__glyph"
         d="M55 112c28-6 52-16 73-35 17-15 40-15 42 1 2 15-18 32-45 38-31 7-58 2-77-9m129 0c-26 9-48 23-63 46-12 18-31 30-39 19-8-10 6-29 27-43 27-17 55-23 88-25m-79-39c15 18 26 37 25 59-.1 20-10 37-23 31-12-5-8-27 1-44 10-19 22-32 45-43"
@@ -221,90 +212,174 @@ function BrandMark({ compact = false }) {
   );
 }
 
+function Section({ id, eyebrow, title, body, children, className = '', center = false }) {
+  return (
+    <motion.section
+      id={id}
+      className={`section ${center ? 'section--center' : ''} ${className}`}
+      variants={reveal}
+      initial="hidden"
+      whileInView="show"
+      viewport={{ once: true, amount: 0.18 }}
+    >
+      <div className="section-heading">
+        <p className="eyebrow">{eyebrow}</p>
+        <h2>{title}</h2>
+        {body ? <p>{body}</p> : null}
+      </div>
+      {children}
+    </motion.section>
+  );
+}
+
+function Surface({ children, className = '', as: Component = 'div' }) {
+  return <Component className={`surface ${className}`}>{children}</Component>;
+}
+
+function ProjectRail() {
+  const [active, setActive] = useState(projects[0].id);
+
+  return (
+    <motion.div className="project-rail" variants={stagger} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }}>
+      {projects.map((project) => {
+        const isActive = active === project.id;
+        return (
+          <motion.article
+            key={project.id}
+            className={`project-panel ${isActive ? 'project-panel--active' : ''}`}
+            variants={reveal}
+            layout
+            onClick={() => setActive(project.id)}
+            onFocus={() => setActive(project.id)}
+            tabIndex={0}
+          >
+            <div className="project-panel__index">{project.type}</div>
+            <div className="project-panel__content">
+              <p>{project.proof}</p>
+              <h3>{project.name}</h3>
+              <span>{project.description}</span>
+              <div className="chip-row">
+                {project.stack.map((item) => <small key={item}>{item}</small>)}
+              </div>
+            </div>
+            <a className="project-panel__link" href={project.href} target="_blank" rel="noreferrer" aria-label={`Open ${project.name}`} onClick={(event) => event.stopPropagation()}>
+              <FiArrowUpRight />
+            </a>
+          </motion.article>
+        );
+      })}
+    </motion.div>
+  );
+}
+
 function App() {
   const year = useMemo(() => new Date().getFullYear(), []);
 
   return (
-    <div className="portfolio-shell">
+    <div className="site-shell">
+      <div className="ambient-water" aria-hidden="true" />
+
       <header className="site-nav">
         <a className="brand" href="#top" aria-label="Jason Huang home">
           <BrandMark compact />
-          <div>
+          <span>
             <strong>Jason Huang</strong>
             <small>Flow · Balance · Clarity</small>
-          </div>
+          </span>
         </a>
-
         <nav aria-label="Main navigation">
-          {navLinks.map((link) => (
-            <a key={link.href} href={link.href}>{link.label}</a>
-          ))}
+          {navLinks.map((link) => <a key={link.href} href={link.href}>{link.label}</a>)}
         </nav>
       </header>
 
       <main id="top">
-        <section id="identity" className="identity-hero">
-          <Surface className="brand-story">
-            <p className="eyebrow">Brand identity</p>
-            <h1>Software with flow, balance, and clarity.</h1>
-            <p>
-              I’m Jason Huang, a Rutgers CS + Economics student building practical software systems, polished interfaces, and operational tools that make complex workflows easier to understand and act on.
-            </p>
-            <div className="hero-actions">
-              <a className="button button--primary" href="#projects">View work <FiArrowUpRight /></a>
-              <a className="button button--secondary" href={resume} target="_blank" rel="noreferrer">Resume <FiBriefcase /></a>
-            </div>
-          </Surface>
+        <section id="identity" className="hero-stage">
+          <motion.div className="hero-copy" variants={stagger} initial="hidden" animate="show">
+            <motion.p className="eyebrow" variants={reveal}>Brand identity</motion.p>
+            <motion.h1 variants={reveal}>Software with flow, balance, and clarity.</motion.h1>
+            <motion.p className="hero-lede" variants={reveal}>
+              I build practical software systems, polished interfaces, and operational tools that turn complex workflows into clear user experiences.
+            </motion.p>
+            <motion.div className="hero-actions" variants={reveal}>
+              <a className="button button--primary" href="#projects">Explore work <FiArrowUpRight /></a>
+              <a className="button button--secondary" href={resume} target="_blank" rel="noreferrer">View resume <FiBriefcase /></a>
+            </motion.div>
+          </motion.div>
 
-          <div className="hero-emblem" aria-hidden="true">
-            <div className="hero-emblem__halo" />
+          <motion.div className="hero-mark-wrap" initial={{ opacity: 0, scale: 0.92 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}>
+            <div className="hero-orbit hero-orbit--one" />
+            <div className="hero-orbit hero-orbit--two" />
             <BrandMark />
-          </div>
+          </motion.div>
 
-          <Surface className="brand-keywords">
+          <motion.aside className="hero-keywords" variants={stagger} initial="hidden" animate="show">
             <p className="eyebrow">Brand keywords</p>
-            <div className="keyword-list">
-              {brandKeywords.map((item) => {
-                const Icon = item.icon;
-                return (
-                  <div className="keyword-item" key={item.label}>
-                    <span><Icon /></span>
+            {brandWords.map((item) => {
+              const Icon = item.icon;
+              return (
+                <motion.div className="keyword-card" key={item.label} variants={reveal}>
+                  <Icon />
+                  <span>
                     <strong>{item.label}</strong>
-                  </div>
-                );
-              })}
-            </div>
-          </Surface>
+                    <small>{item.detail}</small>
+                  </span>
+                </motion.div>
+              );
+            })}
+          </motion.aside>
+
+          <a className="scroll-cue" href="#work" aria-label="Scroll to work section">
+            <span><FiArrowDown /></span>
+          </a>
         </section>
 
-        <section className="tagline-strip" aria-label="Brand tagline">
-          <span />
+        <section className="brand-strip" aria-label="Brand statement">
+          <i />
           <strong>Flow</strong>
-          <i>·</i>
+          <span>·</span>
           <strong>Balance</strong>
-          <i>·</i>
           <BrandMark compact />
-          <i>·</i>
           <strong>Clarity</strong>
-          <span />
+          <span>·</span>
+          <strong>Elevation</strong>
+          <i />
         </section>
 
-        <section className="stats-grid" aria-label="Portfolio highlights">
-          {highlights.map((item) => (
-            <Surface key={item.label} muted>
+        <motion.section className="metric-deck" variants={stagger} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.25 }}>
+          {metrics.map((item) => (
+            <motion.div className="metric-card" key={item.label} variants={reveal}>
               <strong>{item.value}</strong>
               <span>{item.label}</span>
-            </Surface>
+            </motion.div>
           ))}
-        </section>
+        </motion.section>
 
-        <section className="palette-section" aria-label="Brand palette">
-          <SectionHeading
-            eyebrow="Dark theme palette"
-            title="Cinematic, focused, and built for contrast."
-            body="The visual system uses onyx depth, midnight structure, electric-water motion, and champagne-gold emphasis for a personal brand that feels refined without losing energy."
-            align="center"
-          />
+        <Section
+          id="work"
+          eyebrow="Craft system"
+          title="A portfolio rebuilt as a branded product surface."
+          body="This version is not a recolor. It rebuilds the site around a cinematic visual identity, motion system, reusable surfaces, interactive project rail, and recruiter-readable proof."
+        >
+          <div className="craft-grid">
+            {craft.map((item) => {
+              const Icon = item.icon;
+              return (
+                <Surface className="craft-card" key={item.title}>
+                  <Icon />
+                  <h3>{item.title}</h3>
+                  <p>{item.body}</p>
+                </Surface>
+              );
+            })}
+          </div>
+        </Section>
+
+        <Section
+          eyebrow="Visual language"
+          title="Dark depth, electric motion, champagne emphasis."
+          body="The palette section keeps the brand-board language in the actual website instead of hiding it in a static asset."
+          center
+        >
           <div className="palette-grid">
             {palette.map((color) => (
               <div className="palette-chip" key={color.value}>
@@ -314,93 +389,57 @@ function App() {
               </div>
             ))}
           </div>
-        </section>
+        </Section>
 
-        <section id="work" className="content-section">
-          <SectionHeading
-            eyebrow="Core strengths"
-            title="I bridge product interfaces, backend systems, and support operations."
-            body="The portfolio now reads like a personal brand system: clear sections, measurable proof, strong hierarchy, and reusable surface patterns inspired by your UI-Library direction."
-          />
-          <div className="capability-grid">
-            {capabilities.map((item) => {
-              const Icon = item.icon;
-              return (
-                <Surface key={item.title}>
-                  <div className="icon-box"><Icon /></div>
-                  <h3>{item.title}</h3>
-                  <p>{item.body}</p>
-                </Surface>
-              );
-            })}
-          </div>
-        </section>
+        <Section
+          id="projects"
+          eyebrow="Case studies"
+          title="Interactive project rail with preserved expandable-card behavior."
+          body="The original portfolio had a unique expanding project interaction. This rebuild keeps that idea, but turns it into a premium branded case-study rail."
+        >
+          <ProjectRail />
+        </Section>
 
-        <section id="projects" className="content-section projects-section">
-          <SectionHeading
-            eyebrow="Selected work"
-            title="Projects shaped around systems, dashboards, and execution clarity."
-            body="Each project card is framed by what it proves: product judgment, technical structure, operational awareness, and measurable delivery."
-          />
-          <div className="project-grid">
-            {projects.map((project) => (
-              <Surface key={project.name} className="project-card">
-                <div className="project-card__topline">
-                  <span>{project.type}</span>
-                  <a href={project.href} aria-label={`Open ${project.name}`} target="_blank" rel="noreferrer"><FiArrowUpRight /></a>
-                </div>
-                <h3>{project.name}</h3>
-                <p>{project.description}</p>
-                <div className="chip-row">
-                  {project.stack.map((item) => <span key={item}>{item}</span>)}
-                </div>
-              </Surface>
-            ))}
-          </div>
-        </section>
-
-        <section id="experience" className="content-section experience-section">
-          <SectionHeading
-            eyebrow="Experience"
-            title="Execution grounded in technical support, web platforms, and documentation."
-            body="This section keeps recruiter-friendly substance while matching the visual tone: clean, confident, and easy to scan."
-          />
-          <div className="timeline-list">
-            {experience.map((job) => (
-              <Surface key={`${job.role}-${job.org}`}>
-                <div className="job-heading">
-                  <div>
+        <Section
+          id="experience"
+          eyebrow="Experience"
+          title="Technical execution with operations-level clarity."
+          body="The experience section is structured as a timeline, preserving motion reveals while making each role easier to scan."
+        >
+          <div className="timeline">
+            {experience.map((job, index) => (
+              <Surface className="timeline-card" key={`${job.role}-${job.org}`}>
+                <div className="timeline-card__marker">0{index + 1}</div>
+                <div>
+                  <div className="timeline-card__heading">
+                    <span>{job.date}</span>
                     <h3>{job.role}</h3>
                     <p>{job.org}</p>
                   </div>
-                  <span>{job.date}</span>
+                  <ul>
+                    {job.points.map((point) => <li key={point}>{point}</li>)}
+                  </ul>
                 </div>
-                <ul>
-                  {job.points.map((point) => <li key={point}>{point}</li>)}
-                </ul>
               </Surface>
             ))}
           </div>
-        </section>
+        </Section>
 
-        <section className="content-section tech-section">
-          <SectionHeading
-            eyebrow="Toolkit"
-            title="Stack coverage from interface craft to backend infrastructure."
-          />
-          <div className="chip-row chip-row--large">
+        <Section
+          eyebrow="Toolkit"
+          title="Stack coverage across interface, backend, and operations."
+        >
+          <div className="tech-cloud">
             {tech.map((item) => <span key={item}>{item}</span>)}
           </div>
-        </section>
+        </Section>
 
-        <section id="contact" className="contact-section">
+        <section id="contact" className="contact-stage">
           <Surface className="contact-card">
             <div>
               <p className="eyebrow">Next step</p>
               <h2>Let’s create software that feels focused, polished, and useful.</h2>
-              <p>
-                Reach out for software engineering roles, web projects, product prototypes, or systems that need a clean technical plan.
-              </p>
+              <p>Reach out for software engineering roles, full-stack prototypes, web systems, or product specs that need structure and taste.</p>
             </div>
             <div className="contact-actions">
               <a className="button button--primary" href="mailto:jasonh232013@gmail.com"><FiMail /> Email Jason</a>
