@@ -3,26 +3,43 @@ import {
   FiArrowUpRight,
   FiBriefcase,
   FiCode,
+  FiCpu,
   FiDatabase,
+  FiDroplet,
   FiGithub,
   FiGlobe,
+  FiLayers,
   FiLinkedin,
   FiMail,
   FiMapPin,
   FiServer,
+  FiTarget,
   FiTool,
+  FiZap,
 } from 'react-icons/fi';
 
+import resume from './assets/personal/resume.pdf';
+
 const navLinks = [
+  { href: '#identity', label: 'Identity' },
   { href: '#work', label: 'Work' },
   { href: '#projects', label: 'Projects' },
   { href: '#experience', label: 'Experience' },
   { href: '#contact', label: 'Contact' },
 ];
 
+const brandKeywords = [
+  { label: 'Balance', icon: FiTarget },
+  { label: 'Flow', icon: FiDroplet },
+  { label: 'Clarity', icon: FiGlobe },
+  { label: 'Focus', icon: FiTarget },
+  { label: 'Energy', icon: FiZap },
+  { label: 'Elevation', icon: FiArrowUpRight },
+];
+
 const highlights = [
   { value: '3.885', label: 'Rutgers GPA' },
-  { value: '1K+', label: 'tickets analyzed yearly' },
+  { value: '1K+', label: 'ServiceNow tickets analyzed yearly' },
   { value: '95%', label: 'CSAT sustained' },
   { value: '20+', label: 'tickets closed weekly' },
 ];
@@ -30,23 +47,23 @@ const highlights = [
 const capabilities = [
   {
     icon: FiCode,
-    title: 'Frontend systems',
-    body: 'React, Vite, MUI, Tailwind, design-system components, dashboard UX, and clean interaction patterns.',
+    title: 'Interface systems',
+    body: 'React, Vite, MUI, Tailwind, reusable UI patterns, dashboards, and responsive product surfaces built with a consistent visual language.',
   },
   {
     icon: FiServer,
     title: 'Backend foundations',
-    body: 'Django, DRF, FastAPI, Node, PostgreSQL, Supabase, authentication flows, and API-first product specs.',
+    body: 'Django, DRF, FastAPI, Node, PostgreSQL, Supabase, auth flows, API contracts, and deployment-minded project structure.',
   },
   {
     icon: FiTool,
-    title: 'Automation & support ops',
-    body: 'ServiceNow analysis, WordPress multisite operations, SharePoint migrations, ITIL runbooks, and scripting.',
+    title: 'Operational clarity',
+    body: 'ServiceNow analysis, WordPress multisite operations, SharePoint migrations, ITIL runbooks, and support workflows that reduce ambiguity.',
   },
   {
-    icon: FiDatabase,
-    title: 'Product-minded engineering',
-    body: 'Technical specs, scoped PR planning, reusable packages, maintainable architecture, and measurable delivery.',
+    icon: FiLayers,
+    title: 'Spec-led execution',
+    body: 'Technical specs, scoped PR planning, architecture notes, and implementation checklists that help teams move cleanly from idea to production.',
   },
 ];
 
@@ -68,20 +85,20 @@ const projects = [
     href: 'https://github.com/jason-huang-dev',
   },
   {
+    name: 'UI-Library',
+    type: 'Design system foundation',
+    description:
+      'A reusable component library direction with tokens, UIProvider, Surface, Text, Button, overlays, forms, and native/web package boundaries.',
+    stack: ['React', 'MUI', 'Tokens', 'Storybook', 'pnpm'],
+    href: 'https://github.com/jason-huang-dev/UI-Library',
+  },
+  {
     name: 'Market Bot',
     type: 'Automation project',
     description:
       'Discord bot for market data and news retrieval, built to turn financial signals into faster community updates.',
     stack: ['Python', 'Discord', 'APIs'],
     href: 'https://github.com/jason-huang-dev/Market_Bot',
-  },
-  {
-    name: 'csRU',
-    type: 'Course planning app',
-    description:
-      'Rutgers Computer Science course manager for BA/BS planning and curriculum visibility.',
-    stack: ['React', 'Python', 'Docker'],
-    href: 'https://github.com/williamowenwu/csRU',
   },
 ];
 
@@ -110,7 +127,7 @@ const experience = [
     org: 'Golden Unicorn',
     date: 'Oct 2019 — Present',
     points: [
-      'Managed day-to-day operations, communication, customer support, and process improvements in a fast-paced local business environment.',
+      'Managed daily operations, communication, customer support, and process improvements in a fast-paced local business environment.',
     ],
   },
 ];
@@ -138,19 +155,69 @@ const tech = [
   'ServiceNow',
 ];
 
+const palette = [
+  { name: 'Onyx', value: '#0A0A0A' },
+  { name: 'Charcoal', value: '#1B1E22' },
+  { name: 'Slate', value: '#2C3440' },
+  { name: 'Midnight Navy', value: '#0B1D3A' },
+  { name: 'Electric Water', value: '#00AFFF' },
+  { name: 'Champagne Gold', value: '#D4AF6A' },
+];
+
 function Surface({ children, className = '', muted = false }) {
   return (
     <div className={`surface ${muted ? 'surface--muted' : ''} ${className}`}>{children}</div>
   );
 }
 
-function SectionHeading({ eyebrow, title, body }) {
+function SectionHeading({ eyebrow, title, body, align = 'left' }) {
   return (
-    <div className="section-heading">
+    <div className={`section-heading section-heading--${align}`}>
       <p className="eyebrow">{eyebrow}</p>
       <h2>{title}</h2>
       {body ? <p>{body}</p> : null}
     </div>
+  );
+}
+
+function BrandMark({ compact = false }) {
+  return (
+    <svg
+      className={compact ? 'brand-mark brand-mark--compact' : 'brand-mark'}
+      viewBox="0 0 240 240"
+      role="img"
+      aria-label="Jason Huang flow mark"
+    >
+      <defs>
+        <linearGradient id="goldStroke" x1="20%" x2="80%" y1="10%" y2="95%">
+          <stop offset="0" stopColor="#F5D58C" />
+          <stop offset="0.42" stopColor="#D4AF6A" />
+          <stop offset="1" stopColor="#8A6428" />
+        </linearGradient>
+        <linearGradient id="waterStroke" x1="0" x2="1" y1="0" y2="1">
+          <stop offset="0" stopColor="#D8F6FF" />
+          <stop offset="0.5" stopColor="#00AFFF" />
+          <stop offset="1" stopColor="#0B1D3A" />
+        </linearGradient>
+        <filter id="waterGlow" x="-30%" y="-30%" width="160%" height="160%">
+          <feGaussianBlur stdDeviation="2.4" result="blur" />
+          <feMerge>
+            <feMergeNode in="blur" />
+            <feMergeNode in="SourceGraphic" />
+          </feMerge>
+        </filter>
+      </defs>
+
+      <circle className="brand-mark__outer" cx="120" cy="120" r="104" />
+      <path className="brand-mark__water brand-mark__water--top" d="M57 83c34-39 88-42 126-8 18 16 24 34 23 52" />
+      <path className="brand-mark__water brand-mark__water--bottom" d="M183 157c-34 39-88 42-126 8-18-16-24-34-23-52" />
+      <circle className="brand-mark__dot brand-mark__dot--top" cx="120" cy="63" r="16" />
+      <circle className="brand-mark__dot brand-mark__dot--bottom" cx="120" cy="177" r="16" />
+      <path
+        className="brand-mark__glyph"
+        d="M55 112c28-6 52-16 73-35 17-15 40-15 42 1 2 15-18 32-45 38-31 7-58 2-77-9m129 0c-26 9-48 23-63 46-12 18-31 30-39 19-8-10 6-29 27-43 27-17 55-23 88-25m-79-39c15 18 26 37 25 59-.1 20-10 37-23 31-12-5-8-27 1-44 10-19 22-32 45-43"
+      />
+    </svg>
   );
 }
 
@@ -161,10 +228,10 @@ function App() {
     <div className="portfolio-shell">
       <header className="site-nav">
         <a className="brand" href="#top" aria-label="Jason Huang home">
-          <span>JH</span>
+          <BrandMark compact />
           <div>
             <strong>Jason Huang</strong>
-            <small>Software Engineer</small>
+            <small>Flow · Balance · Clarity</small>
           </div>
         </a>
 
@@ -176,33 +243,50 @@ function App() {
       </header>
 
       <main id="top">
-        <section className="hero-section">
-          <div className="hero-copy">
-            <p className="eyebrow">Rutgers CS + Economics · Full-stack engineer</p>
-            <h1>Building practical software systems with clean UX, measurable impact, and strong technical foundations.</h1>
-            <p className="hero-lede">
-              I’m Jason Huang, a Rutgers University student focused on full-stack engineering,
-              software operations, and product-minded systems. I like turning messy workflows into
-              reliable tools, clear dashboards, and scoped implementation plans.
+        <section id="identity" className="identity-hero">
+          <Surface className="brand-story">
+            <p className="eyebrow">Brand identity</p>
+            <h1>Software with flow, balance, and clarity.</h1>
+            <p>
+              I’m Jason Huang, a Rutgers CS + Economics student building practical software systems, polished interfaces, and operational tools that make complex workflows easier to understand and act on.
             </p>
             <div className="hero-actions">
-              <a className="button button--primary" href="#projects">View projects <FiArrowUpRight /></a>
-              <a className="button button--secondary" href="mailto:jasonh232013@gmail.com">Contact me <FiMail /></a>
-            </div>
-          </div>
-
-          <Surface className="hero-card">
-            <div className="availability-pill"><span /> Open to software engineering opportunities</div>
-            <h2>What I bring</h2>
-            <p>
-              A blend of software engineering, helpdesk operations, web platforms, and business context — useful for teams that need someone who can build, debug, document, and communicate.
-            </p>
-            <div className="hero-meta">
-              <span><FiMapPin /> New Jersey / New York area</span>
-              <span><FiBriefcase /> Full-stack · Web · IT systems</span>
-              <span><FiGlobe /> thejasonhuang.com</span>
+              <a className="button button--primary" href="#projects">View work <FiArrowUpRight /></a>
+              <a className="button button--secondary" href={resume} target="_blank" rel="noreferrer">Resume <FiBriefcase /></a>
             </div>
           </Surface>
+
+          <div className="hero-emblem" aria-hidden="true">
+            <div className="hero-emblem__halo" />
+            <BrandMark />
+          </div>
+
+          <Surface className="brand-keywords">
+            <p className="eyebrow">Brand keywords</p>
+            <div className="keyword-list">
+              {brandKeywords.map((item) => {
+                const Icon = item.icon;
+                return (
+                  <div className="keyword-item" key={item.label}>
+                    <span><Icon /></span>
+                    <strong>{item.label}</strong>
+                  </div>
+                );
+              })}
+            </div>
+          </Surface>
+        </section>
+
+        <section className="tagline-strip" aria-label="Brand tagline">
+          <span />
+          <strong>Flow</strong>
+          <i>·</i>
+          <strong>Balance</strong>
+          <i>·</i>
+          <BrandMark compact />
+          <i>·</i>
+          <strong>Clarity</strong>
+          <span />
         </section>
 
         <section className="stats-grid" aria-label="Portfolio highlights">
@@ -214,11 +298,29 @@ function App() {
           ))}
         </section>
 
+        <section className="palette-section" aria-label="Brand palette">
+          <SectionHeading
+            eyebrow="Dark theme palette"
+            title="Cinematic, focused, and built for contrast."
+            body="The visual system uses onyx depth, midnight structure, electric-water motion, and champagne-gold emphasis for a personal brand that feels refined without losing energy."
+            align="center"
+          />
+          <div className="palette-grid">
+            {palette.map((color) => (
+              <div className="palette-chip" key={color.value}>
+                <span style={{ backgroundColor: color.value }} />
+                <strong>{color.name}</strong>
+                <small>{color.value}</small>
+              </div>
+            ))}
+          </div>
+        </section>
+
         <section id="work" className="content-section">
           <SectionHeading
             eyebrow="Core strengths"
-            title="A cleaner portfolio direction built around reusable UI patterns."
-            body="This redesign follows the same foundation ideas as the UI-Library: consistent surfaces, text hierarchy, spacing, buttons, and section structure."
+            title="I bridge product interfaces, backend systems, and support operations."
+            body="The portfolio now reads like a personal brand system: clear sections, measurable proof, strong hierarchy, and reusable surface patterns inspired by your UI-Library direction."
           />
           <div className="capability-grid">
             {capabilities.map((item) => {
@@ -234,11 +336,11 @@ function App() {
           </div>
         </section>
 
-        <section id="projects" className="content-section">
+        <section id="projects" className="content-section projects-section">
           <SectionHeading
             eyebrow="Selected work"
-            title="Projects that show software, systems, and product thinking."
-            body="The project cards emphasize what each project proves rather than only showing screenshots."
+            title="Projects shaped around systems, dashboards, and execution clarity."
+            body="Each project card is framed by what it proves: product judgment, technical structure, operational awareness, and measurable delivery."
           />
           <div className="project-grid">
             {projects.map((project) => (
@@ -260,8 +362,8 @@ function App() {
         <section id="experience" className="content-section experience-section">
           <SectionHeading
             eyebrow="Experience"
-            title="Technical execution backed by support, operations, and documentation."
-            body="The experience section is structured for recruiters: role, organization, dates, and the outcomes worth discussing in interviews."
+            title="Execution grounded in technical support, web platforms, and documentation."
+            body="This section keeps recruiter-friendly substance while matching the visual tone: clean, confident, and easy to scan."
           />
           <div className="timeline-list">
             {experience.map((job) => (
@@ -284,7 +386,7 @@ function App() {
         <section className="content-section tech-section">
           <SectionHeading
             eyebrow="Toolkit"
-            title="Stack coverage from UI to backend infrastructure."
+            title="Stack coverage from interface craft to backend infrastructure."
           />
           <div className="chip-row chip-row--large">
             {tech.map((item) => <span key={item}>{item}</span>)}
@@ -295,9 +397,9 @@ function App() {
           <Surface className="contact-card">
             <div>
               <p className="eyebrow">Next step</p>
-              <h2>Want to build, improve, or review a software system together?</h2>
+              <h2>Let’s create software that feels focused, polished, and useful.</h2>
               <p>
-                Reach out for software engineering roles, web projects, full-stack prototypes, or portfolio/resume-aligned collaborations.
+                Reach out for software engineering roles, web projects, product prototypes, or systems that need a clean technical plan.
               </p>
             </div>
             <div className="contact-actions">
@@ -310,7 +412,7 @@ function App() {
       </main>
 
       <footer className="site-footer">
-        <span>© {year} Jason Huang. Built with React, Vite, and UI-Library-inspired foundations.</span>
+        <span>© {year} Jason Huang. Flow · Balance · Clarity.</span>
         <a href="#top">Back to top</a>
       </footer>
     </div>
