@@ -1,3 +1,5 @@
+import { brandAssets } from "../../data/brandAssets";
+
 export type BrandMarkVariant = "seal" | "horizontal" | "minimal";
 
 export type BrandMarkProps = {
@@ -12,15 +14,28 @@ const sizeClass = {
   lg: "brandMark--lg",
 };
 
+const imageSize = {
+  sm: 32,
+  md: 40,
+  lg: 56,
+};
+
 export function BrandMark({
   variant = "seal",
   size = "md",
   className = "",
 }: BrandMarkProps) {
+  // Brand rule: the square 黄 seal is the only mark used in compact UI areas.
   const seal = (
-    <span className={`brandMark__seal ${sizeClass[size]}`} aria-hidden="true">
-      黄
-    </span>
+    <img
+      className={`brandMark__seal ${sizeClass[size]}`}
+      src={brandAssets.seal}
+      alt=""
+      aria-hidden="true"
+      width={imageSize[size]}
+      height={imageSize[size]}
+      decoding="async"
+    />
   );
 
   if (variant === "minimal" || variant === "seal") {

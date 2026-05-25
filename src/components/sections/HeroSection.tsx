@@ -1,8 +1,8 @@
 import { FiArrowDownRight, FiBriefcase } from "react-icons/fi";
 
 import { profile } from "../../data/profile";
-import { BrandMark } from "../brand/BrandMark";
 import { ChineseAccentText } from "../brand/ChineseAccentText";
+import { SignatureEmblem } from "../brand/SignatureEmblem";
 import { ButtonLink } from "../ui/ButtonLink";
 import { Container } from "../ui/Container";
 
@@ -33,7 +33,7 @@ export function HeroSection() {
         <div className="heroSection__visual" aria-hidden="true">
           <span className="heroSection__orb heroSection__orb--one" />
           <span className="heroSection__orb heroSection__orb--two" />
-          <BrandMark variant="seal" size="lg" />
+          <SignatureEmblem />
           <ChineseAccentText />
         </div>
       </Container>
