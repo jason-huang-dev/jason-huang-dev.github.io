@@ -1,0 +1,32 @@
+export const portfolioTokens = {
+  color: {
+    background: "#06111F",
+    backgroundDeep: "#030A11",
+    surface: "#0B2233",
+    surfaceSoft: "rgba(255,255,255,0.06)",
+    surfaceStrong: "rgba(8,22,33,0.92)",
+    border: "rgba(126,231,242,0.22)",
+    borderStrong: "rgba(126,231,242,0.42)",
+    text: "#F8FDFF",
+    textMuted: "#8FA6B2",
+    textSubtle: "#617984",
+    water: "#23B7C5",
+    waterSoft: "#7EE7F2",
+    jade: "#65D6AD",
+    gold: "#F7C948",
+    goldMuted: "#B9903E",
+    danger: "#FF6F49",
+  },
+  radius: {
+    sm: "8px",
+    md: "14px",
+    lg: "20px",
+    xl: "28px",
+    full: "999px",
+  },
+  shadow: {
+    glass: "0 18px 60px rgba(0,0,0,0.32)",
+    waterGlow: "0 0 28px rgba(35,183,197,0.26)",
+    goldGlow: "0 0 24px rgba(247,201,72,0.18)",
+  },
+} as const;

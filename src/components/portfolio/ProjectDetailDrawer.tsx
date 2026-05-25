@@ -1,0 +1,150 @@
+import { useEffect, useRef, type KeyboardEvent } from "react";
+import { FiExternalLink, FiX } from "react-icons/fi";
+
+import type { PortfolioProject } from "../../data/projects";
+import { TechPill } from "./TechPill";
+import { ProjectDetailSection } from "./ProjectDetailSection";
+
+export type ProjectDetailDrawerProps = {
+  project: PortfolioProject | null;
+  open: boolean;
+  onClose: () => void;
+};
+
+export function ProjectDetailDrawer({
+  project,
+  open,
+  onClose,
+}: ProjectDetailDrawerProps) {
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
+  const panelRef = useRef<HTMLElement>(null);
+  const titleId = project ? `project-drawer-title-${project.id}` : undefined;
+  const visibleLinks = project?.links.filter((link) => link.href) ?? [];
+
+  useEffect(() => {
+    if (!open) return undefined;
+
+    const previousActiveElement = document.activeElement as HTMLElement | null;
+    closeButtonRef.current?.focus();
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        onClose();
+      }
+    };
+
+    document.body.classList.add("drawerOpen");
+    document.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.body.classList.remove("drawerOpen");
+      document.removeEventListener("keydown", handleKeyDown);
+      previousActiveElement?.focus?.();
+    };
+  }, [open, onClose]);
+
+  if (!open || !project) return null;
+
+  const handlePanelKeyDown = (event: KeyboardEvent<HTMLElement>) => {
+    if (event.key !== "Tab") return;
+
+    const focusableElements = panelRef.current?.querySelectorAll<HTMLElement>(
+      'a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])',
+    );
+
+    if (!focusableElements?.length) return;
+
+    const firstElement = focusableElements[0];
+    const lastElement = focusableElements[focusableElements.length - 1];
+
+    if (event.shiftKey && document.activeElement === firstElement) {
+      event.preventDefault();
+      lastElement.focus();
+    } else if (!event.shiftKey && document.activeElement === lastElement) {
+      event.preventDefault();
+      firstElement.focus();
+    }
+  };
+
+  return (
+    <div className="projectDrawer" role="presentation">
+      <button
+        className="projectDrawer__backdrop"
+        type="button"
+        aria-label="Close project details"
+        onClick={onClose}
+      />
+      <aside
+        ref={panelRef}
+        className="projectDrawer__panel"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby={titleId}
+        onKeyDown={handlePanelKeyDown}
+      >
+        <div className="projectDrawer__header">
+          <div>
+            <p className="eyebrow">{project.category}</p>
+            <h2 id={titleId}>{project.title}</h2>
+          </div>
+          <button
+            ref={closeButtonRef}
+            className="iconButton"
+            type="button"
+            aria-label="Close project details"
+            onClick={onClose}
+          >
+            <FiX aria-hidden="true" />
+          </button>
+        </div>
+
+        <p className="projectDrawer__summary">{project.shortDescription}</p>
+
+        <ProjectDetailSection title="Overview">
+          <p>{project.overview}</p>
+        </ProjectDetailSection>
+
+        <ProjectDetailSection title="My role">
+          <p>{project.role}</p>
+        </ProjectDetailSection>
+
+        <ProjectDetailSection title="Impact">
+          {project.impact ? <p>{project.impact}</p> : null}
+        </ProjectDetailSection>
+
+        <ProjectDetailSection title="Key features">
+          <ul>
+            {project.keyFeatures.map((feature) => (
+              <li key={feature}>{feature}</li>
+            ))}
+          </ul>
+        </ProjectDetailSection>
+
+        <ProjectDetailSection title="Tech stack">
+          <div className="projectDrawer__pills">
+            {project.techStack.map((tech) => (
+              <TechPill key={tech}>{tech}</TechPill>
+            ))}
+          </div>
+        </ProjectDetailSection>
+
+        {visibleLinks.length > 0 ? (
+          <ProjectDetailSection title="Links">
+            <div className="projectDrawer__links">
+              {visibleLinks.map((link) => (
+                <a key={link.href} href={link.href} target="_blank" rel="noreferrer">
+                  {link.label}
+                  <FiExternalLink aria-hidden="true" />
+                </a>
+              ))}
+            </div>
+          </ProjectDetailSection>
+        ) : null}
+
+        <ProjectDetailSection title="Status">
+          <p className="projectDrawer__status">{project.status}</p>
+        </ProjectDetailSection>
+      </aside>
+    </div>
+  );
+}
