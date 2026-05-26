@@ -107,8 +107,8 @@ export function createFluidParticleSystem(
           const distanceSq = dx * dx + dy * dy;
           const influence = Math.exp(-distanceSq / 0.018) * 0.7;
           const force = splat.force ?? 1;
-          vx += splat.dx * force * influence;
-          vy += splat.dy * force * influence;
+          vx += splat.dx * force * influence * config.advectionScale;
+          vy += splat.dy * force * influence * config.advectionScale;
         });
 
         x += vx * dt;

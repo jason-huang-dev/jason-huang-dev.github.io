@@ -20,16 +20,28 @@ import {
 type FluidSimulationControllerProps = {
   config: FluidLiteConfig;
   splatsRef: MutableRefObject<FluidSplat[]>;
+  debugMode?: FluidDebugMode;
+};
+
+export type FluidDebugMode = "off" | "dye" | "velocity" | "pressure";
+
+const debugModeUniforms: Record<FluidDebugMode, number> = {
+  off: 0,
+  dye: 1,
+  velocity: 2,
+  pressure: 3,
 };
 
 export function FluidSimulationController({
   config,
   splatsRef,
+  debugMode = "off",
 }: FluidSimulationControllerProps) {
   const { gl, size } = useThree();
   const lastStepRef = useRef(0);
   const lastAmbientRef = useRef(0);
   const hiddenRef = useRef(false);
+  const flowHistoryRef = useRef<FluidSplat[]>([]);
   const aspect = Math.max(size.width / Math.max(size.height, 1), 1);
 
   const targets = useMemo(
@@ -127,6 +139,7 @@ export function FluidSimulationController({
     materials.advection.uniforms.uTexelSize.value.copy(texelSize);
     materials.advection.uniforms.uDt.value = dt;
     materials.advection.uniforms.uDissipation.value = dissipation;
+    materials.advection.uniforms.uAdvectionScale.value = config.advectionScale;
     renderMaterial(materials.advection, target.write);
     target.swap();
   };
@@ -189,6 +202,20 @@ export function FluidSimulationController({
     }
 
     const pendingSplats = splatsRef.current.splice(0, config.maxActiveSplats);
+    if (pendingSplats.length > 0) {
+      flowHistoryRef.current.push(...pendingSplats);
+      if (flowHistoryRef.current.length > 18) {
+        flowHistoryRef.current.splice(0, flowHistoryRef.current.length - 18);
+      }
+    }
+
+    flowHistoryRef.current = flowHistoryRef.current
+      .map((splatData) => ({
+        ...splatData,
+        force: (splatData.force ?? 1) * 0.92,
+      }))
+      .filter((splatData) => (splatData.force ?? 0) > 0.06);
+
     pendingSplats.forEach((splatData) => {
       const force = splatData.force ?? 1;
       splat(targets.velocity, splatData, [
@@ -250,17 +277,22 @@ export function FluidSimulationController({
     targets.velocity.swap();
 
     materials.display.uniforms.uDye.value = targets.dye.read.texture;
+    materials.display.uniforms.uVelocity.value = targets.velocity.read.texture;
+    materials.display.uniforms.uPressure.value = targets.pressure.read.texture;
     materials.display.uniforms.uTime.value = now;
     materials.display.uniforms.uOpacity.value = config.displayOpacity;
     materials.display.uniforms.uDispersionStrength.value =
       config.dispersionStrength;
+    materials.display.uniforms.uDebugMode.value = debugModeUniforms[debugMode];
     renderMaterial(materials.display, null);
 
-    particles.update(dt, now, pendingSplats);
-    const previousAutoClear = gl.autoClear;
-    gl.autoClear = false;
-    gl.render(particleScene, camera);
-    gl.autoClear = previousAutoClear;
+    particles.update(dt, now, flowHistoryRef.current);
+    if (debugMode === "off" || debugMode === "velocity") {
+      const previousAutoClear = gl.autoClear;
+      gl.autoClear = false;
+      gl.render(particleScene, camera);
+      gl.autoClear = previousAutoClear;
+    }
   }, 1);
 
   return null;

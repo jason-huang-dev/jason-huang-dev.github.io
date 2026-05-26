@@ -12,6 +12,7 @@ export type FluidLiteConfig = {
   splatForce: number;
   clickSplatForce: number;
   velocityScale: number;
+  advectionScale: number;
   densityDissipation: number;
   velocityDissipation: number;
   pressureDissipation: number;
@@ -41,6 +42,7 @@ export const fluidLitePresets: Record<FluidLiteQuality, FluidLiteConfig> = {
     splatForce: 0,
     clickSplatForce: 0,
     velocityScale: 0,
+    advectionScale: 0,
     densityDissipation: 1,
     velocityDissipation: 1,
     pressureDissipation: 1,
@@ -68,6 +70,7 @@ export const fluidLitePresets: Record<FluidLiteQuality, FluidLiteConfig> = {
     splatForce: 520,
     clickSplatForce: 880,
     velocityScale: 0.28,
+    advectionScale: 1.8,
     densityDissipation: 0.9975,
     velocityDissipation: 0.992,
     pressureDissipation: 0.945,
@@ -95,6 +98,7 @@ export const fluidLitePresets: Record<FluidLiteQuality, FluidLiteConfig> = {
     splatForce: 720,
     clickSplatForce: 1120,
     velocityScale: 0.34,
+    advectionScale: 2.15,
     densityDissipation: 0.9982,
     velocityDissipation: 0.993,
     pressureDissipation: 0.95,

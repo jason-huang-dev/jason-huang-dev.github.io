@@ -35,6 +35,7 @@ export function createFluidMaterials() {
       uTexelSize: { value: new THREE.Vector2() },
       uDt: { value: 0.016 },
       uDissipation: { value: 0.98 },
+      uAdvectionScale: { value: 1 },
     }),
     divergence: makeMaterial(divergenceShader, {
       uVelocity: { value: null },
@@ -59,12 +60,15 @@ export function createFluidMaterials() {
     }),
     display: makeMaterial(displayShader, {
       uDye: { value: null },
+      uVelocity: { value: null },
+      uPressure: { value: null },
       uTime: { value: 0 },
       uOpacity: { value: 0.7 },
       uDispersionStrength: { value: 0.32 },
       uBaseColor: { value: new THREE.Color(0.012, 0.039, 0.067) },
       uGoldBias: { value: new THREE.Color(0.969, 0.788, 0.282) },
       uVignetteStrength: { value: 0.68 },
+      uDebugMode: { value: 0 },
     }),
   };
 

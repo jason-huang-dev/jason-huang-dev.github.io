@@ -8,10 +8,11 @@ export const advectionShader = `
   uniform vec2 uTexelSize;
   uniform float uDt;
   uniform float uDissipation;
+  uniform float uAdvectionScale;
 
   void main() {
     vec2 velocity = texture2D(uVelocity, vUv).xy;
-    vec2 coord = vUv - velocity * uDt * uTexelSize;
+    vec2 coord = vUv - velocity * uDt * uTexelSize * uAdvectionScale;
     vec4 result = texture2D(uSource, coord) * uDissipation;
     gl_FragColor = result;
   }

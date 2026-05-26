@@ -8,7 +8,10 @@ import {
   useState,
 } from "react";
 
-import { FluidSimulationController } from "./FluidSimulationController";
+import {
+  FluidSimulationController,
+  type FluidDebugMode,
+} from "./FluidSimulationController";
 import {
   fluidLitePresets,
   type FluidLiteQuality,
@@ -70,6 +73,36 @@ function useResponsiveQuality(quality: FluidLiteQuality) {
   return resolved;
 }
 
+function parseDebugMode(value: string | null): FluidDebugMode {
+  if (value === "dye" || value === "velocity" || value === "pressure") {
+    return value;
+  }
+
+  return "off";
+}
+
+function useFluidDebugMode() {
+  const [debugMode, setDebugMode] = useState<FluidDebugMode>("off");
+
+  useEffect(() => {
+    const update = () => {
+      const params = new URLSearchParams(window.location.search);
+      const fromQuery = parseDebugMode(params.get("fluidDebug"));
+      const fromStorage = parseDebugMode(
+        window.localStorage.getItem("fluidDebug"),
+      );
+      setDebugMode(fromQuery !== "off" ? fromQuery : fromStorage);
+    };
+
+    update();
+    window.addEventListener("popstate", update);
+
+    return () => window.removeEventListener("popstate", update);
+  }, []);
+
+  return debugMode;
+}
+
 export function FluidCanvas({
   quality = "medium",
   className = "",
@@ -78,6 +111,7 @@ export function FluidCanvas({
   const splatsRef = useRef<FluidSplat[]>([]);
   const [supported, setSupported] = useState(false);
   const reducedMotion = useReducedMotion();
+  const debugMode = useFluidDebugMode();
   const resolvedQuality = useResponsiveQuality(quality);
   const config = useMemo(
     () => fluidLitePresets[resolvedQuality],
@@ -126,7 +160,11 @@ export function FluidCanvas({
           }}
         >
           <Suspense fallback={null}>
-            <FluidSimulationController config={config} splatsRef={splatsRef} />
+            <FluidSimulationController
+              config={config}
+              debugMode={debugMode}
+              splatsRef={splatsRef}
+            />
           </Suspense>
         </Canvas>
       </SignatureWebGLErrorBoundary>

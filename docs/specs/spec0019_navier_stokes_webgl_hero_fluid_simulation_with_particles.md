@@ -2,7 +2,7 @@
 
 ## Status
 
-proposed
+active
 
 ## Owner
 
@@ -10,7 +10,7 @@ Jason Huang
 
 ## Last Updated
 
-2026-05-25
+2026-05-26
 
 ## Target Area
 
@@ -280,6 +280,7 @@ export type FluidLiteConfig = {
   splatForce: number;
   clickSplatForce: number;
   velocityScale: number;
+  advectionScale: number;
 
   densityDissipation: number;
   velocityDissipation: number;
@@ -317,6 +318,7 @@ export const fluidLitePresets: Record<FluidLiteQuality, FluidLiteConfig> = {
     splatForce: 0,
     clickSplatForce: 0,
     velocityScale: 0,
+    advectionScale: 0,
     densityDissipation: 1,
     velocityDissipation: 1,
     pressureDissipation: 1,
@@ -345,6 +347,7 @@ export const fluidLitePresets: Record<FluidLiteQuality, FluidLiteConfig> = {
     splatForce: 520,
     clickSplatForce: 880,
     velocityScale: 0.28,
+    advectionScale: 1.8,
     densityDissipation: 0.9975,
     velocityDissipation: 0.992,
     pressureDissipation: 0.945,
@@ -373,6 +376,7 @@ export const fluidLitePresets: Record<FluidLiteQuality, FluidLiteConfig> = {
     splatForce: 720,
     clickSplatForce: 1120,
     velocityScale: 0.34,
+    advectionScale: 2.15,
     densityDissipation: 0.9982,
     velocityDissipation: 0.993,
     pressureDissipation: 0.95,
@@ -502,6 +506,14 @@ click/tap radius: 0.010-0.016
 
 This prevents the visual from becoming a huge light beam.
 
+Implementation note:
+
+```txt
+Configured radii must behave like actual normalized visual radii.
+Do not use `exp(-distanceSquared / radius)` because that turns tiny values into broad glows.
+Use squared-radius math plus an explicit cutoff so the Gaussian tail does not read as a beam.
+```
+
 ## 12.2 Low interaction count
 
 Queue max:
@@ -543,7 +555,17 @@ Click/tap impulse should be stronger than pointermove but still calm:
 clickSplatForce <= 1120 by default
 ```
 
-## 12.4 Low decay / longer persistence
+## 12.4 Explicit advection scale
+
+The advection shader must expose an explicit scale:
+
+```txt
+advectionScale: 1.8 low / 2.15 medium
+```
+
+This scale exists because the simulation uses small, calm input velocities. Dye should still visibly move through the field without increasing pointer force or splat radius.
+
+## 12.5 Low decay / longer persistence
 
 Dye should linger:
 
@@ -553,6 +575,29 @@ particleDecay: 0.996-0.997
 ```
 
 The display shader should avoid killing low dye values too aggressively.
+
+## 12.6 Procedural light-beam avoidance
+
+The display shader must not create its own broad spotlight, cone, or center beam.
+
+Allowed:
+
+```txt
+dark water base
+dye-derived color
+minor dye-dependent gold bias
+subtle edge dispersion
+vignette
+```
+
+Not allowed:
+
+```txt
+center radial light source independent of dye
+large sine-wave brightness beam
+procedural glow that looks like a cursor light
+large gold wash over the emblem zone
+```
 
 ---
 
@@ -665,7 +710,7 @@ Preferred v1:
 
 ```txt
 CPU-updated particle positions in refs/typed arrays
-approximate flow using current velocity/splat history
+approximate flow using recent splat history with decay
 render as THREE.Points
 ```
 
@@ -676,6 +721,24 @@ GPU particle advection using velocity texture
 ```
 
 For this spec, use the simpler approach unless GPU sampling is straightforward.
+
+## 14.7 Flow history requirement
+
+Particles must not only drift randomly.
+
+They should follow either:
+
+```txt
+recent flow history from the last several splats, decayed over time
+```
+
+or:
+
+```txt
+sampled velocity texture values
+```
+
+For the current constrained implementation, recent flow history is the required v1 behavior.
 
 ---
 
@@ -699,12 +762,15 @@ Required uniforms:
 
 ```txt
 uDye
+uVelocity
+uPressure
 uTime
 uOpacity
 uDispersionStrength
 uBaseColor
 uGoldBias
 uVignetteStrength
+uDebugMode
 ```
 
 Alpha behavior:
@@ -724,6 +790,37 @@ mix them lightly
 ```
 
 Do not create rainbow channel splitting.
+
+## 15.1 Visual debug mode
+
+The implementation must provide a visual debug mode for field inspection.
+
+Required modes:
+
+```txt
+off
+dye
+velocity
+pressure
+```
+
+Controls:
+
+```txt
+?fluidDebug=dye
+?fluidDebug=velocity
+?fluidDebug=pressure
+localStorage.fluidDebug = "dye" | "velocity" | "pressure"
+```
+
+Debug behavior:
+
+```txt
+dye mode renders the raw dye texture
+velocity mode renders encoded XY velocity plus magnitude
+pressure mode renders pressure as grayscale
+debug modes bypass the styled dark-water display treatment
+```
 
 ---
 
