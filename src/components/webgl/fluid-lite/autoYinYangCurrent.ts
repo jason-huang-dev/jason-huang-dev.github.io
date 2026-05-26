@@ -112,6 +112,55 @@ function createDisruptionTurbulence(input: {
   ];
 }
 
+function createBridgeSplats(input: {
+  angle: number;
+  time: number;
+  config: FluidLiteConfig;
+  disruption?: CurrentDisruption | null;
+}): AutoCurrentSplat[] {
+  const { angle, config, disruption, time } = input;
+  const bridgeCount = 4;
+  const tangentAngle = angle + Math.PI / 2;
+
+  return Array.from({ length: bridgeCount }, (_, index) => {
+    const progress = bridgeCount === 1 ? 0.5 : index / (bridgeCount - 1);
+    const sCurve = (progress - 0.5) * 2;
+    const bend = Math.sin(progress * Math.PI) * 0.036;
+    const x =
+      0.5 +
+      Math.cos(angle) * sCurve * config.autoCurrentRadius * 0.42 +
+      Math.cos(tangentAngle) * bend;
+    const y =
+      0.5 +
+      Math.sin(angle) * sCurve * config.autoCurrentRadius * 0.42 +
+      Math.sin(tangentAngle) * bend;
+    const color =
+      index % 2 === 0 ? fluidSplatColors.silverWhite : fluidSplatColors.water;
+    const attenuation = localAttenuation({ x, y, time, config, disruption });
+    const direction = index < bridgeCount / 2 ? 1 : -1;
+
+    return {
+      x: clamp01(x),
+      y: clamp01(y),
+      dx:
+        Math.cos(tangentAngle) *
+        direction *
+        config.autoCurrentStrength *
+        0.009 *
+        attenuation,
+      dy:
+        Math.sin(tangentAngle) *
+        direction *
+        config.autoCurrentStrength *
+        0.009 *
+        attenuation,
+      color,
+      radius: config.autoCurrentLobeRadius * 0.9,
+      force: config.effectScale * config.autoCurrentDyeRate * 0.5 * attenuation,
+    };
+  });
+}
+
 export function createAutoYinYangCurrentSplats(input: {
   time: number;
   config: FluidLiteConfig;
@@ -149,11 +198,14 @@ export function createAutoYinYangCurrentSplats(input: {
       tangentAngle: angle + Math.PI / 2,
       direction: -1,
       color:
-        Math.cos(time * 0.6) > 0 ? fluidSplatColors.gold : fluidSplatColors.jade,
+        Math.cos(time * 0.6) > 0
+          ? fluidSplatColors.gold
+          : fluidSplatColors.silverWhite,
       time,
       config,
       disruption,
     }),
+    ...createBridgeSplats({ angle, time, config, disruption }),
     ...createDisruptionTurbulence({ time, config, disruption }),
   ];
 }

@@ -1,6 +1,5 @@
 import { useRef, type CSSProperties } from "react";
 
-import { ChineseAccentText } from "./ChineseAccentText";
 import { SignatureEmblem } from "./SignatureEmblem";
 import {
   FluidCanvas,
@@ -21,7 +20,7 @@ export const defaultFluidSignatureSealProps = {
   fluidOpacity: 0.96,
   fieldBleed: 44,
   emblemDepth: "embedded",
-  interactionRadiusScale: 4.8,
+  interactionRadiusScale: 5,
   pointerPassthrough: true,
 } satisfies Required<FluidSignatureSealProps>;
 
@@ -75,8 +74,6 @@ export function FluidSignatureSeal({
 
         <span className="fluidSignatureSeal__glassSheen" />
       </div>
-
-      <ChineseAccentText className="fluidSignatureSeal__verticalText" />
     </div>
   );
 }

@@ -1,4 +1,3 @@
-import { ChineseAccentText } from "./ChineseAccentText";
 import { SignatureEmblem } from "./SignatureEmblem";
 import { SignatureFluidCanvas } from "../webgl/signature/SignatureFluidCanvas";
 
@@ -11,7 +10,6 @@ export function HeroWebGLSignaturePanel() {
         className="heroWebGLSignaturePanel__signature"
         glow="gold"
       />
-      <ChineseAccentText />
     </div>
   );
 }

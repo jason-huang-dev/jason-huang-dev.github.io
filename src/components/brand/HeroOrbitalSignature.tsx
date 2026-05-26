@@ -1,4 +1,3 @@
-import { ChineseAccentText } from "./ChineseAccentText";
 import { SignatureEmblem } from "./SignatureEmblem";
 
 export type HeroOrbitalSignatureProps = {
@@ -11,7 +10,6 @@ export function HeroOrbitalSignature({
   return (
     <div className={`heroOrbitalSignature ${className}`}>
       <SignatureEmblem glow="gold" />
-      <ChineseAccentText />
     </div>
   );
 }

@@ -54,10 +54,10 @@ export function createFluidParticleSystem(
     const colorPick = Math.random();
     const color =
       colorPick > 0.96
-        ? [0.97, 0.79, 0.28]
+        ? [1.0, 0.76, 0.2]
         : colorPick > 0.78
-          ? [0.4, 0.84, 0.68]
-          : [0.49, 0.91, 0.95];
+          ? [0.92, 0.94, 0.9]
+          : [0.54, 0.94, 1.0];
 
     colors[i * 3] = color[0];
     colors[i * 3 + 1] = color[1];

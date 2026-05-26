@@ -674,9 +674,9 @@ p {
   inset: -20%;
   pointer-events: none;
   background:
-    radial-gradient(circle at 20% 20%, rgba(46, 167, 255, 0.18), transparent 34%),
-    radial-gradient(circle at 75% 35%, rgba(212, 175, 106, 0.13), transparent 30%),
-    radial-gradient(circle at 50% 80%, rgba(71, 215, 172, 0.1), transparent 36%);
+    radial-gradient(circle at 20% 20%, rgba(46, 167, 255, 0.16), transparent 34%),
+    radial-gradient(circle at 74% 36%, rgba(212, 175, 106, 0.12), transparent 30%),
+    radial-gradient(circle at 52% 80%, rgba(235, 240, 238, 0.06), transparent 34%);
   filter: blur(12px);
   animation: heroAuraShift 12s var(--ease-out) infinite alternate;
 }
@@ -716,10 +716,6 @@ p {
 .heroWebGLSignaturePanel__signature {
   position: relative;
   z-index: 3;
-}
-
-.heroWebGLSignaturePanel .chineseAccent {
-  z-index: 4;
 }
 
 .heroFluidSimulationPanel {
@@ -786,10 +782,10 @@ p {
 
 .heroFluidSimulationPanel[data-emblem-depth="embedded"] .heroFluidSimulationPanel__signature {
   z-index: 1;
-  opacity: 0.82;
+  opacity: 0.9;
   filter:
-    drop-shadow(0 18px 42px rgba(0, 0, 0, 0.28))
-    drop-shadow(0 0 18px rgba(247, 201, 72, 0.12));
+    drop-shadow(0 18px 42px rgba(0, 0, 0, 0.36))
+    drop-shadow(0 0 24px rgba(247, 201, 72, 0.16));
 }
 
 .heroFluidSimulationPanel[data-emblem-depth="back"] .heroFluidSimulationPanel__signature {
@@ -798,11 +794,6 @@ p {
   filter:
     blur(0.2px)
     drop-shadow(0 0 16px rgba(247, 201, 72, 0.1));
-}
-
-.heroFluidSimulationPanel .chineseAccent {
-  z-index: 6;
-  pointer-events: none;
 }
 
 .fluidSignatureSeal {
@@ -820,13 +811,17 @@ p {
   inset: 0;
   z-index: 0;
   background:
-    radial-gradient(circle at 50% 48%, rgba(3, 10, 17, 0.34), transparent 42%),
-    radial-gradient(circle at 34% 28%, rgba(126, 231, 242, 0.08), transparent 34%),
-    radial-gradient(circle at 68% 70%, rgba(247, 201, 72, 0.06), transparent 36%);
+    radial-gradient(circle at 50% 48%, rgba(3, 10, 17, 0.46), transparent 46%),
+    linear-gradient(135deg, rgba(3, 10, 17, 0.24), rgba(3, 10, 17, 0.02));
 }
 
 .fluidSignatureSeal__emblem {
-  opacity: 0.86;
+  z-index: 1;
+  opacity: 0.9;
+  pointer-events: none;
+  filter:
+    drop-shadow(0 18px 42px rgba(0, 0, 0, 0.36))
+    drop-shadow(0 0 24px rgba(247, 201, 72, 0.16));
 }
 
 .fluidSignatureSeal .fluidCanvas,
@@ -844,10 +839,6 @@ p {
     linear-gradient(116deg, transparent 0 42%, rgba(255, 255, 255, 0.07) 49%, transparent 58%);
   mix-blend-mode: screen;
   opacity: 0.1;
-}
-
-.fluidSignatureSeal__verticalText {
-  z-index: 7;
 }
 
 .waterLightField {
