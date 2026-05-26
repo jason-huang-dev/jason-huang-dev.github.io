@@ -55,8 +55,8 @@ export function createFluidSplats(input: {
   const cy = input.y - 0.5;
   const swirlFalloff = Math.max(0, 1 - Math.hypot(cx, cy) / 0.58);
   const tangent = {
-    dx: cy * input.config.yinYangSwirlStrength * swirlFalloff,
-    dy: -cx * input.config.yinYangSwirlStrength * swirlFalloff,
+    dx: cy * input.config.autoCurrentStrength * 0.24 * swirlFalloff,
+    dy: -cx * input.config.autoCurrentStrength * 0.24 * swirlFalloff,
   };
   const velocity = {
     dx: input.dx + tangent.dx,
@@ -92,9 +92,14 @@ export function useFluidPointerSplats(
     enabled: boolean;
     config: FluidLiteConfig;
     pushSplat: (splat: FluidSplat) => void;
+    onUserDisruption?: (event: {
+      x: number;
+      y: number;
+      strength: number;
+    }) => void;
   },
 ): void {
-  const { config, enabled, pushSplat } = options;
+  const { config, enabled, onUserDisruption, pushSplat } = options;
 
   useEffect(() => {
     const node = targetRef.current;
@@ -136,6 +141,11 @@ export function useFluidPointerSplats(
       lastX = point.x;
       lastY = point.y;
       lastSplat = now;
+      onUserDisruption?.({
+        x: point.x,
+        y: point.y,
+        strength: config.userDisruptionStrength,
+      });
 
       const velocity = clampVelocity(dx, dy, config.velocityScale);
       createFluidSplats({
@@ -153,6 +163,11 @@ export function useFluidPointerSplats(
       const point = getPoint(event);
       lastX = point.x;
       lastY = point.y;
+      onUserDisruption?.({
+        x: point.x,
+        y: point.y,
+        strength: config.userDisruptionStrength,
+      });
 
       const velocity = clampVelocity(0.018, 0.012, config.velocityScale);
       createFluidSplats({
@@ -173,5 +188,5 @@ export function useFluidPointerSplats(
       node.removeEventListener("pointermove", handlePointerMove);
       node.removeEventListener("pointerdown", handlePointerDown);
     };
-  }, [config, enabled, pushSplat, targetRef]);
+  }, [config, enabled, onUserDisruption, pushSplat, targetRef]);
 }

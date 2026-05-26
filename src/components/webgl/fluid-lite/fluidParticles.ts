@@ -75,6 +75,7 @@ export function createFluidParticleSystem(
     uniforms: {
       uParticleSize: { value: config.particleSize },
       uOpacity: { value: config.particleOpacity },
+      uParticleColorGain: { value: config.particleColorGain },
     },
     transparent: true,
     depthWrite: false,

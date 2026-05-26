@@ -6,11 +6,12 @@ import {
   createFluidRenderTargets,
   type PingPongTarget,
 } from "./FluidRenderTargets";
-import { createFluidMaterials } from "./fluidMaterials";
 import {
-  fluidSplatColors,
-  type FluidLiteConfig,
-} from "./fluidLiteConfig";
+  createAutoYinYangCurrentSplats,
+  type CurrentDisruption,
+} from "./autoYinYangCurrent";
+import { createFluidMaterials } from "./fluidMaterials";
+import { type FluidLiteConfig } from "./fluidLiteConfig";
 import {
   createFluidParticleSystem,
   type FluidFlowSample,
@@ -20,6 +21,7 @@ import type { FluidSplat } from "./useFluidPointerSplats";
 type FluidSimulationControllerProps = {
   config: FluidLiteConfig;
   splatsRef: MutableRefObject<FluidSplat[]>;
+  currentDisruptionRef: MutableRefObject<CurrentDisruption | null>;
   debugMode?: FluidDebugMode;
 };
 
@@ -34,12 +36,13 @@ const debugModeUniforms: Record<FluidDebugMode, number> = {
 
 export function FluidSimulationController({
   config,
+  currentDisruptionRef,
   splatsRef,
   debugMode = "off",
 }: FluidSimulationControllerProps) {
   const { gl, size } = useThree();
   const lastStepRef = useRef(0);
-  const lastAmbientRef = useRef(0);
+  const lastAutoCurrentRef = useRef(0);
   const hiddenRef = useRef(false);
   const flowHistoryRef = useRef<FluidFlowSample[]>([]);
   const aspect = Math.max(size.width / Math.max(size.height, 1), 1);
@@ -177,65 +180,25 @@ export function FluidSimulationController({
       0.033,
     );
     lastStepRef.current = now;
+    const currentTime = performance.now() / 1000;
 
-    const ambientInterval = config.yinYangSwirlEnabled
-      ? Math.min(config.autoSplatIntervalMs || 900, 900)
-      : config.autoSplatIntervalMs;
+    const autoCurrentInterval =
+      config.autoCurrentEnabled && config.autoCurrentSplatsPerSecond > 0
+        ? 1 / config.autoCurrentSplatsPerSecond
+        : 0;
 
     if (
-      ambientInterval > 0 &&
-      now * 1000 - lastAmbientRef.current > ambientInterval
+      autoCurrentInterval > 0 &&
+      currentTime - lastAutoCurrentRef.current > autoCurrentInterval
     ) {
-      lastAmbientRef.current = now * 1000;
-      const swirlAngle =
-        now * Math.PI * 2 * config.yinYangSwirlRotationSpeed;
-      const orbitRadius = config.yinYangSwirlEnabled
-        ? config.yinYangSwirlRadius
-        : 0.22;
-      const ambientPoints = config.yinYangSwirlEnabled
-        ? [
-            {
-              angle: swirlAngle,
-              color: fluidSplatColors.water,
-              direction: 1,
-            },
-            {
-              angle: swirlAngle + Math.PI,
-              color: fluidSplatColors.jade,
-              direction: -1,
-            },
-          ]
-        : [
-            {
-              angle: now * 0.43,
-              color: now % 2 > 1 ? fluidSplatColors.jade : fluidSplatColors.water,
-              direction: 1,
-            },
-          ];
-
-      ambientPoints.forEach((point) => {
-        const x = 0.5 + Math.cos(point.angle) * orbitRadius * 0.48;
-        const y = 0.5 + Math.sin(point.angle * 1.18) * orbitRadius * 0.34;
-        const tangent = point.angle + Math.PI / 2;
-
-        splatsRef.current.push({
-          x,
-          y,
-          dx:
-            Math.cos(tangent) *
-            config.yinYangSwirlStrength *
-            0.028 *
-            point.direction,
-          dy:
-            Math.sin(tangent) *
-            config.yinYangSwirlStrength *
-            0.028 *
-            point.direction,
-          color: point.color,
-          radius: config.splatRadius * config.interactionRadiusScale * 0.46,
-          force: 0.2 * config.effectScale,
-        });
-      });
+      lastAutoCurrentRef.current = currentTime;
+      splatsRef.current.push(
+        ...createAutoYinYangCurrentSplats({
+          time: currentTime,
+          config,
+          disruption: currentDisruptionRef.current,
+        }),
+      );
     }
 
     const pendingSplats = splatsRef.current.splice(0, config.maxActiveSplats);
@@ -260,12 +223,16 @@ export function FluidSimulationController({
 
     pendingSplats.forEach((splatData) => {
       const force = splatData.force ?? 1;
+      const dyeColor = splatData.color.map((channel) =>
+        Math.min(1.5, Math.max(0, channel * config.dyeInjectionGain)),
+      ) as [number, number, number];
+
       splat(targets.velocity, splatData, [
         splatData.dx * config.splatForce * force,
         splatData.dy * config.splatForce * force,
         0,
       ]);
-      splat(targets.dye, splatData, splatData.color, 0.26 * force);
+      splat(targets.dye, splatData, dyeColor, 0.26 * force);
     });
 
     advect(
@@ -325,6 +292,13 @@ export function FluidSimulationController({
     materials.display.uniforms.uOpacity.value = config.displayOpacity;
     materials.display.uniforms.uDispersionStrength.value =
       config.dispersionStrength;
+    materials.display.uniforms.uDyeColorGain.value = config.dyeColorGain;
+    materials.display.uniforms.uDyeChromaBoost.value = config.dyeChromaBoost;
+    materials.display.uniforms.uDyeContrast.value = config.dyeContrast;
+    materials.display.uniforms.uBaseWaterOpacity.value =
+      config.baseWaterOpacity;
+    materials.display.uniforms.uActiveDyeOpacity.value =
+      config.activeDyeOpacity;
     materials.display.uniforms.uDebugMode.value = debugModeUniforms[debugMode];
     renderMaterial(materials.display, null);
 

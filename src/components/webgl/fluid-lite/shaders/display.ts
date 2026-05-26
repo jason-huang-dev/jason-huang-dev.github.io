@@ -9,6 +9,11 @@ export const displayShader = `
   uniform float uTime;
   uniform float uOpacity;
   uniform float uDispersionStrength;
+  uniform float uDyeColorGain;
+  uniform float uDyeChromaBoost;
+  uniform float uDyeContrast;
+  uniform float uBaseWaterOpacity;
+  uniform float uActiveDyeOpacity;
   uniform vec3 uBaseColor;
   uniform vec3 uGoldBias;
   uniform float uVignetteStrength;
@@ -61,20 +66,36 @@ export const displayShader = `
     vec3 dyeC = texture2D(uDye, vUv + vec2(dispersion.y, -dispersion.x) * 0.45).rgb;
     dye = mix(dye, (dyeA + dyeB + dyeC) / 3.0, 0.28);
 
-    vec3 waterBias = vec3(0.018, 0.07, 0.09);
+    vec3 waterBias = vec3(0.02, 0.08, 0.105);
     float center = smoothstep(0.72, 0.0, distance(vUv, vec2(0.52, 0.48)));
     float current = 0.35 + noise(vUv * 6.0 + uTime * 0.018) * 0.65;
     float vignette = smoothstep(0.92, 0.22, distance(vUv, vec2(0.5)));
-    float dyeStrength = clamp(length(dye.rgb), 0.0, 1.0);
-    float alpha = mix(0.18, uOpacity, smoothstep(0.015, 0.48, dyeStrength));
+    float dyeStrength = pow(clamp(length(dye.rgb), 0.0, 1.0), 0.82);
     float wisp = smoothstep(0.12, 0.94, noise(vUv * 15.0 + uTime * 0.025));
 
+    vec3 boostedDye = dye * uDyeColorGain;
+    float luma = dot(boostedDye, vec3(0.299, 0.587, 0.114));
+    boostedDye = mix(vec3(luma), boostedDye, uDyeChromaBoost);
+    boostedDye = pow(max(boostedDye, vec3(0.0)), vec3(1.0 / max(uDyeContrast, 0.001)));
+
     vec3 color = uBaseColor;
-    color += dye * (0.82 + wisp * 0.24);
-    color += waterBias * current * 0.045 * dyeStrength;
-    color += uGoldBias * center * 0.02 * dyeStrength;
-    color *= 0.66 + vignette * uVignetteStrength;
-    color = pow(color, vec3(0.92));
+    color = mix(
+      color,
+      color + boostedDye * (0.96 + wisp * 0.2),
+      smoothstep(0.015, 0.58, dyeStrength)
+    );
+    color += waterBias * current * 0.035 * dyeStrength;
+    color += uGoldBias * center * 0.018 * dyeStrength;
+    color *= mix(0.88, 1.06, vignette * uVignetteStrength);
+    color = pow(max(color, vec3(0.0)), vec3(0.9));
+
+    float centerProtect = smoothstep(0.0, 0.32, distance(vUv, vec2(0.5)));
+    float alpha = mix(
+      uBaseWaterOpacity,
+      uActiveDyeOpacity,
+      smoothstep(0.02, 0.62, dyeStrength)
+    );
+    alpha *= mix(0.88, 1.0, centerProtect);
 
     gl_FragColor = vec4(color, alpha);
   }

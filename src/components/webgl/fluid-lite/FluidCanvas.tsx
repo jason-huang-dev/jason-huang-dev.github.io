@@ -23,6 +23,7 @@ import {
   useFluidPointerSplats,
   type FluidSplat,
 } from "./useFluidPointerSplats";
+import type { CurrentDisruption } from "./autoYinYangCurrent";
 import { SignatureWebGLErrorBoundary } from "../signature/SignatureWebGLErrorBoundary";
 
 export type FluidCanvasProps = {
@@ -136,6 +137,7 @@ export function FluidCanvas({
 }: FluidCanvasProps) {
   const rootRef = useRef<HTMLDivElement | null>(null);
   const splatsRef = useRef<FluidSplat[]>([]);
+  const currentDisruptionRef = useRef<CurrentDisruption | null>(null);
   const [supported, setSupported] = useState(false);
   const reducedMotion = useReducedMotion();
   const debugMode = useFluidDebugMode();
@@ -161,6 +163,15 @@ export function FluidCanvas({
       );
     }
   }, [config.maxActiveSplats]);
+  const recordUserDisruption = useCallback(
+    (event: { x: number; y: number; strength: number }) => {
+      currentDisruptionRef.current = {
+        ...event,
+        startedAt: performance.now() / 1000,
+      };
+    },
+    [],
+  );
 
   useEffect(() => {
     setSupported(supportsWebGL());
@@ -169,6 +180,7 @@ export function FluidCanvas({
   useFluidPointerSplats(pointerTargetRef, {
     enabled: supported && !reducedMotion && resolvedQuality !== "off",
     config,
+    onUserDisruption: recordUserDisruption,
     pushSplat,
   });
 
@@ -215,6 +227,7 @@ export function FluidCanvas({
           <Suspense fallback={null}>
             <FluidSimulationController
               config={config}
+              currentDisruptionRef={currentDisruptionRef}
               debugMode={debugMode}
               splatsRef={splatsRef}
             />

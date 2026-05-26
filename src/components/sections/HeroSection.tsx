@@ -2,8 +2,8 @@ import { lazy, Suspense } from "react";
 import { FiArrowDownRight, FiBriefcase } from "react-icons/fi";
 
 import { profile } from "../../data/profile";
-import { HeroOrbitalSignature } from "../brand/HeroOrbitalSignature";
 import { SealStampCTA } from "../brand/SealStampCTA";
+import { SignatureEmblem } from "../brand/SignatureEmblem";
 import { ButtonLink } from "../ui/ButtonLink";
 import { Container } from "../ui/Container";
 import { Magnetic } from "../ui/Magnetic";
@@ -23,9 +23,9 @@ const HeroFluidSimulationPanel = lazy(() =>
 
 function HeroSignatureFallback() {
   return (
-    <div className="heroWebGLSignaturePanel">
+    <div className="fluidSignatureSeal heroFluidSimulationPanel">
       <span className="signatureFluidFallback" aria-hidden="true" />
-      <HeroOrbitalSignature />
+      <SignatureEmblem className="fluidSignatureSeal__emblem heroFluidSimulationPanel__signature" />
     </div>
   );
 }

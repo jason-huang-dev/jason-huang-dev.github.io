@@ -32,13 +32,28 @@ export type FluidLiteConfig = {
   displayOpacity: number;
   displayLayerOpacity: number;
   fieldBleedPx: number;
+  dyeColorGain: number;
+  dyeChromaBoost: number;
+  dyeContrast: number;
+  baseWaterOpacity: number;
+  activeDyeOpacity: number;
+  particleColorGain: number;
+  dyeInjectionGain: number;
   maxDpr: number;
   simulationFps: number;
   autoSplatIntervalMs: number;
-  yinYangSwirlEnabled: boolean;
-  yinYangSwirlStrength: number;
-  yinYangSwirlRadius: number;
-  yinYangSwirlRotationSpeed: number;
+  autoCurrentEnabled: boolean;
+  autoCurrentStrength: number;
+  autoCurrentRadius: number;
+  autoCurrentRotationSpeed: number;
+  autoCurrentRecoverySpeed: number;
+  autoCurrentDyeRate: number;
+  autoCurrentLobeRadius: number;
+  autoCurrentLobeSpread: number;
+  autoCurrentCenterPull: number;
+  autoCurrentSplatsPerSecond: number;
+  userDisruptionStrength: number;
+  userDisruptionRecoverySeconds: number;
 };
 
 export const fluidLitePresets: Record<FluidLiteQuality, FluidLiteConfig> = {
@@ -69,13 +84,28 @@ export const fluidLitePresets: Record<FluidLiteQuality, FluidLiteConfig> = {
     displayOpacity: 0,
     displayLayerOpacity: 0,
     fieldBleedPx: 0,
+    dyeColorGain: 0,
+    dyeChromaBoost: 1,
+    dyeContrast: 1,
+    baseWaterOpacity: 0,
+    activeDyeOpacity: 0,
+    particleColorGain: 1,
+    dyeInjectionGain: 0,
     maxDpr: 1,
     simulationFps: 0,
     autoSplatIntervalMs: 0,
-    yinYangSwirlEnabled: false,
-    yinYangSwirlStrength: 0,
-    yinYangSwirlRadius: 0.42,
-    yinYangSwirlRotationSpeed: 0,
+    autoCurrentEnabled: false,
+    autoCurrentStrength: 0,
+    autoCurrentRadius: 0,
+    autoCurrentRotationSpeed: 0,
+    autoCurrentRecoverySpeed: 0,
+    autoCurrentDyeRate: 0,
+    autoCurrentLobeRadius: 0,
+    autoCurrentLobeSpread: 0,
+    autoCurrentCenterPull: 0,
+    autoCurrentSplatsPerSecond: 0,
+    userDisruptionStrength: 0,
+    userDisruptionRecoverySeconds: 0,
   },
   low: {
     simResolution: 64,
@@ -102,15 +132,30 @@ export const fluidLitePresets: Record<FluidLiteQuality, FluidLiteConfig> = {
     particleOpacity: 0.26,
     particleDecay: 0.996,
     displayOpacity: 0.62,
-    displayLayerOpacity: 0.58,
+    displayLayerOpacity: 0.88,
     fieldBleedPx: 22,
+    dyeColorGain: 1.28,
+    dyeChromaBoost: 1.12,
+    dyeContrast: 1.06,
+    baseWaterOpacity: 0.14,
+    activeDyeOpacity: 0.68,
+    particleColorGain: 1.12,
+    dyeInjectionGain: 1.12,
     maxDpr: 1,
     simulationFps: 30,
     autoSplatIntervalMs: 5600,
-    yinYangSwirlEnabled: true,
-    yinYangSwirlStrength: 0.08,
-    yinYangSwirlRadius: 0.38,
-    yinYangSwirlRotationSpeed: 0.06,
+    autoCurrentEnabled: true,
+    autoCurrentStrength: 0.24,
+    autoCurrentRadius: 0.24,
+    autoCurrentRotationSpeed: 0.032,
+    autoCurrentRecoverySpeed: 0.5,
+    autoCurrentDyeRate: 0.1,
+    autoCurrentLobeRadius: 0.026,
+    autoCurrentLobeSpread: 0.065,
+    autoCurrentCenterPull: 0.08,
+    autoCurrentSplatsPerSecond: 3,
+    userDisruptionStrength: 0.75,
+    userDisruptionRecoverySeconds: 2.8,
   },
   medium: {
     simResolution: 96,
@@ -137,15 +182,30 @@ export const fluidLitePresets: Record<FluidLiteQuality, FluidLiteConfig> = {
     particleOpacity: 0.3,
     particleDecay: 0.9975,
     displayOpacity: 0.74,
-    displayLayerOpacity: 0.7,
+    displayLayerOpacity: 0.94,
     fieldBleedPx: 32,
+    dyeColorGain: 1.42,
+    dyeChromaBoost: 1.18,
+    dyeContrast: 1.1,
+    baseWaterOpacity: 0.18,
+    activeDyeOpacity: 0.78,
+    particleColorGain: 1.2,
+    dyeInjectionGain: 1.2,
     maxDpr: 1.1,
     simulationFps: 30,
     autoSplatIntervalMs: 6200,
-    yinYangSwirlEnabled: true,
-    yinYangSwirlStrength: 0.1,
-    yinYangSwirlRadius: 0.4,
-    yinYangSwirlRotationSpeed: 0.07,
+    autoCurrentEnabled: true,
+    autoCurrentStrength: 0.28,
+    autoCurrentRadius: 0.25,
+    autoCurrentRotationSpeed: 0.035,
+    autoCurrentRecoverySpeed: 0.54,
+    autoCurrentDyeRate: 0.12,
+    autoCurrentLobeRadius: 0.028,
+    autoCurrentLobeSpread: 0.07,
+    autoCurrentCenterPull: 0.09,
+    autoCurrentSplatsPerSecond: 5,
+    userDisruptionStrength: 0.85,
+    userDisruptionRecoverySeconds: 3,
   },
   high: {
     simResolution: 160,
@@ -169,18 +229,33 @@ export const fluidLitePresets: Record<FluidLiteQuality, FluidLiteConfig> = {
     dispersionStrength: 0.48,
     particleCount: 180,
     particleSize: 1.9,
-    particleOpacity: 0.34,
+    particleOpacity: 0.38,
     particleDecay: 0.999,
     displayOpacity: 0.78,
-    displayLayerOpacity: 0.72,
+    displayLayerOpacity: 0.96,
     fieldBleedPx: 42,
+    dyeColorGain: 1.55,
+    dyeChromaBoost: 1.22,
+    dyeContrast: 1.12,
+    baseWaterOpacity: 0.2,
+    activeDyeOpacity: 0.82,
+    particleColorGain: 1.25,
+    dyeInjectionGain: 1.25,
     maxDpr: 1.2,
     simulationFps: 45,
     autoSplatIntervalMs: 6800,
-    yinYangSwirlEnabled: true,
-    yinYangSwirlStrength: 0.12,
-    yinYangSwirlRadius: 0.42,
-    yinYangSwirlRotationSpeed: 0.08,
+    autoCurrentEnabled: true,
+    autoCurrentStrength: 0.34,
+    autoCurrentRadius: 0.26,
+    autoCurrentRotationSpeed: 0.038,
+    autoCurrentRecoverySpeed: 0.58,
+    autoCurrentDyeRate: 0.14,
+    autoCurrentLobeRadius: 0.03,
+    autoCurrentLobeSpread: 0.075,
+    autoCurrentCenterPull: 0.1,
+    autoCurrentSplatsPerSecond: 8,
+    userDisruptionStrength: 0.9,
+    userDisruptionRecoverySeconds: 3.2,
   },
   cinematic: {
     simResolution: 192,
@@ -203,25 +278,40 @@ export const fluidLitePresets: Record<FluidLiteQuality, FluidLiteConfig> = {
     dyeDiffusion: 0.00125,
     dispersionStrength: 0.46,
     particleCount: 320,
-    particleSize: 1.65,
-    particleOpacity: 0.28,
+    particleSize: 1.75,
+    particleOpacity: 0.34,
     particleDecay: 0.9976,
     displayOpacity: 0.76,
-    displayLayerOpacity: 0.7,
+    displayLayerOpacity: 0.96,
     fieldBleedPx: 44,
+    dyeColorGain: 1.75,
+    dyeChromaBoost: 1.32,
+    dyeContrast: 1.18,
+    baseWaterOpacity: 0.22,
+    activeDyeOpacity: 0.88,
+    particleColorGain: 1.35,
+    dyeInjectionGain: 1.35,
     maxDpr: 1.2,
     simulationFps: 45,
     autoSplatIntervalMs: 7400,
-    yinYangSwirlEnabled: true,
-    yinYangSwirlStrength: 0.12,
-    yinYangSwirlRadius: 0.42,
-    yinYangSwirlRotationSpeed: 0.08,
+    autoCurrentEnabled: true,
+    autoCurrentStrength: 0.42,
+    autoCurrentRadius: 0.28,
+    autoCurrentRotationSpeed: 0.045,
+    autoCurrentRecoverySpeed: 0.65,
+    autoCurrentDyeRate: 0.18,
+    autoCurrentLobeRadius: 0.035,
+    autoCurrentLobeSpread: 0.09,
+    autoCurrentCenterPull: 0.12,
+    autoCurrentSplatsPerSecond: 12,
+    userDisruptionStrength: 1,
+    userDisruptionRecoverySeconds: 3.6,
   },
 };
 
 export const fluidSplatColors = {
-  water: [0.49, 0.91, 0.95],
-  electricBlue: [0.08, 0.42, 0.98],
-  jade: [0.4, 0.84, 0.68],
-  gold: [0.97, 0.79, 0.28],
+  water: [0.58, 0.96, 1.0],
+  electricBlue: [0.12, 0.48, 1.0],
+  jade: [0.42, 0.92, 0.72],
+  gold: [1.0, 0.78, 0.22],
 } as const;

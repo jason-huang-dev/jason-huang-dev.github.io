@@ -14,17 +14,15 @@ export type FluidSignatureSealProps = {
   emblemDepth?: "front" | "embedded" | "back";
   interactionRadiusScale?: number;
   pointerPassthrough?: boolean;
-  showDroplets?: boolean;
 };
 
 export const defaultFluidSignatureSealProps = {
   quality: "cinematic",
-  fluidOpacity: 0.7,
+  fluidOpacity: 0.96,
   fieldBleed: 44,
   emblemDepth: "embedded",
   interactionRadiusScale: 4.8,
   pointerPassthrough: true,
-  showDroplets: true,
 } satisfies Required<FluidSignatureSealProps>;
 
 type FluidSignatureSealStyle = CSSProperties & {
@@ -39,7 +37,6 @@ export function FluidSignatureSeal({
   emblemDepth = defaultFluidSignatureSealProps.emblemDepth,
   interactionRadiusScale = defaultFluidSignatureSealProps.interactionRadiusScale,
   pointerPassthrough = defaultFluidSignatureSealProps.pointerPassthrough,
-  showDroplets = defaultFluidSignatureSealProps.showDroplets,
 }: FluidSignatureSealProps) {
   const panelRef = useRef<HTMLDivElement | null>(null);
 
@@ -75,17 +72,6 @@ export function FluidSignatureSeal({
           interactionRadiusScale={interactionRadiusScale}
           interactionTargetRef={panelRef}
         />
-
-        <span className="fluidSignatureSeal__ambientRing fluidSignatureSeal__ambientRing--one" />
-        <span className="fluidSignatureSeal__ambientRing fluidSignatureSeal__ambientRing--two" />
-
-        {showDroplets ? (
-          <>
-            <span className="fluidSignatureSeal__droplet fluidSignatureSeal__droplet--one" />
-            <span className="fluidSignatureSeal__droplet fluidSignatureSeal__droplet--two" />
-            <span className="fluidSignatureSeal__droplet fluidSignatureSeal__droplet--three" />
-          </>
-        ) : null}
 
         <span className="fluidSignatureSeal__glassSheen" />
       </div>
