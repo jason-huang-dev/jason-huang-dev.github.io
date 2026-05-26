@@ -6,6 +6,8 @@ import {
   useMemo,
   useRef,
   useState,
+  type CSSProperties,
+  type RefObject,
 } from "react";
 
 import {
@@ -16,6 +18,7 @@ import {
   fluidLitePresets,
   type FluidLiteQuality,
 } from "./fluidLiteConfig";
+import { selectHeroFluidQuality } from "./selectFluidQuality";
 import {
   useFluidPointerSplats,
   type FluidSplat,
@@ -25,6 +28,15 @@ import { SignatureWebGLErrorBoundary } from "../signature/SignatureWebGLErrorBou
 export type FluidCanvasProps = {
   quality?: FluidLiteQuality;
   className?: string;
+  opacity?: number;
+  bleed?: number;
+  interactionRadiusScale?: number;
+  interactionTargetRef?: RefObject<HTMLElement>;
+};
+
+type FluidCanvasStyle = CSSProperties & {
+  "--fluid-layer-opacity"?: number;
+  "--fluid-field-bleed"?: string;
 };
 
 function supportsWebGL() {
@@ -52,23 +64,34 @@ function useReducedMotion() {
   return reduced;
 }
 
-function useResponsiveQuality(quality: FluidLiteQuality) {
+function useResponsiveQuality(
+  quality: FluidLiteQuality,
+  reducedMotion: boolean,
+) {
   const [resolved, setResolved] = useState<FluidLiteQuality>(quality);
 
   useEffect(() => {
-    if (quality !== "medium") {
-      setResolved(quality);
-      return undefined;
-    }
-
-    const media = window.matchMedia("(max-width: 767px)");
-    const update = () => setResolved(media.matches ? "low" : "medium");
+    const coarsePointerMedia = window.matchMedia("(pointer: coarse)");
+    const update = () =>
+      setResolved(
+        selectHeroFluidQuality({
+          requested: quality,
+          reducedMotion,
+          width: window.innerWidth,
+          pointerFine: !coarsePointerMedia.matches,
+          devicePixelRatio: window.devicePixelRatio || 1,
+        }),
+      );
 
     update();
-    media.addEventListener?.("change", update);
+    window.addEventListener("resize", update);
+    coarsePointerMedia.addEventListener?.("change", update);
 
-    return () => media.removeEventListener?.("change", update);
-  }, [quality]);
+    return () => {
+      window.removeEventListener("resize", update);
+      coarsePointerMedia.removeEventListener?.("change", update);
+    };
+  }, [quality, reducedMotion]);
 
   return resolved;
 }
@@ -106,17 +129,29 @@ function useFluidDebugMode() {
 export function FluidCanvas({
   quality = "medium",
   className = "",
+  opacity,
+  bleed,
+  interactionRadiusScale,
+  interactionTargetRef,
 }: FluidCanvasProps) {
   const rootRef = useRef<HTMLDivElement | null>(null);
   const splatsRef = useRef<FluidSplat[]>([]);
   const [supported, setSupported] = useState(false);
   const reducedMotion = useReducedMotion();
   const debugMode = useFluidDebugMode();
-  const resolvedQuality = useResponsiveQuality(quality);
+  const resolvedQuality = useResponsiveQuality(quality, reducedMotion);
   const config = useMemo(
-    () => fluidLitePresets[resolvedQuality],
-    [resolvedQuality],
+    () => ({
+      ...fluidLitePresets[resolvedQuality],
+      ...(opacity !== undefined ? { displayLayerOpacity: opacity } : null),
+      ...(bleed !== undefined ? { fieldBleedPx: bleed } : null),
+      ...(interactionRadiusScale !== undefined
+        ? { interactionRadiusScale }
+        : null),
+    }),
+    [bleed, interactionRadiusScale, opacity, resolvedQuality],
   );
+  const pointerTargetRef = interactionTargetRef ?? rootRef;
   const pushSplat = useCallback((splat: FluidSplat) => {
     splatsRef.current.push(splat);
     if (splatsRef.current.length > config.maxActiveSplats) {
@@ -131,14 +166,27 @@ export function FluidCanvas({
     setSupported(supportsWebGL());
   }, []);
 
-  useFluidPointerSplats(rootRef, {
+  useFluidPointerSplats(pointerTargetRef, {
     enabled: supported && !reducedMotion && resolvedQuality !== "off",
     config,
     pushSplat,
   });
 
+  const canvasStyle = useMemo(
+    () =>
+      ({
+        "--fluid-layer-opacity": config.displayLayerOpacity,
+        "--fluid-field-bleed": `${config.fieldBleedPx}px`,
+      }) as FluidCanvasStyle,
+    [config.displayLayerOpacity, config.fieldBleedPx],
+  );
+
   const fallback = (
-    <div className={`fluidCanvasFallback ${className}`} aria-hidden="true" />
+    <div
+      className={`fluidCanvasFallback ${className}`}
+      style={canvasStyle}
+      aria-hidden="true"
+    />
   );
 
   if (!supported || reducedMotion || resolvedQuality === "off") {
@@ -146,7 +194,12 @@ export function FluidCanvas({
   }
 
   return (
-    <div ref={rootRef} className={`fluidCanvas ${className}`} aria-hidden="true">
+    <div
+      ref={rootRef}
+      className={`fluidCanvas ${className}`}
+      style={canvasStyle}
+      aria-hidden="true"
+    >
       <SignatureWebGLErrorBoundary fallback={fallback}>
         <Canvas
           dpr={[1, config.maxDpr]}

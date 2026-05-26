@@ -347,7 +347,7 @@ export const fluidLitePresets: Record<FluidLiteQuality, FluidLiteConfig> = {
     splatForce: 520,
     clickSplatForce: 880,
     velocityScale: 0.28,
-    advectionScale: 1.8,
+    advectionScale: 0.055,
     densityDissipation: 0.9975,
     velocityDissipation: 0.992,
     pressureDissipation: 0.945,
@@ -376,7 +376,7 @@ export const fluidLitePresets: Record<FluidLiteQuality, FluidLiteConfig> = {
     splatForce: 720,
     clickSplatForce: 1120,
     velocityScale: 0.34,
-    advectionScale: 2.15,
+    advectionScale: 0.085,
     densityDissipation: 0.9982,
     velocityDissipation: 0.993,
     pressureDissipation: 0.95,
@@ -560,10 +560,18 @@ clickSplatForce <= 1120 by default
 The advection shader must expose an explicit scale:
 
 ```txt
-advectionScale: 1.8 low / 2.15 medium
+advectionScale: 0.055 low / 0.085 medium
 ```
 
 This scale exists because the simulation uses small, calm input velocities. Dye should still visibly move through the field without increasing pointer force or splat radius.
+
+The main advection coordinate offset should use normalized UV displacement:
+
+```glsl
+vec2 coord = vUv - velocity * uDt * uAdvectionScale;
+```
+
+Do not multiply the main coordinate offset by `uTexelSize` unless testing proves it necessary.
 
 ## 12.5 Low decay / longer persistence
 

@@ -10,8 +10,12 @@ import {
 
 type FluidParticleSystem = {
   points: THREE.Points;
-  update: (dt: number, now: number, splats: FluidSplat[]) => void;
+  update: (dt: number, now: number, splats: FluidFlowSample[]) => void;
   dispose: () => void;
+};
+
+export type FluidFlowSample = FluidSplat & {
+  ageSeconds: number;
 };
 
 function randomOutsideSafeZone(radius: number) {
@@ -105,10 +109,11 @@ export function createFluidParticleSystem(
           const dx = x - splat.x;
           const dy = y - splat.y;
           const distanceSq = dx * dx + dy * dy;
-          const influence = Math.exp(-distanceSq / 0.018) * 0.7;
+          const ageInfluence = Math.max(0, 1 - splat.ageSeconds / 6);
+          const influence = Math.exp(-distanceSq / 0.018) * 0.7 * ageInfluence;
           const force = splat.force ?? 1;
-          vx += splat.dx * force * influence * config.advectionScale;
-          vy += splat.dy * force * influence * config.advectionScale;
+          vx += splat.dx * force * influence;
+          vy += splat.dy * force * influence;
         });
 
         x += vx * dt;

@@ -30,6 +30,13 @@ function clampVelocity(dx: number, dy: number, scale: number) {
   };
 }
 
+function shouldBlockForSafeZone(config: FluidLiteConfig, x: number, y: number) {
+  return (
+    config.emblemSafeZoneEnabled &&
+    isInsideEmblemSafeZone(x, y, config.emblemSafeZoneRadius)
+  );
+}
+
 export function useFluidPointerSplats(
   targetRef: RefObject<HTMLElement>,
   options: {
@@ -71,13 +78,7 @@ export function useFluidPointerSplats(
       }
 
       const point = getPoint(event);
-      if (
-        isInsideEmblemSafeZone(
-          point.x,
-          point.y,
-          config.emblemSafeZoneRadius,
-        )
-      ) {
+      if (shouldBlockForSafeZone(config, point.x, point.y)) {
         lastX = point.x;
         lastY = point.y;
         return;
@@ -103,8 +104,8 @@ export function useFluidPointerSplats(
           movement > 0.035
             ? fluidSplatColors.electricBlue
             : fluidSplatColors.water,
-        radius: config.splatRadius,
-        force: 1,
+        radius: config.splatRadius * config.interactionRadiusScale,
+        force: config.effectScale,
       });
     };
 
@@ -113,13 +114,7 @@ export function useFluidPointerSplats(
       lastX = point.x;
       lastY = point.y;
 
-      if (
-        isInsideEmblemSafeZone(
-          point.x,
-          point.y,
-          config.emblemSafeZoneRadius,
-        )
-      ) {
+      if (shouldBlockForSafeZone(config, point.x, point.y)) {
         return;
       }
 
@@ -134,8 +129,10 @@ export function useFluidPointerSplats(
           event.pointerType === "mouse"
             ? fluidSplatColors.gold
             : fluidSplatColors.water,
-        radius: config.clickSplatRadius,
-        force: config.clickSplatForce / Math.max(config.splatForce, 1),
+        radius: config.clickSplatRadius * config.interactionRadiusScale,
+        force:
+          (config.clickSplatForce / Math.max(config.splatForce, 1)) *
+          config.effectScale,
       });
     };
 

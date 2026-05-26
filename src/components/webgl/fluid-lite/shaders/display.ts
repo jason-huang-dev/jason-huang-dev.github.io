@@ -58,17 +58,21 @@ export const displayShader = `
     vec3 dye = rawDye;
     vec3 dyeA = texture2D(uDye, vUv + dispersion).rgb;
     vec3 dyeB = texture2D(uDye, vUv - dispersion * 0.72).rgb;
-    dye = mix(dye, (dyeA + dyeB) * 0.5, 0.36);
+    vec3 dyeC = texture2D(uDye, vUv + vec2(dispersion.y, -dispersion.x) * 0.45).rgb;
+    dye = mix(dye, (dyeA + dyeB + dyeC) / 3.0, 0.28);
 
     vec3 waterBias = vec3(0.018, 0.07, 0.09);
+    float center = smoothstep(0.72, 0.0, distance(vUv, vec2(0.52, 0.48)));
+    float current = 0.35 + noise(vUv * 6.0 + uTime * 0.018) * 0.65;
     float vignette = smoothstep(0.92, 0.22, distance(vUv, vec2(0.5)));
     float dyeStrength = clamp(length(dye.rgb), 0.0, 1.0);
-    float alpha = mix(0.28, uOpacity, smoothstep(0.02, 0.62, dyeStrength));
+    float alpha = mix(0.18, uOpacity, smoothstep(0.015, 0.48, dyeStrength));
     float wisp = smoothstep(0.12, 0.94, noise(vUv * 15.0 + uTime * 0.025));
 
-    vec3 color = uBaseColor + waterBias * (0.04 + dyeStrength * 0.2);
-    color += dye * (0.78 + wisp * 0.12);
-    color += uGoldBias * dyeStrength * 0.012;
+    vec3 color = uBaseColor;
+    color += dye * (0.82 + wisp * 0.24);
+    color += waterBias * current * 0.045 * dyeStrength;
+    color += uGoldBias * center * 0.02 * dyeStrength;
     color *= 0.66 + vignette * uVignetteStrength;
     color = pow(color, vec3(0.92));
 

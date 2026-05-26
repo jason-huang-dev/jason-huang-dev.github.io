@@ -788,28 +788,35 @@ p {
 }
 
 .heroFluidSimulationPanel {
+  --fluid-layer-opacity: 0.68;
+  --fluid-field-bleed: 28px;
+
   position: relative;
   display: grid;
   place-items: center;
   width: 100%;
   min-height: 100%;
   isolation: isolate;
+  overflow: visible;
+}
+
+.heroFluidSimulationPanel__clip {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  display: grid;
+  place-items: center;
+  border-radius: inherit;
   overflow: hidden;
+  pointer-events: none;
 }
 
 .fluidCanvas,
 .fluidCanvasFallback {
   position: absolute;
-  inset: 0;
-  z-index: 0;
-  opacity: 0.72;
-}
-
-.fluidCanvas {
-  pointer-events: auto;
-}
-
-.fluidCanvasFallback {
+  inset: calc(var(--fluid-field-bleed, 28px) * -1);
+  z-index: 2;
+  opacity: var(--fluid-layer-opacity, 0.68);
   pointer-events: none;
 }
 
@@ -830,25 +837,24 @@ p {
 
 .heroFluidSimulationPanel__ring {
   position: absolute;
+  z-index: 4;
   border-radius: var(--radius-full);
   pointer-events: none;
 }
 
 .heroFluidSimulationPanel__ring--outer {
-  z-index: 1;
   inset: 7%;
   border: 1px solid rgba(126, 231, 242, 0.18);
 }
 
 .heroFluidSimulationPanel__ring--inner {
-  z-index: 1;
   inset: 22%;
   border: 1px solid rgba(247, 201, 72, 0.14);
 }
 
 .heroFluidSimulationPanel__safeZone {
   position: absolute;
-  z-index: 2;
+  z-index: 3;
   width: min(46%, 340px);
   aspect-ratio: 1;
   border-radius: var(--radius-full);
@@ -858,7 +864,7 @@ p {
 
 .heroFluidSimulationPanel__pearl {
   position: absolute;
-  z-index: 2;
+  z-index: 5;
   border-radius: var(--radius-full);
   background:
     radial-gradient(circle at 28% 24%, rgba(255, 255, 255, 0.92), transparent 10%),
@@ -905,14 +911,37 @@ p {
 
 .heroFluidSimulationPanel__signature {
   position: relative;
-  z-index: 4;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.heroFluidSimulationPanel[data-emblem-depth="front"] .heroFluidSimulationPanel__signature {
+  z-index: 6;
+  opacity: 1;
   filter:
     drop-shadow(0 18px 42px rgba(0, 0, 0, 0.38))
     drop-shadow(0 0 20px rgba(247, 201, 72, 0.16));
 }
 
+.heroFluidSimulationPanel[data-emblem-depth="embedded"] .heroFluidSimulationPanel__signature {
+  z-index: 1;
+  opacity: 0.82;
+  filter:
+    drop-shadow(0 18px 42px rgba(0, 0, 0, 0.28))
+    drop-shadow(0 0 18px rgba(247, 201, 72, 0.12));
+}
+
+.heroFluidSimulationPanel[data-emblem-depth="back"] .heroFluidSimulationPanel__signature {
+  z-index: 0;
+  opacity: 0.58;
+  filter:
+    blur(0.2px)
+    drop-shadow(0 0 16px rgba(247, 201, 72, 0.1));
+}
+
 .heroFluidSimulationPanel .chineseAccent {
-  z-index: 5;
+  z-index: 6;
+  pointer-events: none;
 }
 
 .waterLightField {
@@ -3290,9 +3319,9 @@ p {
     min-height: 280px;
   }
 
-  .fluidCanvas,
-  .fluidCanvasFallback {
-    opacity: 0.58;
+  .heroFluidSimulationPanel {
+    --fluid-layer-opacity: 0.58 !important;
+    --fluid-field-bleed: 20px !important;
   }
 
   .signatureEmblem {

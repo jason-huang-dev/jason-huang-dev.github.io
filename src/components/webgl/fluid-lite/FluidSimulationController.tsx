@@ -11,7 +11,10 @@ import {
   fluidSplatColors,
   type FluidLiteConfig,
 } from "./fluidLiteConfig";
-import { createFluidParticleSystem } from "./fluidParticles";
+import {
+  createFluidParticleSystem,
+  type FluidFlowSample,
+} from "./fluidParticles";
 import {
   isInsideEmblemSafeZone,
   type FluidSplat,
@@ -41,7 +44,7 @@ export function FluidSimulationController({
   const lastStepRef = useRef(0);
   const lastAmbientRef = useRef(0);
   const hiddenRef = useRef(false);
-  const flowHistoryRef = useRef<FluidSplat[]>([]);
+  const flowHistoryRef = useRef<FluidFlowSample[]>([]);
   const aspect = Math.max(size.width / Math.max(size.height, 1), 1);
 
   const targets = useMemo(
@@ -58,7 +61,11 @@ export function FluidSimulationController({
   const scene = useMemo(() => new THREE.Scene(), []);
   const particleScene = useMemo(() => new THREE.Scene(), []);
   const camera = useMemo(() => new THREE.Camera(), []);
-  const quad = useMemo(() => new THREE.Mesh(new THREE.PlaneGeometry(2, 2)), []);
+  const quad = useMemo(() => {
+    const mesh = new THREE.Mesh(new THREE.PlaneGeometry(2, 2));
+    mesh.scale.set(1.08, 1.08, 1);
+    return mesh;
+  }, []);
   const particles = useMemo(
     () => createFluidParticleSystem(config),
     [config],
@@ -183,6 +190,7 @@ export function FluidSimulationController({
       const ambientY = 0.45 + Math.cos(now * 0.31) * 0.16;
 
       if (
+        !config.emblemSafeZoneEnabled ||
         !isInsideEmblemSafeZone(
           ambientX,
           ambientY,
@@ -195,15 +203,20 @@ export function FluidSimulationController({
           dx: 0.008,
           dy: 0.004,
           color: now % 2 > 1 ? fluidSplatColors.jade : fluidSplatColors.water,
-          radius: config.splatRadius * 1.25,
-          force: 0.45,
+          radius: config.splatRadius * config.interactionRadiusScale * 1.25,
+          force: 0.45 * config.effectScale,
         });
       }
     }
 
     const pendingSplats = splatsRef.current.splice(0, config.maxActiveSplats);
     if (pendingSplats.length > 0) {
-      flowHistoryRef.current.push(...pendingSplats);
+      flowHistoryRef.current.push(
+        ...pendingSplats.map((splatData) => ({
+          ...splatData,
+          ageSeconds: 0,
+        })),
+      );
       if (flowHistoryRef.current.length > 18) {
         flowHistoryRef.current.splice(0, flowHistoryRef.current.length - 18);
       }
@@ -212,9 +225,9 @@ export function FluidSimulationController({
     flowHistoryRef.current = flowHistoryRef.current
       .map((splatData) => ({
         ...splatData,
-        force: (splatData.force ?? 1) * 0.92,
+        ageSeconds: splatData.ageSeconds + dt,
       }))
-      .filter((splatData) => (splatData.force ?? 0) > 0.06);
+      .filter((splatData) => splatData.ageSeconds <= 6);
 
     pendingSplats.forEach((splatData) => {
       const force = splatData.force ?? 1;
