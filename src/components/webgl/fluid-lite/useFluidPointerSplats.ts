@@ -1,27 +1,48 @@
 import { useEffect, type RefObject } from "react";
 
-import { fluidSplatColors } from "./fluidLiteConfig";
+import { fluidSplatColors, type FluidLiteConfig } from "./fluidLiteConfig";
 
 export type FluidSplat = {
   x: number;
   y: number;
   dx: number;
   dy: number;
-  color: [number, number, number];
+  color: readonly [number, number, number];
   radius?: number;
   force?: number;
 };
+
+export function isInsideEmblemSafeZone(
+  x: number,
+  y: number,
+  radius: number,
+): boolean {
+  const dx = x - 0.5;
+  const dy = y - 0.5;
+
+  return Math.sqrt(dx * dx + dy * dy) < radius;
+}
+
+function clampVelocity(dx: number, dy: number, scale: number) {
+  return {
+    dx: Math.min(0.55, Math.max(-0.55, dx * scale)),
+    dy: Math.min(0.55, Math.max(-0.55, dy * scale)),
+  };
+}
 
 export function useFluidPointerSplats(
   targetRef: RefObject<HTMLElement>,
   options: {
     enabled: boolean;
+    config: FluidLiteConfig;
     pushSplat: (splat: FluidSplat) => void;
   },
 ): void {
+  const { config, enabled, pushSplat } = options;
+
   useEffect(() => {
     const node = targetRef.current;
-    if (!node || !options.enabled) return undefined;
+    if (!node || !enabled) return undefined;
 
     let lastX = 0.5;
     let lastY = 0.5;
@@ -29,9 +50,12 @@ export function useFluidPointerSplats(
 
     const getPoint = (event: PointerEvent) => {
       const rect = node.getBoundingClientRect();
+      const x = (event.clientX - rect.left) / Math.max(rect.width, 1);
+      const y = 1 - (event.clientY - rect.top) / Math.max(rect.height, 1);
+
       return {
-        x: (event.clientX - rect.left) / Math.max(rect.width, 1),
-        y: 1 - (event.clientY - rect.top) / Math.max(rect.height, 1),
+        x: Math.min(1, Math.max(0, x)),
+        y: Math.min(1, Math.max(0, y)),
       };
     };
 
@@ -39,25 +63,48 @@ export function useFluidPointerSplats(
       if (event.pointerType !== "mouse") return;
 
       const now = performance.now();
-      if (now - lastSplat < 1000 / 24) return;
+      if (
+        config.maxSplatsPerSecond > 0 &&
+        now - lastSplat < 1000 / config.maxSplatsPerSecond
+      ) {
+        return;
+      }
 
       const point = getPoint(event);
+      if (
+        isInsideEmblemSafeZone(
+          point.x,
+          point.y,
+          config.emblemSafeZoneRadius,
+        )
+      ) {
+        lastX = point.x;
+        lastY = point.y;
+        return;
+      }
+
       const dx = point.x - lastX;
       const dy = point.y - lastY;
       const movement = Math.hypot(dx, dy);
 
-      if (movement < 0.006) return;
+      if (movement < 0.012) return;
 
       lastX = point.x;
       lastY = point.y;
       lastSplat = now;
+      const velocity = clampVelocity(dx, dy, config.velocityScale);
 
-      options.pushSplat({
+      pushSplat({
         x: point.x,
         y: point.y,
-        dx,
-        dy,
-        color: movement > 0.035 ? fluidSplatColors.electricBlue : fluidSplatColors.water,
+        dx: velocity.dx,
+        dy: velocity.dy,
+        color:
+          movement > 0.035
+            ? fluidSplatColors.electricBlue
+            : fluidSplatColors.water,
+        radius: config.splatRadius,
+        force: 1,
       });
     };
 
@@ -66,14 +113,29 @@ export function useFluidPointerSplats(
       lastX = point.x;
       lastY = point.y;
 
-      options.pushSplat({
+      if (
+        isInsideEmblemSafeZone(
+          point.x,
+          point.y,
+          config.emblemSafeZoneRadius,
+        )
+      ) {
+        return;
+      }
+
+      const velocity = clampVelocity(0.018, 0.012, config.velocityScale);
+
+      pushSplat({
         x: point.x,
         y: point.y,
-        dx: 0.018,
-        dy: 0.012,
-        color: event.pointerType === "mouse" ? fluidSplatColors.gold : fluidSplatColors.water,
-        radius: 0.028,
-        force: 1.4,
+        dx: velocity.dx,
+        dy: velocity.dy,
+        color:
+          event.pointerType === "mouse"
+            ? fluidSplatColors.gold
+            : fluidSplatColors.water,
+        radius: config.clickSplatRadius,
+        force: config.clickSplatForce / Math.max(config.splatForce, 1),
       });
     };
 
@@ -84,5 +146,5 @@ export function useFluidPointerSplats(
       node.removeEventListener("pointermove", handlePointerMove);
       node.removeEventListener("pointerdown", handlePointerDown);
     };
-  }, [options, targetRef]);
+  }, [config, enabled, pushSplat, targetRef]);
 }

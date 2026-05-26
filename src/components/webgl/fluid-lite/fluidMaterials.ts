@@ -3,6 +3,7 @@ import * as THREE from "three";
 import { baseVertexShader } from "./shaders/baseVertex";
 import { advectionShader } from "./shaders/advection";
 import { displayShader } from "./shaders/display";
+import { diffusionShader } from "./shaders/diffusion";
 import { divergenceShader } from "./shaders/divergence";
 import { gradientSubtractShader } from "./shaders/gradientSubtract";
 import { pressureShader } from "./shaders/pressure";
@@ -39,10 +40,17 @@ export function createFluidMaterials() {
       uVelocity: { value: null },
       uTexelSize: { value: new THREE.Vector2() },
     }),
+    diffusion: makeMaterial(diffusionShader, {
+      uSource: { value: null },
+      uTexelSize: { value: new THREE.Vector2() },
+      uDiffusion: { value: 0.001 },
+      uDissipation: { value: 1 },
+    }),
     pressure: makeMaterial(pressureShader, {
       uPressure: { value: null },
       uDivergence: { value: null },
       uTexelSize: { value: new THREE.Vector2() },
+      uDissipation: { value: 0.94 },
     }),
     gradientSubtract: makeMaterial(gradientSubtractShader, {
       uPressure: { value: null },
@@ -52,6 +60,11 @@ export function createFluidMaterials() {
     display: makeMaterial(displayShader, {
       uDye: { value: null },
       uTime: { value: 0 },
+      uOpacity: { value: 0.7 },
+      uDispersionStrength: { value: 0.32 },
+      uBaseColor: { value: new THREE.Color(0.012, 0.039, 0.067) },
+      uGoldBias: { value: new THREE.Color(0.969, 0.788, 0.282) },
+      uVignetteStrength: { value: 0.68 },
     }),
   };
 

@@ -11,7 +11,11 @@ import {
   fluidSplatColors,
   type FluidLiteConfig,
 } from "./fluidLiteConfig";
-import type { FluidSplat } from "./useFluidPointerSplats";
+import { createFluidParticleSystem } from "./fluidParticles";
+import {
+  isInsideEmblemSafeZone,
+  type FluidSplat,
+} from "./useFluidPointerSplats";
 
 type FluidSimulationControllerProps = {
   config: FluidLiteConfig;
@@ -40,8 +44,13 @@ export function FluidSimulationController({
 
   const materials = useMemo(() => createFluidMaterials(), []);
   const scene = useMemo(() => new THREE.Scene(), []);
+  const particleScene = useMemo(() => new THREE.Scene(), []);
   const camera = useMemo(() => new THREE.Camera(), []);
   const quad = useMemo(() => new THREE.Mesh(new THREE.PlaneGeometry(2, 2)), []);
+  const particles = useMemo(
+    () => createFluidParticleSystem(config),
+    [config],
+  );
 
   useEffect(() => {
     scene.add(quad);
@@ -50,6 +59,13 @@ export function FluidSimulationController({
       quad.geometry.dispose();
     };
   }, [quad, scene]);
+
+  useEffect(() => {
+    particleScene.add(particles.points);
+    return () => {
+      particleScene.remove(particles.points);
+    };
+  }, [particleScene, particles]);
 
   useEffect(() => {
     const handleVisibility = () => {
@@ -66,8 +82,9 @@ export function FluidSimulationController({
     return () => {
       targets.dispose();
       materials.dispose();
+      particles.dispose();
     };
-  }, [materials, targets]);
+  }, [materials, particles, targets]);
 
   const renderMaterial = (
     material: THREE.Material,
@@ -82,7 +99,7 @@ export function FluidSimulationController({
   const splat = (
     target: PingPongTarget,
     splatData: FluidSplat,
-    color: [number, number, number],
+    color: readonly [number, number, number],
     scale = 1,
   ) => {
     materials.splat.uniforms.uTarget.value = target.read.texture;
@@ -114,13 +131,34 @@ export function FluidSimulationController({
     target.swap();
   };
 
+  const diffuse = (
+    target: PingPongTarget,
+    texelSize: THREE.Vector2,
+    diffusion: number,
+    dissipation: number,
+    iterations: number,
+  ) => {
+    for (let i = 0; i < iterations; i += 1) {
+      materials.diffusion.uniforms.uSource.value = target.read.texture;
+      materials.diffusion.uniforms.uTexelSize.value.copy(texelSize);
+      materials.diffusion.uniforms.uDiffusion.value = diffusion;
+      materials.diffusion.uniforms.uDissipation.value = dissipation;
+      renderMaterial(materials.diffusion, target.write);
+      target.swap();
+    }
+  };
+
   useFrame((state) => {
     if (hiddenRef.current) return;
 
     const now = state.clock.elapsedTime;
-    if (now - lastStepRef.current < 1 / 30) return;
+    if (config.simulationFps <= 0) return;
+    if (now - lastStepRef.current < 1 / config.simulationFps) return;
 
-    const dt = Math.min(now - lastStepRef.current || 1 / 30, 1 / 24);
+    const dt = Math.min(
+      now - lastStepRef.current || 1 / config.simulationFps,
+      0.033,
+    );
     lastStepRef.current = now;
 
     if (
@@ -128,18 +166,29 @@ export function FluidSimulationController({
       now * 1000 - lastAmbientRef.current > config.autoSplatIntervalMs
     ) {
       lastAmbientRef.current = now * 1000;
-      splatsRef.current.push({
-        x: 0.35 + Math.sin(now * 0.43) * 0.18,
-        y: 0.45 + Math.cos(now * 0.31) * 0.16,
-        dx: 0.008,
-        dy: 0.004,
-        color: now % 2 > 1 ? fluidSplatColors.jade : fluidSplatColors.water,
-        radius: config.splatRadius * 1.25,
-        force: 0.45,
-      });
+      const ambientX = 0.35 + Math.sin(now * 0.43) * 0.18;
+      const ambientY = 0.45 + Math.cos(now * 0.31) * 0.16;
+
+      if (
+        !isInsideEmblemSafeZone(
+          ambientX,
+          ambientY,
+          config.emblemSafeZoneRadius,
+        )
+      ) {
+        splatsRef.current.push({
+          x: ambientX,
+          y: ambientY,
+          dx: 0.008,
+          dy: 0.004,
+          color: now % 2 > 1 ? fluidSplatColors.jade : fluidSplatColors.water,
+          radius: config.splatRadius * 1.25,
+          force: 0.45,
+        });
+      }
     }
 
-    const pendingSplats = splatsRef.current.splice(0, 4);
+    const pendingSplats = splatsRef.current.splice(0, config.maxActiveSplats);
     pendingSplats.forEach((splatData) => {
       const force = splatData.force ?? 1;
       splat(targets.velocity, splatData, [
@@ -157,12 +206,26 @@ export function FluidSimulationController({
       config.velocityDissipation,
       dt,
     );
+    diffuse(
+      targets.velocity,
+      targets.simTexelSize,
+      config.dyeDiffusion * 0.38,
+      1,
+      config.diffusionIterations,
+    );
     advect(
       targets.dye,
       targets.dye,
       targets.dyeTexelSize,
       config.densityDissipation,
       dt,
+    );
+    diffuse(
+      targets.dye,
+      targets.dyeTexelSize,
+      config.dyeDiffusion,
+      1,
+      config.diffusionIterations,
     );
 
     materials.divergence.uniforms.uVelocity.value = targets.velocity.read.texture;
@@ -173,6 +236,7 @@ export function FluidSimulationController({
       materials.pressure.uniforms.uPressure.value = targets.pressure.read.texture;
       materials.pressure.uniforms.uDivergence.value = targets.divergence.texture;
       materials.pressure.uniforms.uTexelSize.value.copy(targets.simTexelSize);
+      materials.pressure.uniforms.uDissipation.value = config.pressureDissipation;
       renderMaterial(materials.pressure, targets.pressure.write);
       targets.pressure.swap();
     }
@@ -187,7 +251,16 @@ export function FluidSimulationController({
 
     materials.display.uniforms.uDye.value = targets.dye.read.texture;
     materials.display.uniforms.uTime.value = now;
+    materials.display.uniforms.uOpacity.value = config.displayOpacity;
+    materials.display.uniforms.uDispersionStrength.value =
+      config.dispersionStrength;
     renderMaterial(materials.display, null);
+
+    particles.update(dt, now, pendingSplats);
+    const previousAutoClear = gl.autoClear;
+    gl.autoClear = false;
+    gl.render(particleScene, camera);
+    gl.autoClear = previousAutoClear;
   }, 1);
 
   return null;

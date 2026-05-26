@@ -802,7 +802,15 @@ p {
   position: absolute;
   inset: 0;
   z-index: 0;
+  opacity: 0.72;
+}
+
+.fluidCanvas {
   pointer-events: auto;
+}
+
+.fluidCanvasFallback {
+  pointer-events: none;
 }
 
 .fluidCanvas canvas {
@@ -836,6 +844,16 @@ p {
   z-index: 1;
   inset: 22%;
   border: 1px solid rgba(247, 201, 72, 0.14);
+}
+
+.heroFluidSimulationPanel__safeZone {
+  position: absolute;
+  z-index: 2;
+  width: min(46%, 340px);
+  aspect-ratio: 1;
+  border-radius: var(--radius-full);
+  background: radial-gradient(circle, rgba(3, 10, 17, 0.14), transparent 64%);
+  pointer-events: none;
 }
 
 .heroFluidSimulationPanel__pearl {
@@ -887,11 +905,14 @@ p {
 
 .heroFluidSimulationPanel__signature {
   position: relative;
-  z-index: 3;
+  z-index: 4;
+  filter:
+    drop-shadow(0 18px 42px rgba(0, 0, 0, 0.38))
+    drop-shadow(0 0 20px rgba(247, 201, 72, 0.16));
 }
 
 .heroFluidSimulationPanel .chineseAccent {
-  z-index: 4;
+  z-index: 5;
 }
 
 .waterLightField {
@@ -3267,6 +3288,11 @@ p {
 
   .heroSection__visual {
     min-height: 280px;
+  }
+
+  .fluidCanvas,
+  .fluidCanvasFallback {
+    opacity: 0.58;
   }
 
   .signatureEmblem {

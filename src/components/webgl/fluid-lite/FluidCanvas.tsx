@@ -85,10 +85,13 @@ export function FluidCanvas({
   );
   const pushSplat = useCallback((splat: FluidSplat) => {
     splatsRef.current.push(splat);
-    if (splatsRef.current.length > 18) {
-      splatsRef.current.splice(0, splatsRef.current.length - 18);
+    if (splatsRef.current.length > config.maxActiveSplats) {
+      splatsRef.current.splice(
+        0,
+        splatsRef.current.length - config.maxActiveSplats,
+      );
     }
-  }, []);
+  }, [config.maxActiveSplats]);
 
   useEffect(() => {
     setSupported(supportsWebGL());
@@ -96,6 +99,7 @@ export function FluidCanvas({
 
   useFluidPointerSplats(rootRef, {
     enabled: supported && !reducedMotion && resolvedQuality !== "off",
+    config,
     pushSplat,
   });
 

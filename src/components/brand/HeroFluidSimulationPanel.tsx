@@ -10,6 +10,8 @@ export function HeroFluidSimulationPanel() {
       <span className="heroFluidSimulationPanel__ring heroFluidSimulationPanel__ring--outer" />
       <span className="heroFluidSimulationPanel__ring heroFluidSimulationPanel__ring--inner" />
 
+      <span className="heroFluidSimulationPanel__safeZone" aria-hidden="true" />
+
       <span className="heroFluidSimulationPanel__pearl heroFluidSimulationPanel__pearl--large" />
       <span className="heroFluidSimulationPanel__pearl heroFluidSimulationPanel__pearl--gold" />
       <span className="heroFluidSimulationPanel__pearl heroFluidSimulationPanel__pearl--water" />

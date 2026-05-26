@@ -1,8 +1,10 @@
 export const brandAssets = {
   seal: "/brand/svgs/huang-seal.svg",
-  signatureEmblem: "/brand/svgs/brand-emblem.svg",
+  // signatureEmblem: "/brand/svgs/brand-emblem.svg",
+  signatureEmblem: "/brand/pngs/brand-emblem.png",
   yinyang: {
-    emblem: "/brand/svgs/brand-emblem.svg",
+    // emblem: "/brand/svgs/brand-emblem.svg",
+    emblem: "/brand/pngs/brand-emblem.png",
     lightLeft: "/brand/svgs/light-yang.svg",
     lightRight: "/brand/svgs/light-yin.svg",
     darkLeft: "/brand/svgs/dark-yang.svg",
