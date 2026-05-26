@@ -2,7 +2,6 @@ import * as THREE from "three";
 
 import type { FluidLiteConfig } from "./fluidLiteConfig";
 import type { FluidSplat } from "./useFluidPointerSplats";
-import { isInsideEmblemSafeZone } from "./useFluidPointerSplats";
 import {
   particleFragmentShader,
   particleVertexShader,
@@ -18,18 +17,11 @@ export type FluidFlowSample = FluidSplat & {
   ageSeconds: number;
 };
 
-function randomOutsideSafeZone(radius: number) {
-  let x = 0.5;
-  let y = 0.5;
-
-  for (let i = 0; i < 12; i += 1) {
-    x = 0.08 + Math.random() * 0.84;
-    y = 0.08 + Math.random() * 0.84;
-
-    if (!isInsideEmblemSafeZone(x, y, radius)) break;
-  }
-
-  return { x, y };
+function randomInFluidField() {
+  return {
+    x: 0.08 + Math.random() * 0.84,
+    y: 0.08 + Math.random() * 0.84,
+  };
 }
 
 function writeParticlePosition(
@@ -46,14 +38,14 @@ function writeParticlePosition(
 export function createFluidParticleSystem(
   config: FluidLiteConfig,
 ): FluidParticleSystem {
-  const count = Math.min(config.particleCount, 180);
+  const count = Math.min(config.particleCount, 320);
   const positions = new Float32Array(count * 3);
   const colors = new Float32Array(count * 3);
   const life = new Float32Array(count);
   const uv = new Float32Array(count * 2);
 
   for (let i = 0; i < count; i += 1) {
-    const point = randomOutsideSafeZone(config.emblemSafeZoneRadius);
+    const point = randomInFluidField();
     uv[i * 2] = point.x;
     uv[i * 2 + 1] = point.y;
     life[i] = 0.35 + Math.random() * 0.65;
@@ -125,10 +117,9 @@ export function createFluidParticleSystem(
           x > 0.97 ||
           y < 0.03 ||
           y > 0.97 ||
-          life[i] < 0.16 ||
-          isInsideEmblemSafeZone(x, y, config.emblemSafeZoneRadius * 0.76)
+          life[i] < 0.16
         ) {
-          const point = randomOutsideSafeZone(config.emblemSafeZoneRadius);
+          const point = randomInFluidField();
           x = point.x;
           y = point.y;
           life[i] = 0.58 + Math.random() * 0.42;

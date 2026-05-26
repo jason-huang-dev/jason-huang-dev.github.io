@@ -944,139 +944,109 @@ p {
   pointer-events: none;
 }
 
-.liquidSealReactor {
-  --fluid-layer-opacity: 0.72;
+.fluidSignatureSeal {
+  --fluid-layer-opacity: 0.7;
   --fluid-field-bleed: 44px;
-  --ring-pulse-scale: 1;
 }
 
-.liquidSealReactor__basin {
+.fluidSignatureSeal__waterGlass,
+.fluidSignatureSeal__ambientRing,
+.fluidSignatureSeal__droplet,
+.fluidSignatureSeal__glassSheen {
   position: absolute;
+  pointer-events: none;
+}
+
+.fluidSignatureSeal__waterGlass {
   inset: 0;
   z-index: 0;
-  pointer-events: none;
   background:
-    radial-gradient(circle at 50% 48%, rgba(3, 10, 17, 0.28), transparent 36%),
-    radial-gradient(circle at 22% 28%, rgba(126, 231, 242, 0.08), transparent 28%),
-    radial-gradient(circle at 76% 68%, rgba(247, 201, 72, 0.06), transparent 30%);
+    radial-gradient(circle at 50% 48%, rgba(3, 10, 17, 0.34), transparent 42%),
+    radial-gradient(circle at 34% 28%, rgba(126, 231, 242, 0.08), transparent 34%),
+    radial-gradient(circle at 68% 70%, rgba(247, 201, 72, 0.06), transparent 36%);
 }
 
-.liquidSealReactor__sealGhost {
+.fluidSignatureSeal__emblem {
+  opacity: 0.86;
+}
+
+.fluidSignatureSeal .fluidCanvas,
+.fluidSignatureSeal .fluidCanvasFallback {
+  z-index: 2;
+  opacity: var(--fluid-layer-opacity, 0.7);
+  inset: calc(var(--fluid-field-bleed, 44px) * -1);
+  pointer-events: none;
+}
+
+.fluidSignatureSeal__ambientRing {
+  z-index: 3;
+  border-radius: var(--radius-full);
+  border: 1px solid rgba(126, 231, 242, 0.08);
   opacity: 0.72;
 }
 
-.liquidSealReactor .fluidCanvas,
-.liquidSealReactor .fluidCanvasFallback {
-  z-index: 2;
-  opacity: var(--fluid-layer-opacity, 0.72);
-  inset: calc(var(--fluid-field-bleed, 44px) * -1);
+.fluidSignatureSeal__ambientRing--one {
+  inset: 5%;
+  transform: rotate(-12deg) scaleX(1.12);
 }
 
-.liquidSealReactor__ringReactor {
-  position: absolute;
-  z-index: 4;
-  inset: 8%;
-  border-radius: var(--radius-full);
-  pointer-events: none;
-  transform: scale(var(--ring-pulse-scale, 1));
-}
-
-.liquidSealReactor__ringReactor::before,
-.liquidSealReactor__ringReactor::after {
-  content: "";
-  position: absolute;
-  border-radius: inherit;
-  pointer-events: none;
-}
-
-.liquidSealReactor__ringReactor::before {
-  inset: 0;
-  border: 1px solid rgba(126, 231, 242, 0.22);
-  box-shadow:
-    inset 0 0 28px rgba(126, 231, 242, 0.08),
-    0 0 28px rgba(126, 231, 242, 0.08);
-}
-
-.liquidSealReactor__ringReactor::after {
+.fluidSignatureSeal__ambientRing--two {
   inset: 18%;
-  border: 1px solid rgba(247, 201, 72, 0.18);
-  box-shadow: 0 0 22px rgba(247, 201, 72, 0.08);
+  transform: rotate(18deg) scaleX(0.86);
+  border-color: rgba(247, 201, 72, 0.07);
 }
 
-.liquidSealReactor__ringNode,
-.liquidSealReactor__pearlEmitter {
-  position: absolute;
-  z-index: 5;
+.fluidSignatureSeal__droplet {
+  z-index: 4;
   border-radius: var(--radius-full);
-  pointer-events: none;
-}
-
-.liquidSealReactor__ringNode {
-  width: 12px;
-  height: 12px;
   background:
-    radial-gradient(circle at 30% 28%, rgba(255, 255, 255, 0.92), transparent 20%),
-    rgba(126, 231, 242, 0.58);
-  box-shadow: 0 0 20px rgba(126, 231, 242, 0.24);
+    radial-gradient(circle at 30% 26%, rgba(255, 255, 255, 0.86), transparent 18%),
+    rgba(9, 35, 54, 0.54);
+  box-shadow:
+    inset 0 1px 8px rgba(255, 255, 255, 0.14),
+    0 14px 30px rgba(0, 0, 0, 0.18),
+    0 0 20px rgba(126, 231, 242, 0.13);
 }
 
-.liquidSealReactor__ringNode--water {
-  left: 22%;
-  top: 18%;
+.fluidSignatureSeal__droplet--one {
+  width: 34px;
+  height: 34px;
+  right: 22%;
+  top: 23%;
 }
 
-.liquidSealReactor__ringNode--jade {
-  right: 18%;
-  top: 24%;
+.fluidSignatureSeal__droplet--two {
+  width: 24px;
+  height: 24px;
+  left: 24%;
+  bottom: 24%;
   background:
-    radial-gradient(circle at 30% 28%, rgba(255, 255, 255, 0.9), transparent 20%),
-    rgba(102, 214, 173, 0.58);
+    radial-gradient(circle at 30% 26%, rgba(255, 255, 255, 0.82), transparent 18%),
+    rgba(83, 67, 31, 0.5);
+  box-shadow:
+    inset 0 1px 8px rgba(255, 255, 255, 0.12),
+    0 14px 30px rgba(0, 0, 0, 0.18),
+    0 0 18px rgba(247, 201, 72, 0.14);
 }
 
-.liquidSealReactor__ringNode--gold {
-  right: 24%;
-  bottom: 18%;
-  background:
-    radial-gradient(circle at 30% 28%, rgba(255, 255, 255, 0.9), transparent 20%),
-    rgba(247, 201, 72, 0.62);
-  box-shadow: 0 0 22px rgba(247, 201, 72, 0.28);
+.fluidSignatureSeal__droplet--three {
+  width: 18px;
+  height: 18px;
+  right: 36%;
+  bottom: 19%;
+  opacity: 0.72;
 }
 
-.liquidSealReactor__ringNode--blue {
-  left: 18%;
-  bottom: 26%;
-  background:
-    radial-gradient(circle at 30% 28%, rgba(255, 255, 255, 0.88), transparent 20%),
-    rgba(37, 99, 235, 0.62);
-}
-
-.liquidSealReactor__ringNode--innerA {
-  width: 8px;
-  height: 8px;
-  right: 34%;
-  top: 43%;
-}
-
-.liquidSealReactor__ringNode--innerB {
-  width: 8px;
-  height: 8px;
-  left: 35%;
-  bottom: 42%;
-  background: rgba(247, 201, 72, 0.58);
-}
-
-.liquidSealReactor__specularSweep {
-  position: absolute;
+.fluidSignatureSeal__glassSheen {
   inset: 0;
-  z-index: 6;
-  pointer-events: none;
+  z-index: 5;
   background:
-    linear-gradient(115deg, transparent 0 38%, rgba(255, 255, 255, 0.08) 46%, transparent 56%);
+    linear-gradient(116deg, transparent 0 42%, rgba(255, 255, 255, 0.07) 49%, transparent 58%);
   mix-blend-mode: screen;
-  opacity: 0.22;
+  opacity: 0.14;
 }
 
-.liquidSealReactor__verticalText {
+.fluidSignatureSeal__verticalText {
   z-index: 7;
 }
 

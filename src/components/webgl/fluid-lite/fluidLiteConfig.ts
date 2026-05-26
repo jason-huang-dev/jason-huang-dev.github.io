@@ -16,10 +16,8 @@ export type FluidLiteConfig = {
   effectScale: number;
   splatRadius: number;
   clickSplatRadius: number;
-  ringPulseRadius: number;
   splatForce: number;
   clickSplatForce: number;
-  ringPulseForce: number;
   velocityScale: number;
   advectionScale: number;
   densityDissipation: number;
@@ -37,12 +35,10 @@ export type FluidLiteConfig = {
   maxDpr: number;
   simulationFps: number;
   autoSplatIntervalMs: number;
-  emblemSafeZoneRadius: number;
-  emblemSafeZoneEnabled: boolean;
-  emblemCoreSafeZoneRadius: number;
-  centralRingInteractive: boolean;
-  ringInteractionInnerRadius: number;
-  ringInteractionOuterRadius: number;
+  yinYangSwirlEnabled: boolean;
+  yinYangSwirlStrength: number;
+  yinYangSwirlRadius: number;
+  yinYangSwirlRotationSpeed: number;
 };
 
 export const fluidLitePresets: Record<FluidLiteQuality, FluidLiteConfig> = {
@@ -57,10 +53,8 @@ export const fluidLitePresets: Record<FluidLiteQuality, FluidLiteConfig> = {
     effectScale: 0,
     splatRadius: 0,
     clickSplatRadius: 0,
-    ringPulseRadius: 0,
     splatForce: 0,
     clickSplatForce: 0,
-    ringPulseForce: 0,
     velocityScale: 0,
     advectionScale: 0,
     densityDissipation: 1,
@@ -78,12 +72,10 @@ export const fluidLitePresets: Record<FluidLiteQuality, FluidLiteConfig> = {
     maxDpr: 1,
     simulationFps: 0,
     autoSplatIntervalMs: 0,
-    emblemSafeZoneRadius: 0.25,
-    emblemSafeZoneEnabled: true,
-    emblemCoreSafeZoneRadius: 0.12,
-    centralRingInteractive: false,
-    ringInteractionInnerRadius: 0.15,
-    ringInteractionOuterRadius: 0.34,
+    yinYangSwirlEnabled: false,
+    yinYangSwirlStrength: 0,
+    yinYangSwirlRadius: 0.42,
+    yinYangSwirlRotationSpeed: 0,
   },
   low: {
     simResolution: 64,
@@ -92,17 +84,15 @@ export const fluidLitePresets: Record<FluidLiteQuality, FluidLiteConfig> = {
     diffusionIterations: 1,
     maxActiveSplats: 6,
     maxSplatsPerSecond: 5,
-    interactionRadiusScale: 1.12,
+    interactionRadiusScale: 1.6,
     effectScale: 1,
     splatRadius: 0.007,
     clickSplatRadius: 0.012,
-    ringPulseRadius: 0.014,
     splatForce: 520,
     clickSplatForce: 880,
-    ringPulseForce: 720,
     velocityScale: 0.28,
-    advectionScale: 0.055,
-    densityDissipation: 0.9975,
+    advectionScale: 0.1,
+    densityDissipation: 0.998,
     velocityDissipation: 0.992,
     pressureDissipation: 0.945,
     dyeDiffusion: 0.0008,
@@ -117,12 +107,10 @@ export const fluidLitePresets: Record<FluidLiteQuality, FluidLiteConfig> = {
     maxDpr: 1,
     simulationFps: 30,
     autoSplatIntervalMs: 5600,
-    emblemSafeZoneRadius: 0.25,
-    emblemSafeZoneEnabled: true,
-    emblemCoreSafeZoneRadius: 0.12,
-    centralRingInteractive: true,
-    ringInteractionInnerRadius: 0.15,
-    ringInteractionOuterRadius: 0.34,
+    yinYangSwirlEnabled: true,
+    yinYangSwirlStrength: 0.08,
+    yinYangSwirlRadius: 0.38,
+    yinYangSwirlRotationSpeed: 0.06,
   },
   medium: {
     simResolution: 96,
@@ -131,14 +119,12 @@ export const fluidLitePresets: Record<FluidLiteQuality, FluidLiteConfig> = {
     diffusionIterations: 2,
     maxActiveSplats: 6,
     maxSplatsPerSecond: 6,
-    interactionRadiusScale: 1.24,
+    interactionRadiusScale: 4.2,
     effectScale: 1,
     splatRadius: 0.01,
     clickSplatRadius: 0.017,
-    ringPulseRadius: 0.02,
     splatForce: 760,
     clickSplatForce: 1120,
-    ringPulseForce: 900,
     velocityScale: 0.36,
     advectionScale: 0.105,
     densityDissipation: 0.99835,
@@ -156,12 +142,10 @@ export const fluidLitePresets: Record<FluidLiteQuality, FluidLiteConfig> = {
     maxDpr: 1.1,
     simulationFps: 30,
     autoSplatIntervalMs: 6200,
-    emblemSafeZoneRadius: 0.25,
-    emblemSafeZoneEnabled: true,
-    emblemCoreSafeZoneRadius: 0.12,
-    centralRingInteractive: true,
-    ringInteractionInnerRadius: 0.15,
-    ringInteractionOuterRadius: 0.34,
+    yinYangSwirlEnabled: true,
+    yinYangSwirlStrength: 0.1,
+    yinYangSwirlRadius: 0.4,
+    yinYangSwirlRotationSpeed: 0.07,
   },
   high: {
     simResolution: 160,
@@ -174,10 +158,8 @@ export const fluidLitePresets: Record<FluidLiteQuality, FluidLiteConfig> = {
     effectScale: 4,
     splatRadius: 0.01,
     clickSplatRadius: 0.017,
-    ringPulseRadius: 0.02,
     splatForce: 760,
     clickSplatForce: 1180,
-    ringPulseForce: 980,
     velocityScale: 0.38,
     advectionScale: 0.125,
     densityDissipation: 0.99915,
@@ -195,12 +177,10 @@ export const fluidLitePresets: Record<FluidLiteQuality, FluidLiteConfig> = {
     maxDpr: 1.2,
     simulationFps: 45,
     autoSplatIntervalMs: 6800,
-    emblemSafeZoneRadius: 0.25,
-    emblemSafeZoneEnabled: true,
-    emblemCoreSafeZoneRadius: 0.12,
-    centralRingInteractive: true,
-    ringInteractionInnerRadius: 0.15,
-    ringInteractionOuterRadius: 0.34,
+    yinYangSwirlEnabled: true,
+    yinYangSwirlStrength: 0.12,
+    yinYangSwirlRadius: 0.42,
+    yinYangSwirlRotationSpeed: 0.08,
   },
   cinematic: {
     simResolution: 192,
@@ -209,14 +189,12 @@ export const fluidLitePresets: Record<FluidLiteQuality, FluidLiteConfig> = {
     diffusionIterations: 4,
     maxActiveSplats: 10,
     maxSplatsPerSecond: 10,
-    interactionRadiusScale: 3.2,
+    interactionRadiusScale: 4.8,
     effectScale: 1.45,
     splatRadius: 0.01,
     clickSplatRadius: 0.017,
-    ringPulseRadius: 0.02,
     splatForce: 820,
     clickSplatForce: 1280,
-    ringPulseForce: 980,
     velocityScale: 0.34,
     advectionScale: 0.115,
     densityDissipation: 0.9986,
@@ -234,12 +212,10 @@ export const fluidLitePresets: Record<FluidLiteQuality, FluidLiteConfig> = {
     maxDpr: 1.2,
     simulationFps: 45,
     autoSplatIntervalMs: 7400,
-    emblemSafeZoneRadius: 0.25,
-    emblemSafeZoneEnabled: true,
-    emblemCoreSafeZoneRadius: 0.12,
-    centralRingInteractive: true,
-    ringInteractionInnerRadius: 0.15,
-    ringInteractionOuterRadius: 0.34,
+    yinYangSwirlEnabled: true,
+    yinYangSwirlStrength: 0.12,
+    yinYangSwirlRadius: 0.42,
+    yinYangSwirlRotationSpeed: 0.08,
   },
 };
 

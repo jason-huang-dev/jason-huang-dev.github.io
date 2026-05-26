@@ -1,10 +1,10 @@
 import {
-  LiquidSealReactor,
-  type LiquidSealReactorProps,
-} from "./LiquidSealReactor";
+  FluidSignatureSeal,
+  type FluidSignatureSealProps,
+} from "./FluidSignatureSeal";
 
-export type HeroFluidSimulationPanelProps = LiquidSealReactorProps;
+export type HeroFluidSimulationPanelProps = FluidSignatureSealProps;
 
 export function HeroFluidSimulationPanel(props: HeroFluidSimulationPanelProps) {
-  return <LiquidSealReactor {...props} />;
+  return <FluidSignatureSeal {...props} />;
 }

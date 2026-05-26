@@ -15,10 +15,7 @@ import {
   createFluidParticleSystem,
   type FluidFlowSample,
 } from "./fluidParticles";
-import {
-  isInsideEmblemSafeZone,
-  type FluidSplat,
-} from "./useFluidPointerSplats";
+import type { FluidSplat } from "./useFluidPointerSplats";
 
 type FluidSimulationControllerProps = {
   config: FluidLiteConfig;
@@ -181,32 +178,64 @@ export function FluidSimulationController({
     );
     lastStepRef.current = now;
 
+    const ambientInterval = config.yinYangSwirlEnabled
+      ? Math.min(config.autoSplatIntervalMs || 900, 900)
+      : config.autoSplatIntervalMs;
+
     if (
-      config.autoSplatIntervalMs > 0 &&
-      now * 1000 - lastAmbientRef.current > config.autoSplatIntervalMs
+      ambientInterval > 0 &&
+      now * 1000 - lastAmbientRef.current > ambientInterval
     ) {
       lastAmbientRef.current = now * 1000;
-      const ambientX = 0.35 + Math.sin(now * 0.43) * 0.18;
-      const ambientY = 0.45 + Math.cos(now * 0.31) * 0.16;
+      const swirlAngle =
+        now * Math.PI * 2 * config.yinYangSwirlRotationSpeed;
+      const orbitRadius = config.yinYangSwirlEnabled
+        ? config.yinYangSwirlRadius
+        : 0.22;
+      const ambientPoints = config.yinYangSwirlEnabled
+        ? [
+            {
+              angle: swirlAngle,
+              color: fluidSplatColors.water,
+              direction: 1,
+            },
+            {
+              angle: swirlAngle + Math.PI,
+              color: fluidSplatColors.jade,
+              direction: -1,
+            },
+          ]
+        : [
+            {
+              angle: now * 0.43,
+              color: now % 2 > 1 ? fluidSplatColors.jade : fluidSplatColors.water,
+              direction: 1,
+            },
+          ];
 
-      if (
-        !config.emblemSafeZoneEnabled ||
-        !isInsideEmblemSafeZone(
-          ambientX,
-          ambientY,
-          config.emblemSafeZoneRadius,
-        )
-      ) {
+      ambientPoints.forEach((point) => {
+        const x = 0.5 + Math.cos(point.angle) * orbitRadius * 0.48;
+        const y = 0.5 + Math.sin(point.angle * 1.18) * orbitRadius * 0.34;
+        const tangent = point.angle + Math.PI / 2;
+
         splatsRef.current.push({
-          x: ambientX,
-          y: ambientY,
-          dx: 0.008,
-          dy: 0.004,
-          color: now % 2 > 1 ? fluidSplatColors.jade : fluidSplatColors.water,
-          radius: config.splatRadius * config.interactionRadiusScale * 1.25,
-          force: 0.45 * config.effectScale,
+          x,
+          y,
+          dx:
+            Math.cos(tangent) *
+            config.yinYangSwirlStrength *
+            0.028 *
+            point.direction,
+          dy:
+            Math.sin(tangent) *
+            config.yinYangSwirlStrength *
+            0.028 *
+            point.direction,
+          color: point.color,
+          radius: config.splatRadius * config.interactionRadiusScale * 0.46,
+          force: 0.2 * config.effectScale,
         });
-      }
+      });
     }
 
     const pendingSplats = splatsRef.current.splice(0, config.maxActiveSplats);
