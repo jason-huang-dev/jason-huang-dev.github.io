@@ -1,4 +1,9 @@
-export type FluidLiteQuality = "off" | "low" | "medium" | "high";
+export type FluidLiteQuality =
+  | "off"
+  | "low"
+  | "medium"
+  | "high"
+  | "cinematic";
 
 export type FluidLiteConfig = {
   simResolution: number;
@@ -11,8 +16,10 @@ export type FluidLiteConfig = {
   effectScale: number;
   splatRadius: number;
   clickSplatRadius: number;
+  ringPulseRadius: number;
   splatForce: number;
   clickSplatForce: number;
+  ringPulseForce: number;
   velocityScale: number;
   advectionScale: number;
   densityDissipation: number;
@@ -32,6 +39,10 @@ export type FluidLiteConfig = {
   autoSplatIntervalMs: number;
   emblemSafeZoneRadius: number;
   emblemSafeZoneEnabled: boolean;
+  emblemCoreSafeZoneRadius: number;
+  centralRingInteractive: boolean;
+  ringInteractionInnerRadius: number;
+  ringInteractionOuterRadius: number;
 };
 
 export const fluidLitePresets: Record<FluidLiteQuality, FluidLiteConfig> = {
@@ -46,8 +57,10 @@ export const fluidLitePresets: Record<FluidLiteQuality, FluidLiteConfig> = {
     effectScale: 0,
     splatRadius: 0,
     clickSplatRadius: 0,
+    ringPulseRadius: 0,
     splatForce: 0,
     clickSplatForce: 0,
+    ringPulseForce: 0,
     velocityScale: 0,
     advectionScale: 0,
     densityDissipation: 1,
@@ -67,6 +80,10 @@ export const fluidLitePresets: Record<FluidLiteQuality, FluidLiteConfig> = {
     autoSplatIntervalMs: 0,
     emblemSafeZoneRadius: 0.25,
     emblemSafeZoneEnabled: true,
+    emblemCoreSafeZoneRadius: 0.12,
+    centralRingInteractive: false,
+    ringInteractionInnerRadius: 0.15,
+    ringInteractionOuterRadius: 0.34,
   },
   low: {
     simResolution: 64,
@@ -79,8 +96,10 @@ export const fluidLitePresets: Record<FluidLiteQuality, FluidLiteConfig> = {
     effectScale: 1,
     splatRadius: 0.007,
     clickSplatRadius: 0.012,
+    ringPulseRadius: 0.014,
     splatForce: 520,
     clickSplatForce: 880,
+    ringPulseForce: 720,
     velocityScale: 0.28,
     advectionScale: 0.055,
     densityDissipation: 0.9975,
@@ -100,6 +119,10 @@ export const fluidLitePresets: Record<FluidLiteQuality, FluidLiteConfig> = {
     autoSplatIntervalMs: 5600,
     emblemSafeZoneRadius: 0.25,
     emblemSafeZoneEnabled: true,
+    emblemCoreSafeZoneRadius: 0.12,
+    centralRingInteractive: true,
+    ringInteractionInnerRadius: 0.15,
+    ringInteractionOuterRadius: 0.34,
   },
   medium: {
     simResolution: 96,
@@ -112,8 +135,10 @@ export const fluidLitePresets: Record<FluidLiteQuality, FluidLiteConfig> = {
     effectScale: 1,
     splatRadius: 0.01,
     clickSplatRadius: 0.017,
+    ringPulseRadius: 0.02,
     splatForce: 760,
     clickSplatForce: 1120,
+    ringPulseForce: 900,
     velocityScale: 0.36,
     advectionScale: 0.105,
     densityDissipation: 0.99835,
@@ -133,6 +158,10 @@ export const fluidLitePresets: Record<FluidLiteQuality, FluidLiteConfig> = {
     autoSplatIntervalMs: 6200,
     emblemSafeZoneRadius: 0.25,
     emblemSafeZoneEnabled: true,
+    emblemCoreSafeZoneRadius: 0.12,
+    centralRingInteractive: true,
+    ringInteractionInnerRadius: 0.15,
+    ringInteractionOuterRadius: 0.34,
   },
   high: {
     simResolution: 160,
@@ -141,12 +170,14 @@ export const fluidLitePresets: Record<FluidLiteQuality, FluidLiteConfig> = {
     diffusionIterations: 4,
     maxActiveSplats: 6,
     maxSplatsPerSecond: 6,
-    interactionRadiusScale: 14,
-    effectScale: 10,
+    interactionRadiusScale: 6,
+    effectScale: 4,
     splatRadius: 0.01,
     clickSplatRadius: 0.017,
+    ringPulseRadius: 0.02,
     splatForce: 760,
     clickSplatForce: 1180,
+    ringPulseForce: 980,
     velocityScale: 0.38,
     advectionScale: 0.125,
     densityDissipation: 0.99915,
@@ -166,6 +197,49 @@ export const fluidLitePresets: Record<FluidLiteQuality, FluidLiteConfig> = {
     autoSplatIntervalMs: 6800,
     emblemSafeZoneRadius: 0.25,
     emblemSafeZoneEnabled: true,
+    emblemCoreSafeZoneRadius: 0.12,
+    centralRingInteractive: true,
+    ringInteractionInnerRadius: 0.15,
+    ringInteractionOuterRadius: 0.34,
+  },
+  cinematic: {
+    simResolution: 192,
+    dyeResolution: 768,
+    pressureIterations: 20,
+    diffusionIterations: 4,
+    maxActiveSplats: 10,
+    maxSplatsPerSecond: 10,
+    interactionRadiusScale: 3.2,
+    effectScale: 1.45,
+    splatRadius: 0.01,
+    clickSplatRadius: 0.017,
+    ringPulseRadius: 0.02,
+    splatForce: 820,
+    clickSplatForce: 1280,
+    ringPulseForce: 980,
+    velocityScale: 0.34,
+    advectionScale: 0.115,
+    densityDissipation: 0.9986,
+    velocityDissipation: 0.9935,
+    pressureDissipation: 0.955,
+    dyeDiffusion: 0.00125,
+    dispersionStrength: 0.46,
+    particleCount: 320,
+    particleSize: 1.65,
+    particleOpacity: 0.28,
+    particleDecay: 0.9976,
+    displayOpacity: 0.76,
+    displayLayerOpacity: 0.7,
+    fieldBleedPx: 44,
+    maxDpr: 1.2,
+    simulationFps: 45,
+    autoSplatIntervalMs: 7400,
+    emblemSafeZoneRadius: 0.25,
+    emblemSafeZoneEnabled: true,
+    emblemCoreSafeZoneRadius: 0.12,
+    centralRingInteractive: true,
+    ringInteractionInnerRadius: 0.15,
+    ringInteractionOuterRadius: 0.34,
   },
 };
 

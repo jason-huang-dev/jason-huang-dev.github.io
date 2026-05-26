@@ -15,9 +15,25 @@ export function selectHeroFluidQuality(options: {
     return options.requested === "off" ? "off" : "low";
   }
 
+  if (options.requested === "cinematic") {
+    if (
+      options.width >= 1024 &&
+      options.pointerFine &&
+      options.devicePixelRatio <= 2
+    ) {
+      return "cinematic";
+    }
+
+    if (options.width >= 768) {
+      return "high";
+    }
+
+    return "medium";
+  }
+
   if (!options.pointerFine || options.devicePixelRatio > 2) {
     return options.requested === "off" ? "off" : "medium";
   }
 
-  return options.requested ?? "high";
+  return options.requested ?? "cinematic";
 }

@@ -944,6 +944,142 @@ p {
   pointer-events: none;
 }
 
+.liquidSealReactor {
+  --fluid-layer-opacity: 0.72;
+  --fluid-field-bleed: 44px;
+  --ring-pulse-scale: 1;
+}
+
+.liquidSealReactor__basin {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 50% 48%, rgba(3, 10, 17, 0.28), transparent 36%),
+    radial-gradient(circle at 22% 28%, rgba(126, 231, 242, 0.08), transparent 28%),
+    radial-gradient(circle at 76% 68%, rgba(247, 201, 72, 0.06), transparent 30%);
+}
+
+.liquidSealReactor__sealGhost {
+  opacity: 0.72;
+}
+
+.liquidSealReactor .fluidCanvas,
+.liquidSealReactor .fluidCanvasFallback {
+  z-index: 2;
+  opacity: var(--fluid-layer-opacity, 0.72);
+  inset: calc(var(--fluid-field-bleed, 44px) * -1);
+}
+
+.liquidSealReactor__ringReactor {
+  position: absolute;
+  z-index: 4;
+  inset: 8%;
+  border-radius: var(--radius-full);
+  pointer-events: none;
+  transform: scale(var(--ring-pulse-scale, 1));
+}
+
+.liquidSealReactor__ringReactor::before,
+.liquidSealReactor__ringReactor::after {
+  content: "";
+  position: absolute;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.liquidSealReactor__ringReactor::before {
+  inset: 0;
+  border: 1px solid rgba(126, 231, 242, 0.22);
+  box-shadow:
+    inset 0 0 28px rgba(126, 231, 242, 0.08),
+    0 0 28px rgba(126, 231, 242, 0.08);
+}
+
+.liquidSealReactor__ringReactor::after {
+  inset: 18%;
+  border: 1px solid rgba(247, 201, 72, 0.18);
+  box-shadow: 0 0 22px rgba(247, 201, 72, 0.08);
+}
+
+.liquidSealReactor__ringNode,
+.liquidSealReactor__pearlEmitter {
+  position: absolute;
+  z-index: 5;
+  border-radius: var(--radius-full);
+  pointer-events: none;
+}
+
+.liquidSealReactor__ringNode {
+  width: 12px;
+  height: 12px;
+  background:
+    radial-gradient(circle at 30% 28%, rgba(255, 255, 255, 0.92), transparent 20%),
+    rgba(126, 231, 242, 0.58);
+  box-shadow: 0 0 20px rgba(126, 231, 242, 0.24);
+}
+
+.liquidSealReactor__ringNode--water {
+  left: 22%;
+  top: 18%;
+}
+
+.liquidSealReactor__ringNode--jade {
+  right: 18%;
+  top: 24%;
+  background:
+    radial-gradient(circle at 30% 28%, rgba(255, 255, 255, 0.9), transparent 20%),
+    rgba(102, 214, 173, 0.58);
+}
+
+.liquidSealReactor__ringNode--gold {
+  right: 24%;
+  bottom: 18%;
+  background:
+    radial-gradient(circle at 30% 28%, rgba(255, 255, 255, 0.9), transparent 20%),
+    rgba(247, 201, 72, 0.62);
+  box-shadow: 0 0 22px rgba(247, 201, 72, 0.28);
+}
+
+.liquidSealReactor__ringNode--blue {
+  left: 18%;
+  bottom: 26%;
+  background:
+    radial-gradient(circle at 30% 28%, rgba(255, 255, 255, 0.88), transparent 20%),
+    rgba(37, 99, 235, 0.62);
+}
+
+.liquidSealReactor__ringNode--innerA {
+  width: 8px;
+  height: 8px;
+  right: 34%;
+  top: 43%;
+}
+
+.liquidSealReactor__ringNode--innerB {
+  width: 8px;
+  height: 8px;
+  left: 35%;
+  bottom: 42%;
+  background: rgba(247, 201, 72, 0.58);
+}
+
+.liquidSealReactor__specularSweep {
+  position: absolute;
+  inset: 0;
+  z-index: 6;
+  pointer-events: none;
+  background:
+    linear-gradient(115deg, transparent 0 38%, rgba(255, 255, 255, 0.08) 46%, transparent 56%);
+  mix-blend-mode: screen;
+  opacity: 0.22;
+}
+
+.liquidSealReactor__verticalText {
+  z-index: 7;
+}
+
 .waterLightField {
   position: absolute;
   inset: 0;
