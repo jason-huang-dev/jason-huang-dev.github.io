@@ -10,7 +10,10 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint src --ext js,jsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "preview": "vite preview --host 0.0.0.0 --port 4173",
+    "quality:lighthouse": "lighthouse http://127.0.0.1:4173 --output html --output json --output-path ./reports/lighthouse --chrome-flags='--headless=new'",
+    "quality:axe": "axe http://127.0.0.1:4173 --exit",
+    "quality:all": "npm run build && npm run quality:lighthouse && npm run quality:axe"
   },
   "dependencies": {
     "@emailjs/browser": "^3.11.0",
@@ -20,6 +23,7 @@
     "maath": "^0.5.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-helmet-async": "^3.0.0",
     "react-icons": "^5.2.1",
     "react-router-dom": "^6.11.0",
     "react-svg": "^16.1.34",
@@ -29,6 +33,7 @@
     "use": "^3.1.1"
   },
   "devDependencies": {
+    "@axe-core/cli": "^4.11.3",
     "@types/react": "^18.0.28",
     "@types/react-dom": "^18.0.11",
     "@vitejs/plugin-react": "^4.0.0",
@@ -38,8 +43,10 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.3.4",
     "gh-pages": "^6.1.1",
+    "lighthouse": "^13.3.0",
     "postcss": "^8.4.23",
     "tailwindcss": "^3.4.7",
-    "vite": "^4.5.3"
+    "vite": "^4.5.3",
+    "wait-on": "^9.0.10"
   }
 }

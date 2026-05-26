@@ -5,8 +5,8 @@
     <link rel="icon" type="image/svg+xml" href="/brand/svgs/huang-seal.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Jason Huang | Portfolio</title>
-    <script type="module" crossorigin src="/assets/index-aee4e5ac.js"></script>
-    <link rel="stylesheet" href="/assets/index-f3318cc7.css">
+    <script type="module" crossorigin src="/assets/index-2ccd0b4d.js"></script>
+    <link rel="stylesheet" href="/assets/index-9db04e43.css">
   </head>
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-DHD24KQBLQ"></script>
@@ -19,6 +19,15 @@
   </script>
   <body class="bg-night">
     <div id="root"></div>
+    <script>
+      (function () {
+        var redirect = sessionStorage.redirect;
+        delete sessionStorage.redirect;
+        if (redirect && redirect !== location.pathname + location.search + location.hash) {
+          history.replaceState(null, '', redirect);
+        }
+      })();
+    </script>
     
   </body>
 </html>

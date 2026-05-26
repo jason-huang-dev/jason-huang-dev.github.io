@@ -15,7 +15,7 @@ const sizeClass = {
 };
 
 const imageSize = {
-  sm: 32,
+  sm: 44,
   md: 40,
   lg: 56,
 };

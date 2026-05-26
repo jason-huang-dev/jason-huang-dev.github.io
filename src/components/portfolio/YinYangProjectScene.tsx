@@ -1,4 +1,5 @@
 import { FiArrowUpRight } from "react-icons/fi";
+import { Link } from "react-router-dom";
 
 import type { PortfolioProject } from "../../data/projects";
 import { brandAssets, yinyangAssetsByMode } from "../../data/brandAssets";
@@ -36,11 +37,11 @@ export function YinYangProjectScene({
       aria-labelledby={`project-scene-${project.id}`}
     >
       <div className="yinYangProjectScene__frame">
-        <button
-          type="button"
+        <Link
+          to={`/work/${project.slug}`}
           className="yinYangProjectScene__trigger"
           onClick={() => onOpen?.(project.id)}
-          aria-label={`View details for ${project.title}`}
+          aria-label={`Read case study for ${project.title}`}
         >
           <span className="yinYangProjectScene__assetStage" aria-hidden="true">
             <img
@@ -108,8 +109,8 @@ export function YinYangProjectScene({
                 <TechPill key={tech}>{tech}</TechPill>
               ))}
             </span>
-            <span className="yinYangProjectScene__cta">
-              View details <FiArrowUpRight aria-hidden="true" />
+          <span className="yinYangProjectScene__cta">
+              Read case study <FiArrowUpRight aria-hidden="true" />
             </span>
           </span>
 
@@ -151,7 +152,7 @@ export function YinYangProjectScene({
               </span>
             )}
           </span>
-        </button>
+        </Link>
       </div>
     </section>
   );

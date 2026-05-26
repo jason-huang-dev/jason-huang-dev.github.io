@@ -1,0 +1,20 @@
+:root {
+  --color-bg: #081018;
+  --color-bg-soft: #0d1722;
+  --color-surface: rgba(14, 27, 40, 0.78);
+  --color-surface-strong: rgba(18, 35, 52, 0.92);
+  --color-text: #f7f4ee;
+  --color-text-muted: rgba(247, 244, 238, 0.72);
+  --color-border: rgba(216, 221, 227, 0.14);
+  --color-brand-gold: #d4af6a;
+  --color-brand-gold-strong: #e7c98a;
+  --color-brand-water: #2ea7ff;
+  --color-brand-jade: #47d7ac;
+  --color-focus: #69c7ff;
+  --radius-pill: 999px;
+  --shadow-soft: 0 24px 80px rgba(0, 0, 0, 0.24);
+  --shadow-glow-water: 0 0 60px rgba(46, 167, 255, 0.16);
+  --shadow-glow-gold: 0 0 56px rgba(212, 175, 106, 0.14);
+  --container-max: 1180px;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+}

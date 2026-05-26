@@ -2,6 +2,7 @@ import { useEffect, useRef, type KeyboardEvent } from "react";
 import { FiExternalLink, FiX } from "react-icons/fi";
 
 import type { PortfolioProject } from "../../data/projects";
+import { ProjectArtifactPreview } from "./ProjectArtifactPreview";
 import { TechPill } from "./TechPill";
 import { ProjectDetailSection } from "./ProjectDetailSection";
 
@@ -77,11 +78,13 @@ export function ProjectDetailDrawer({
       <aside
         ref={panelRef}
         className="projectDrawer__panel"
+        data-accent={project.accent ?? "water"}
         role="dialog"
         aria-modal="true"
         aria-labelledby={titleId}
         onKeyDown={handlePanelKeyDown}
       >
+        <span className="projectDrawer__accentRail" aria-hidden="true" />
         <div className="projectDrawer__header">
           <div>
             <p className="eyebrow">{project.category}</p>
@@ -100,45 +103,84 @@ export function ProjectDetailDrawer({
 
         <p className="projectDrawer__summary">{project.shortDescription}</p>
 
-        <ProjectDetailSection title="Overview">
-          <p>{project.overview}</p>
-        </ProjectDetailSection>
+        <ProjectArtifactPreview
+          projectId={project.id}
+          accent={project.accent}
+          variant="drawer"
+        />
 
-        <ProjectDetailSection title="My role">
-          <p>{project.role}</p>
-        </ProjectDetailSection>
+        <nav className="projectDrawer__miniNav" aria-label="Project detail sections">
+          <a href="#drawer-overview">Overview</a>
+          <a href="#drawer-role">Role</a>
+          <a href="#drawer-features">Features</a>
+          <a href="#drawer-stack">Stack</a>
+          {visibleLinks.length > 0 ? <a href="#drawer-links">Links</a> : null}
+        </nav>
+
+        <div className="projectDrawer__facts" aria-label="Quick facts">
+          <span>
+            <strong>Status</strong>
+            {project.status}
+          </span>
+          <span>
+            <strong>Role</strong>
+            Lead builder
+          </span>
+          <span>
+            <strong>Stack</strong>
+            {project.techStack.length} tools
+          </span>
+        </div>
+
+        <div id="drawer-overview">
+          <ProjectDetailSection title="Overview">
+          <p>{project.overview}</p>
+          </ProjectDetailSection>
+        </div>
+
+        <div id="drawer-role">
+          <ProjectDetailSection title="My role">
+            <p>{project.role}</p>
+          </ProjectDetailSection>
+        </div>
 
         <ProjectDetailSection title="Impact">
           {project.impact ? <p>{project.impact}</p> : null}
         </ProjectDetailSection>
 
-        <ProjectDetailSection title="Key features">
-          <ul>
-            {project.keyFeatures.map((feature) => (
-              <li key={feature}>{feature}</li>
-            ))}
-          </ul>
-        </ProjectDetailSection>
+        <div id="drawer-features">
+          <ProjectDetailSection title="Key features">
+            <ul>
+              {project.keyFeatures.map((feature) => (
+                <li key={feature}>{feature}</li>
+              ))}
+            </ul>
+          </ProjectDetailSection>
+        </div>
 
-        <ProjectDetailSection title="Tech stack">
-          <div className="projectDrawer__pills">
-            {project.techStack.map((tech) => (
-              <TechPill key={tech}>{tech}</TechPill>
-            ))}
-          </div>
-        </ProjectDetailSection>
-
-        {visibleLinks.length > 0 ? (
-          <ProjectDetailSection title="Links">
-            <div className="projectDrawer__links">
-              {visibleLinks.map((link) => (
-                <a key={link.href} href={link.href} target="_blank" rel="noreferrer">
-                  {link.label}
-                  <FiExternalLink aria-hidden="true" />
-                </a>
+        <div id="drawer-stack">
+          <ProjectDetailSection title="Tech stack">
+            <div className="projectDrawer__pills">
+              {project.techStack.map((tech) => (
+                <TechPill key={tech}>{tech}</TechPill>
               ))}
             </div>
           </ProjectDetailSection>
+        </div>
+
+        {visibleLinks.length > 0 ? (
+          <div id="drawer-links">
+            <ProjectDetailSection title="Links">
+              <div className="projectDrawer__links">
+                {visibleLinks.map((link) => (
+                  <a key={link.href} href={link.href} target="_blank" rel="noreferrer">
+                    {link.label}
+                    <FiExternalLink aria-hidden="true" />
+                  </a>
+                ))}
+              </div>
+            </ProjectDetailSection>
+          </div>
         ) : null}
 
         <ProjectDetailSection title="Status">

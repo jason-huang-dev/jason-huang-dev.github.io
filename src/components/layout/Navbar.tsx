@@ -1,27 +1,35 @@
 import { FiFileText } from "react-icons/fi";
 
 import { profile } from "../../data/profile";
+import { useActiveSection } from "../../hooks/useActiveSection";
 import { BrandMark } from "../brand/BrandMark";
 import { ButtonLink } from "../ui/ButtonLink";
 import { Container } from "../ui/Container";
 
 const navLinks = [
-  { href: "#work", label: "Work" },
-  { href: "#systems", label: "Systems" },
-  { href: "#about", label: "About" },
-  { href: "#contact", label: "Contact" },
+  { href: "/work", id: "work", label: "Work" },
+  { href: "/#systems", id: "systems", label: "Systems" },
+  { href: "/#about", id: "about", label: "About" },
+  { href: "/#contact", id: "contact", label: "Contact" },
 ];
 
 export function Navbar() {
+  const activeId = useActiveSection(["top", "work", "systems", "about", "contact"]);
+
   return (
     <header className="navbar">
       <Container className="navbar__inner">
-        <a className="navbar__brand" href="#top" aria-label="Jason Huang home">
+        <a className="navbar__brand" href="/" aria-label="Jason Huang home">
           <BrandMark variant="horizontal" size="sm" />
         </a>
         <nav className="navbar__links" aria-label="Main navigation">
           {navLinks.map((link) => (
-            <a key={link.href} href={link.href}>
+            <a
+              key={link.href}
+              href={link.href}
+              className={activeId === link.id ? "is-active" : ""}
+              aria-current={activeId === link.id ? "page" : undefined}
+            >
               {link.label}
             </a>
           ))}

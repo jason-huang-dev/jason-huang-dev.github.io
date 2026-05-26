@@ -1,0 +1,39 @@
+name: Portfolio Quality
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build site
+        run: npm run build
+
+      - name: Start preview server
+        run: npx vite preview --host 0.0.0.0 --port 4173 &
+
+      - name: Wait for preview
+        run: npx wait-on http://127.0.0.1:4173
+
+      - name: Run Lighthouse
+        run: npx lighthouse http://127.0.0.1:4173 --chrome-flags='--headless=new' --output=json --output-path=./reports/lighthouse.json
+
+      - name: Run axe
+        run: npx axe http://127.0.0.1:4173 --exit
