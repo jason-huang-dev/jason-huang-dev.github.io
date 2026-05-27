@@ -674,10 +674,9 @@ p {
   inset: -20%;
   pointer-events: none;
   background:
-    radial-gradient(circle at 20% 20%, rgba(46, 167, 255, 0.16), transparent 34%),
-    radial-gradient(circle at 74% 36%, rgba(212, 175, 106, 0.12), transparent 30%),
-    radial-gradient(circle at 52% 80%, rgba(235, 240, 238, 0.06), transparent 34%);
-  filter: blur(12px);
+    radial-gradient(circle at 20% 20%, rgba(46, 167, 255, 0.055), transparent 34%),
+    radial-gradient(circle at 74% 36%, rgba(212, 175, 106, 0.045), transparent 30%);
+  filter: blur(16px);
   animation: heroAuraShift 12s var(--ease-out) infinite alternate;
 }
 
@@ -719,7 +718,7 @@ p {
 }
 
 .heroFluidSimulationPanel {
-  --fluid-layer-opacity: 0.96;
+  --fluid-layer-opacity: 0.92;
   --fluid-field-bleed: 28px;
 
   position: relative;
@@ -747,7 +746,7 @@ p {
   position: absolute;
   inset: calc(var(--fluid-field-bleed, 28px) * -1);
   z-index: 2;
-  opacity: var(--fluid-layer-opacity, 0.96);
+  opacity: var(--fluid-layer-opacity, 0.92);
   pointer-events: none;
 }
 
@@ -782,10 +781,10 @@ p {
 
 .heroFluidSimulationPanel[data-emblem-depth="embedded"] .heroFluidSimulationPanel__signature {
   z-index: 1;
-  opacity: 0.9;
+  opacity: 0.48;
   filter:
-    drop-shadow(0 18px 42px rgba(0, 0, 0, 0.36))
-    drop-shadow(0 0 24px rgba(247, 201, 72, 0.16));
+    drop-shadow(0 18px 42px rgba(0, 0, 0, 0.32))
+    drop-shadow(0 0 14px rgba(247, 201, 72, 0.08));
 }
 
 .heroFluidSimulationPanel[data-emblem-depth="back"] .heroFluidSimulationPanel__signature {
@@ -797,7 +796,7 @@ p {
 }
 
 .fluidSignatureSeal {
-  --fluid-layer-opacity: 0.96;
+  --fluid-layer-opacity: 0.92;
   --fluid-field-bleed: 44px;
 }
 
@@ -811,23 +810,23 @@ p {
   inset: 0;
   z-index: 0;
   background:
-    radial-gradient(circle at 50% 48%, rgba(3, 10, 17, 0.46), transparent 46%),
-    linear-gradient(135deg, rgba(3, 10, 17, 0.24), rgba(3, 10, 17, 0.02));
+    radial-gradient(circle at 50% 48%, rgba(3, 10, 17, 0.2), transparent 48%),
+    linear-gradient(135deg, rgba(3, 10, 17, 0.1), rgba(3, 10, 17, 0.01));
 }
 
 .fluidSignatureSeal__emblem {
   z-index: 1;
-  opacity: 0.9;
+  opacity: 0.48;
   pointer-events: none;
   filter:
-    drop-shadow(0 18px 42px rgba(0, 0, 0, 0.36))
-    drop-shadow(0 0 24px rgba(247, 201, 72, 0.16));
+    drop-shadow(0 18px 42px rgba(0, 0, 0, 0.32))
+    drop-shadow(0 0 14px rgba(247, 201, 72, 0.08));
 }
 
 .fluidSignatureSeal .fluidCanvas,
 .fluidSignatureSeal .fluidCanvasFallback {
   z-index: 2;
-  opacity: var(--fluid-layer-opacity, 0.96);
+  opacity: var(--fluid-layer-opacity, 0.92);
   inset: calc(var(--fluid-field-bleed, 44px) * -1);
   pointer-events: none;
 }
@@ -836,9 +835,9 @@ p {
   inset: 0;
   z-index: 3;
   background:
-    linear-gradient(116deg, transparent 0 42%, rgba(255, 255, 255, 0.07) 49%, transparent 58%);
+    linear-gradient(116deg, transparent 0 42%, rgba(255, 255, 255, 0.045) 49%, transparent 58%);
   mix-blend-mode: screen;
-  opacity: 0.1;
+  opacity: 0.045;
 }
 
 .waterLightField {
@@ -957,6 +956,176 @@ p {
 .sectionHeading {
   max-width: 780px;
   margin-bottom: 32px;
+}
+
+.signatureCurrentDivider {
+  --signature-current-blue: rgba(51, 151, 255, 0.86);
+  --signature-current-cyan: rgba(71, 240, 255, 0.76);
+  --signature-current-gold: rgba(246, 190, 72, 0.86);
+  --signature-current-silver: rgba(245, 240, 214, 0.62);
+  --signature-current-opacity: 1;
+  position: relative;
+  display: grid;
+  justify-items: center;
+  gap: 8px;
+  width: min(620px, calc(100% - 40px));
+  height: 44px;
+  margin: 4px auto -22px;
+  opacity: var(--signature-current-opacity);
+  pointer-events: none;
+}
+
+.signatureCurrentDivider--compact {
+  height: 28px;
+}
+
+.signatureCurrentDivider--cinematic {
+  height: 64px;
+}
+
+.signatureCurrentDivider--left {
+  margin-left: max(20px, calc((100vw - min(1120px, calc(100vw - 40px))) / 2));
+  margin-right: auto;
+  justify-items: start;
+}
+
+.signatureCurrentDivider--right {
+  margin-left: auto;
+  margin-right: max(20px, calc((100vw - min(1120px, calc(100vw - 40px))) / 2));
+  justify-items: end;
+}
+
+.signatureCurrentDivider--blue {
+  --signature-current-gold: rgba(245, 240, 214, 0.3);
+}
+
+.signatureCurrentDivider--gold {
+  --signature-current-blue: rgba(71, 240, 255, 0.3);
+}
+
+.signatureCurrentDivider--quiet {
+  --signature-current-opacity: 0.58;
+}
+
+.signatureCurrentDivider__line {
+  position: relative;
+  align-self: end;
+  width: 100%;
+  max-width: 620px;
+  height: 18px;
+  overflow: hidden;
+  mask-image: linear-gradient(90deg, transparent, #000 14%, #000 86%, transparent);
+}
+
+.signatureCurrentDivider__line::before {
+  content: '';
+  position: absolute;
+  left: 3%;
+  right: 3%;
+  top: 50%;
+  height: 2px;
+  border-radius: var(--radius-full);
+  background:
+    linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.32), transparent),
+    linear-gradient(90deg, var(--signature-current-blue), var(--signature-current-silver), var(--signature-current-gold));
+  box-shadow:
+    0 0 14px rgba(71, 240, 255, 0.16),
+    0 0 18px rgba(246, 190, 72, 0.12);
+  transform: translateY(-50%) skewY(-0.8deg);
+}
+
+.signatureCurrentDivider__current,
+.signatureCurrentDivider__glint {
+  position: absolute;
+  top: 50%;
+  height: 3px;
+  border-radius: var(--radius-full);
+  transform: translateY(-50%);
+}
+
+.signatureCurrentDivider__current--blue {
+  left: -34%;
+  width: 38%;
+  background: linear-gradient(90deg, transparent, var(--signature-current-cyan), var(--signature-current-blue), transparent);
+  animation: signatureCurrentBlue 7.8s ease-in-out infinite;
+}
+
+.signatureCurrentDivider__current--gold {
+  right: -30%;
+  width: 34%;
+  background: linear-gradient(90deg, transparent, var(--signature-current-gold), var(--signature-current-silver), transparent);
+  animation: signatureCurrentGold 8.8s ease-in-out infinite;
+}
+
+.signatureCurrentDivider__glint {
+  left: -12%;
+  width: 12%;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.72);
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.34);
+  animation: signatureCurrentGlint 10s ease-in-out infinite;
+}
+
+.signatureCurrentDivider__label {
+  color: var(--text-muted);
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.inkCurrentReveal {
+  --ink-current-delay: 0ms;
+  position: relative;
+  opacity: 0;
+  filter: blur(10px);
+  transform: translate3d(0, 18px, 0);
+  transition:
+    opacity 700ms ease var(--ink-current-delay),
+    filter 900ms ease var(--ink-current-delay),
+    transform 900ms cubic-bezier(0.22, 1, 0.36, 1) var(--ink-current-delay);
+}
+
+.inkCurrentReveal--left {
+  transform: translate3d(-18px, 0, 0);
+}
+
+.inkCurrentReveal--right {
+  transform: translate3d(18px, 0, 0);
+}
+
+.inkCurrentReveal--none {
+  transform: none;
+}
+
+.inkCurrentReveal--quiet {
+  filter: blur(6px);
+}
+
+.inkCurrentReveal--signature {
+  overflow: hidden;
+}
+
+.inkCurrentReveal--visible {
+  opacity: 1;
+  filter: blur(0);
+  transform: translate3d(0, 0, 0);
+}
+
+.inkCurrentReveal__glint {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  opacity: 0;
+  background:
+    linear-gradient(105deg, transparent 0 24%, rgba(71, 240, 255, 0.12) 36%, rgba(246, 190, 72, 0.12) 52%, transparent 68%);
+  transform: translateX(-80%);
+}
+
+.inkCurrentReveal--visible .inkCurrentReveal__glint {
+  animation: inkCurrentGlint 980ms ease-out 120ms both;
 }
 
 .workSection,
@@ -1980,6 +2149,189 @@ p {
   gap: 20px;
 }
 
+.signatureProjectGrid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.signatureProjectCard {
+  --signature-card-blue: rgba(71, 240, 255, 0.54);
+  --signature-card-gold: rgba(246, 190, 72, 0.52);
+  position: relative;
+  grid-column: span 4;
+  display: grid;
+  min-height: 330px;
+  overflow: hidden;
+  border: 1px solid rgba(125, 218, 255, 0.16);
+  border-radius: var(--radius-lg);
+  background:
+    linear-gradient(145deg, rgba(9, 23, 38, 0.92), rgba(3, 10, 18, 0.96));
+  box-shadow:
+    0 24px 70px rgba(0, 0, 0, 0.36),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  color: var(--text);
+  text-decoration: none;
+  transition:
+    transform 260ms ease,
+    border-color 260ms ease,
+    box-shadow 260ms ease;
+}
+
+.signatureProjectCard--featured {
+  grid-column: span 8;
+  grid-template-columns: minmax(0, 1fr) minmax(240px, 0.8fr);
+}
+
+.signatureProjectCard:hover,
+.signatureProjectCard:focus-within {
+  border-color: rgba(125, 218, 255, 0.28);
+  box-shadow:
+    0 28px 76px rgba(0, 0, 0, 0.42),
+    0 0 28px rgba(71, 240, 255, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  transform: translateY(-3px);
+}
+
+.signatureProjectCard:focus-within {
+  outline: 2px solid rgba(71, 240, 255, 0.72);
+  outline-offset: 4px;
+}
+
+.signatureProjectCard__edge {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.32;
+  background:
+    linear-gradient(90deg, transparent, var(--signature-card-blue), transparent) top left / 220% 1px no-repeat,
+    linear-gradient(90deg, transparent, var(--signature-card-gold), transparent) bottom right / 220% 1px no-repeat;
+  transition: opacity 240ms ease;
+  animation: signatureProjectEdge 8s ease-in-out infinite;
+}
+
+.signatureProjectCard:hover .signatureProjectCard__edge,
+.signatureProjectCard:focus-within .signatureProjectCard__edge {
+  opacity: 0.76;
+}
+
+.signatureProjectCard__watermark {
+  position: absolute;
+  right: -42px;
+  bottom: -46px;
+  width: min(260px, 58%);
+  opacity: 0.05;
+  pointer-events: none;
+  transition:
+    opacity 260ms ease,
+    transform 260ms ease;
+}
+
+.signatureProjectCard:hover .signatureProjectCard__watermark,
+.signatureProjectCard:focus-within .signatureProjectCard__watermark {
+  opacity: 0.075;
+  transform: translate(-8px, -8px);
+}
+
+.signatureProjectCard__content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 14px;
+  padding: 24px;
+}
+
+.signatureProjectCard[data-accent='gold'] {
+  --signature-card-blue: rgba(245, 240, 214, 0.28);
+  --signature-card-gold: rgba(246, 190, 72, 0.72);
+}
+
+.signatureProjectCard[data-accent='blue'] {
+  --signature-card-blue: rgba(71, 240, 255, 0.72);
+  --signature-card-gold: rgba(245, 240, 214, 0.28);
+}
+
+.signatureProjectCard__eyebrow {
+  color: var(--water-soft);
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.signatureProjectCard__title {
+  color: var(--text);
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(1.25rem, 2vw, 1.65rem);
+  line-height: 1.08;
+}
+
+.signatureProjectCard__description {
+  color: var(--text-secondary);
+  line-height: 1.62;
+}
+
+.signatureProjectCard__tags,
+.signatureProjectCard__footer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.signatureProjectCard__tags span {
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-full);
+  background: rgba(255, 255, 255, 0.045);
+  color: var(--text-muted);
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 6px 9px;
+}
+
+.signatureProjectCard__footer {
+  align-items: center;
+  margin-top: auto;
+}
+
+.signatureProjectCard__cta,
+.signatureProjectCard__github {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--text);
+  font-size: 0.82rem;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.signatureProjectCard__github {
+  color: var(--text-muted);
+}
+
+.signatureProjectCard__cta:focus-visible,
+.signatureProjectCard__github:focus-visible {
+  outline: 2px solid rgba(71, 240, 255, 0.72);
+  outline-offset: 4px;
+}
+
+.signatureProjectCard__media {
+  position: relative;
+  z-index: 1;
+  margin: 20px;
+  overflow: hidden;
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.signatureProjectCard__media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 .projectRippleCard {
   --card-accent: var(--water-soft);
   --card-accent-glow: var(--water-glow-soft);
@@ -2413,6 +2765,169 @@ p {
   background:
     radial-gradient(circle at 88% 20%, rgba(35, 183, 197, 0.1), transparent 24rem),
     var(--panel-crisp);
+}
+
+.sealStampContactCTA {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(180px, 0.34fr);
+  gap: clamp(22px, 4vw, 48px);
+  align-items: center;
+  overflow: hidden;
+  border: 1px solid rgba(246, 190, 72, 0.18);
+  border-radius: var(--radius-lg);
+  background:
+    radial-gradient(circle at 86% 30%, rgba(246, 190, 72, 0.11), transparent 18rem),
+    linear-gradient(145deg, rgba(9, 23, 38, 0.92), rgba(3, 10, 18, 0.96));
+  box-shadow:
+    0 24px 70px rgba(0, 0, 0, 0.36),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  padding: clamp(24px, 4vw, 42px);
+  transition:
+    transform 240ms ease,
+    border-color 240ms ease,
+    box-shadow 240ms ease;
+}
+
+.sealStampContactCTA--inline {
+  grid-template-columns: minmax(0, 1fr) auto;
+  padding: 18px;
+}
+
+.sealStampContactCTA:hover,
+.sealStampContactCTA:focus-within {
+  border-color: rgba(71, 240, 255, 0.24);
+  box-shadow:
+    0 28px 76px rgba(0, 0, 0, 0.42),
+    0 0 26px rgba(71, 240, 255, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  transform: translateY(-2px);
+}
+
+.sealStampContactCTA:active {
+  transform: translateY(1px) scale(0.995);
+}
+
+.sealStampContactCTA__content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.sealStampContactCTA__title {
+  color: var(--text);
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  line-height: 1.04;
+}
+
+.sealStampContactCTA__description {
+  max-width: 680px;
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+.sealStampContactCTA__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.sealStampContactCTA__primary,
+.sealStampContactCTA__secondary {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  gap: 8px;
+  border-radius: var(--radius-full);
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.sealStampContactCTA__primary {
+  overflow: hidden;
+  padding: 0 18px;
+  background: linear-gradient(135deg, #f6be48, #f8efd0);
+  color: rgba(3, 10, 18, 0.96);
+}
+
+.sealStampContactCTA__primary::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  background: linear-gradient(110deg, transparent, rgba(71, 240, 255, 0.36), transparent);
+  transform: translateX(-80%);
+  transition: opacity 220ms ease;
+}
+
+.sealStampContactCTA:hover .sealStampContactCTA__primary::after,
+.sealStampContactCTA:focus-within .sealStampContactCTA__primary::after {
+  opacity: 1;
+  animation: sealStampButtonCurrent 1.25s ease-out both;
+}
+
+.sealStampContactCTA__secondary {
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 0 16px;
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.sealStampContactCTA__primary:focus-visible,
+.sealStampContactCTA__secondary:focus-visible {
+  outline: 2px solid rgba(71, 240, 255, 0.72);
+  outline-offset: 4px;
+}
+
+.sealStampContactCTA__seal {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  justify-self: center;
+  width: clamp(150px, 22vw, 230px);
+  aspect-ratio: 1;
+  border: 1px solid rgba(246, 190, 72, 0.16);
+  border-radius: 34%;
+  background:
+    radial-gradient(circle, rgba(246, 190, 72, 0.12), transparent 62%),
+    rgba(255, 255, 255, 0.03);
+  box-shadow:
+    inset 0 0 30px rgba(246, 190, 72, 0.08),
+    0 0 32px rgba(246, 190, 72, 0.08);
+}
+
+.sealStampContactCTA__sealCurrent {
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  opacity: 0;
+  background:
+    conic-gradient(from 120deg, transparent, rgba(71, 240, 255, 0.42), transparent 34%, rgba(246, 190, 72, 0.28), transparent 68%);
+  filter: blur(8px);
+  transition: opacity 240ms ease;
+}
+
+.sealStampContactCTA:hover .sealStampContactCTA__sealCurrent,
+.sealStampContactCTA:focus-within .sealStampContactCTA__sealCurrent {
+  opacity: 0.78;
+  animation: sealStampCurrent 4.5s linear infinite;
+}
+
+.sealStampContactCTA__sealGlyph {
+  position: relative;
+  width: 78%;
+  opacity: 0.5;
+  filter:
+    drop-shadow(0 14px 30px rgba(0, 0, 0, 0.28))
+    drop-shadow(0 0 18px rgba(246, 190, 72, 0.12));
 }
 
 .projectDrawer {
@@ -2908,6 +3423,83 @@ p {
   }
 }
 
+@keyframes signatureCurrentBlue {
+  0%,
+  12% {
+    transform: translate(-6%, -50%);
+  }
+  72%,
+  100% {
+    transform: translate(360%, -50%);
+  }
+}
+
+@keyframes signatureCurrentGold {
+  0%,
+  8% {
+    transform: translate(8%, -50%);
+  }
+  76%,
+  100% {
+    transform: translate(-360%, -50%);
+  }
+}
+
+@keyframes signatureCurrentGlint {
+  0%,
+  56% {
+    opacity: 0;
+    transform: translate(-20%, -50%);
+  }
+  62% {
+    opacity: 1;
+  }
+  76%,
+  100% {
+    opacity: 0;
+    transform: translate(880%, -50%);
+  }
+}
+
+@keyframes inkCurrentGlint {
+  0% {
+    opacity: 0;
+    transform: translateX(-80%);
+  }
+  36% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(80%);
+  }
+}
+
+@keyframes signatureProjectEdge {
+  0%,
+  100% {
+    background-position: 180% top, -80% bottom;
+  }
+  50% {
+    background-position: -80% top, 180% bottom;
+  }
+}
+
+@keyframes sealStampButtonCurrent {
+  from {
+    transform: translateX(-80%);
+  }
+  to {
+    transform: translateX(80%);
+  }
+}
+
+@keyframes sealStampCurrent {
+  to {
+    transform: rotate(1turn);
+  }
+}
+
 @media (max-width: 1024px) {
   .scrollProgressRail {
     display: none;
@@ -3101,8 +3693,15 @@ p {
   }
 
   .projectRippleCard,
-  .projectRippleCard--featured {
+  .projectRippleCard--featured,
+  .signatureProjectCard,
+  .signatureProjectCard--featured {
     grid-column: span 6;
+  }
+
+  .signatureProjectCard--featured,
+  .sealStampContactCTA {
+    grid-template-columns: 1fr;
   }
 
   .systemsGrid {
@@ -3155,7 +3754,7 @@ p {
   }
 
   .heroFluidSimulationPanel {
-    --fluid-layer-opacity: 0.88 !important;
+    --fluid-layer-opacity: 0.9 !important;
     --fluid-field-bleed: 20px !important;
   }
 
@@ -3329,9 +3928,28 @@ p {
   }
 
   .projectRippleCard,
-  .projectRippleCard--featured {
+  .projectRippleCard--featured,
+  .signatureProjectCard,
+  .signatureProjectCard--featured {
     grid-column: 1 / -1;
     min-height: 310px;
+  }
+
+  .signatureCurrentDivider {
+    width: min(100% - 32px, 520px);
+    margin-bottom: -18px;
+  }
+
+  .signatureCurrentDivider--left,
+  .signatureCurrentDivider--right {
+    margin-left: auto;
+    margin-right: auto;
+    justify-items: center;
+  }
+
+  .sealStampContactCTA__seal {
+    width: min(180px, 58vw);
+    order: -1;
   }
 
   .systemsGrid {
@@ -3433,6 +4051,32 @@ p {
   .signatureFluidCanvas,
   .fluidCanvas {
     display: none;
+  }
+
+  .signatureCurrentDivider__current,
+  .signatureCurrentDivider__glint,
+  .signatureProjectCard__edge,
+  .sealStampContactCTA__sealCurrent,
+  .sealStampContactCTA__primary::after {
+    animation: none !important;
+  }
+
+  .inkCurrentReveal {
+    opacity: 1;
+    filter: none;
+    transform: none;
+    transition: none;
+  }
+
+  .inkCurrentReveal__glint {
+    display: none;
+  }
+
+  .signatureProjectCard:hover,
+  .signatureProjectCard:focus-within,
+  .sealStampContactCTA:hover,
+  .sealStampContactCTA:focus-within {
+    transform: none;
   }
 }
 

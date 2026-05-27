@@ -14,6 +14,18 @@ function clamp01(value: number) {
   return Math.min(1, Math.max(0, value));
 }
 
+function mixColor(
+  a: readonly [number, number, number],
+  b: readonly [number, number, number],
+  amount: number,
+): readonly [number, number, number] {
+  return [
+    a[0] * (1 - amount) + b[0] * amount,
+    a[1] * (1 - amount) + b[1] * amount,
+    a[2] * (1 - amount) + b[2] * amount,
+  ];
+}
+
 function localAttenuation(input: {
   x: number;
   y: number;
@@ -119,23 +131,35 @@ function createBridgeSplats(input: {
   disruption?: CurrentDisruption | null;
 }): AutoCurrentSplat[] {
   const { angle, config, disruption, time } = input;
-  const bridgeCount = 4;
+  const bridgeCount = Math.max(0, Math.round(config.autoCurrentBridgeCount));
   const tangentAngle = angle + Math.PI / 2;
+  const blueWhite = mixColor(fluidSplatColors.water, fluidSplatColors.silverWhite, 0.26);
+  const goldWhite = mixColor(fluidSplatColors.gold, fluidSplatColors.silverWhite, 0.46);
 
   return Array.from({ length: bridgeCount }, (_, index) => {
     const progress = bridgeCount === 1 ? 0.5 : index / (bridgeCount - 1);
     const sCurve = (progress - 0.5) * 2;
-    const bend = Math.sin(progress * Math.PI) * 0.036;
+    const bend =
+      Math.sin(progress * Math.PI) *
+      config.autoCurrentLobeSpread *
+      config.autoCurrentBridgeStrength;
     const x =
       0.5 +
-      Math.cos(angle) * sCurve * config.autoCurrentRadius * 0.42 +
+      Math.cos(angle) *
+        sCurve *
+        config.autoCurrentRadius *
+        config.autoCurrentHalfSeparation *
+        0.5 +
       Math.cos(tangentAngle) * bend;
     const y =
       0.5 +
-      Math.sin(angle) * sCurve * config.autoCurrentRadius * 0.42 +
+      Math.sin(angle) *
+        sCurve *
+        config.autoCurrentRadius *
+        config.autoCurrentHalfSeparation *
+        0.5 +
       Math.sin(tangentAngle) * bend;
-    const color =
-      index % 2 === 0 ? fluidSplatColors.silverWhite : fluidSplatColors.water;
+    const color = progress < 0.5 ? blueWhite : goldWhite;
     const attenuation = localAttenuation({ x, y, time, config, disruption });
     const direction = index < bridgeCount / 2 ? 1 : -1;
 
@@ -146,17 +170,24 @@ function createBridgeSplats(input: {
         Math.cos(tangentAngle) *
         direction *
         config.autoCurrentStrength *
-        0.009 *
+        config.autoCurrentBridgeStrength *
+        0.01 *
         attenuation,
       dy:
         Math.sin(tangentAngle) *
         direction *
         config.autoCurrentStrength *
-        0.009 *
+        config.autoCurrentBridgeStrength *
+        0.01 *
         attenuation,
       color,
-      radius: config.autoCurrentLobeRadius * 0.9,
-      force: config.effectScale * config.autoCurrentDyeRate * 0.5 * attenuation,
+      radius: config.autoCurrentLobeRadius * 0.78,
+      force:
+        config.effectScale *
+        config.autoCurrentDyeRate *
+        config.autoCurrentBridgeStrength *
+        0.62 *
+        attenuation,
     };
   });
 }
@@ -171,13 +202,16 @@ export function createAutoYinYangCurrentSplats(input: {
   if (!config.autoCurrentEnabled) return [];
 
   const angle = time * config.autoCurrentRotationSpeed * Math.PI * 2;
+  const lobeRadius = config.autoCurrentRadius * config.autoCurrentHalfSeparation;
+  const yinColor = mixColor(fluidSplatColors.electricBlue, fluidSplatColors.water, 0.42);
+  const yangColor = mixColor(fluidSplatColors.gold, fluidSplatColors.silverWhite, 0.28);
   const yin = {
-    x: 0.5 + Math.cos(angle) * config.autoCurrentRadius,
-    y: 0.5 + Math.sin(angle) * config.autoCurrentRadius,
+    x: 0.5 + Math.cos(angle) * lobeRadius,
+    y: 0.5 + Math.sin(angle) * lobeRadius,
   };
   const yang = {
-    x: 0.5 - Math.cos(angle) * config.autoCurrentRadius,
-    y: 0.5 - Math.sin(angle) * config.autoCurrentRadius,
+    x: 0.5 - Math.cos(angle) * lobeRadius,
+    y: 0.5 - Math.sin(angle) * lobeRadius,
   };
 
   return [
@@ -185,10 +219,7 @@ export function createAutoYinYangCurrentSplats(input: {
       ...yin,
       tangentAngle: angle + Math.PI / 2,
       direction: 1,
-      color:
-        Math.sin(time * 0.7) > 0
-          ? fluidSplatColors.water
-          : fluidSplatColors.electricBlue,
+      color: yinColor,
       time,
       config,
       disruption,
@@ -197,10 +228,7 @@ export function createAutoYinYangCurrentSplats(input: {
       ...yang,
       tangentAngle: angle + Math.PI / 2,
       direction: -1,
-      color:
-        Math.cos(time * 0.6) > 0
-          ? fluidSplatColors.gold
-          : fluidSplatColors.silverWhite,
+      color: yangColor,
       time,
       config,
       disruption,

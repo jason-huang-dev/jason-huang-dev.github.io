@@ -4,12 +4,18 @@ import { projects } from "../../data/projects";
 import { ProjectDetailDrawer } from "../portfolio/ProjectDetailDrawer";
 import { ProjectFilterChips } from "../portfolio/ProjectFilterChips";
 import { ProjectPearlDock } from "../portfolio/ProjectPearlDock";
-import { ProjectRippleCard } from "../portfolio/ProjectRippleCard";
 import { YinYangProjectScene } from "../portfolio/YinYangProjectScene";
+import { SignatureProjectCard } from "../projects/SignatureProjectCard";
 import { Container } from "../ui/Container";
 import { Reveal } from "../ui/Reveal";
 
 const allFilter = "All";
+const accentMap = {
+  water: "blue",
+  gold: "gold",
+  jade: "balanced",
+  neutral: "balanced",
+} as const;
 
 export function WorkSection() {
   const [activeFilter, setActiveFilter] = useState(allFilter);
@@ -77,13 +83,19 @@ export function WorkSection() {
           </div>
         )}
 
-        <Reveal className="rippleWorkGrid" aria-label="Additional projects">
+        <Reveal className="signatureProjectGrid" aria-label="Additional projects">
           {remainingProjects.map((project) => (
-            <ProjectRippleCard
+            <SignatureProjectCard
               key={project.id}
-              project={project}
-              selected={selectedProjectId === project.id}
-              onOpen={setSelectedProjectId}
+              title={project.title}
+              eyebrow={`${project.category} / ${project.status}`}
+              description={project.shortDescription}
+              tags={project.techStack}
+              href={`/work/${project.slug}`}
+              githubHref={project.links.find((link) => link.type === "github")?.href}
+              imageSrc={project.image?.src}
+              imageAlt={project.image?.alt}
+              accent={accentMap[project.accent ?? "water"]}
             />
           ))}
         </Reveal>

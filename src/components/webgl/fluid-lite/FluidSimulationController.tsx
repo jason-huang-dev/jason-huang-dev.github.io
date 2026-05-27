@@ -12,6 +12,7 @@ import {
 } from "./autoYinYangCurrent";
 import { createFluidMaterials } from "./fluidMaterials";
 import { type FluidLiteConfig } from "./fluidLiteConfig";
+import { createYinYangWavefrontPoints } from "./wavefrontYinYangCurrent";
 import {
   createFluidParticleSystem,
   type FluidFlowSample,
@@ -198,10 +199,15 @@ export function FluidSimulationController({
           config,
           disruption: currentDisruptionRef.current,
         }),
+        ...createYinYangWavefrontPoints(currentTime, config),
       );
     }
 
-    const pendingSplats = splatsRef.current.splice(0, config.maxActiveSplats);
+    const activeSplatLimit = Math.max(
+      config.maxActiveSplats,
+      config.autoCurrentBridgeCount + config.wavefrontPointCount * 2 + 7,
+    );
+    const pendingSplats = splatsRef.current.splice(0, activeSplatLimit);
     if (pendingSplats.length > 0) {
       flowHistoryRef.current.push(
         ...pendingSplats.map((splatData) => ({
@@ -224,7 +230,7 @@ export function FluidSimulationController({
     pendingSplats.forEach((splatData) => {
       const force = splatData.force ?? 1;
       const dyeColor = splatData.color.map((channel) =>
-        Math.min(1.5, Math.max(0, channel * config.dyeInjectionGain)),
+        Math.min(2.4, Math.max(0, channel * config.dyeInjectionGain)),
       ) as [number, number, number];
 
       splat(targets.velocity, splatData, [
@@ -232,7 +238,7 @@ export function FluidSimulationController({
         splatData.dy * config.splatForce * force,
         0,
       ]);
-      splat(targets.dye, splatData, dyeColor, 0.26 * force);
+      splat(targets.dye, splatData, dyeColor, config.dyeWriteScale * force);
     });
 
     advect(
@@ -299,6 +305,11 @@ export function FluidSimulationController({
       config.baseWaterOpacity;
     materials.display.uniforms.uActiveDyeOpacity.value =
       config.activeDyeOpacity;
+    materials.display.uniforms.uWavefrontAlphaBias.value =
+      config.wavefrontAlphaBias;
+    materials.display.uniforms.uMaxDyeLuminance.value = config.maxDyeLuminance;
+    materials.display.uniforms.uWhiteClipSoftness.value =
+      config.whiteClipSoftness;
     materials.display.uniforms.uDebugMode.value = debugModeUniforms[debugMode];
     renderMaterial(materials.display, null);
 

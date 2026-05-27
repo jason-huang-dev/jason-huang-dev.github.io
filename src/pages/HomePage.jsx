@@ -1,17 +1,11 @@
-import {
-  FiGithub,
-  FiLinkedin,
-  FiMail,
-} from 'react-icons/fi';
-
 import { Seo } from '../components/seo/Seo';
 import { personJsonLd } from '../components/seo/JsonLd';
-import { RippleDivider } from '../components/brand/RippleDivider';
-import { SealStampCTA } from '../components/brand/SealStampCTA';
+import { SealStampContactCTA } from '../components/brand/SealStampContactCTA';
+import { SignatureCurrentDivider } from '../components/brand/SignatureCurrentDivider';
+import { InkCurrentReveal } from '../components/motion/InkCurrentReveal';
 import { HeroSection } from '../components/sections/HeroSection';
 import { SystemsSection } from '../components/sections/SystemsSection';
 import { WorkSection } from '../components/sections/WorkSection';
-import { ButtonLink } from '../components/ui/ButtonLink';
 import { Container } from '../components/ui/Container';
 import { Reveal } from '../components/ui/Reveal';
 import { profile } from '../data/profile';
@@ -70,13 +64,18 @@ export function HomePage() {
       />
       <HeroSection />
 
-      <RippleDivider variant="water" />
+      <SignatureCurrentDivider label="Selected Work" density="cinematic" />
 
       <WorkSection />
 
-      <RippleDivider variant="gold" />
+      <SignatureCurrentDivider tone="quiet" label="Proof" />
 
-      <section className="proofSection" aria-labelledby="proof-title">
+      <InkCurrentReveal
+        as="section"
+        className="proofSection"
+        aria-labelledby="proof-title"
+        intensity="signature"
+      >
         <Container>
           <Reveal className="sectionHeading">
             <p className="eyebrow">Proof points</p>
@@ -92,11 +91,12 @@ export function HomePage() {
             ))}
           </div>
         </Container>
-      </section>
+      </InkCurrentReveal>
 
+      <SignatureCurrentDivider tone="blue" label="Systems" align="left" />
       <SystemsSection />
 
-      <section id="about" className="aboutSection">
+      <InkCurrentReveal as="section" id="about" className="aboutSection">
         <Container className="aboutSection__grid">
           <div className="sectionHeading">
             <p className="eyebrow">About</p>
@@ -117,49 +117,27 @@ export function HomePage() {
             </div>
           </div>
         </Container>
-      </section>
+      </InkCurrentReveal>
 
-      <section id="contact" className="contactSection">
+      <SignatureCurrentDivider tone="gold" label="Contact" align="right" />
+      <InkCurrentReveal
+        as="section"
+        id="contact"
+        className="contactSection"
+        intensity="signature"
+      >
         <Container>
-          <div className="contactPanel">
-            <div>
-              <p className="eyebrow">Contact</p>
-              <h2>Let’s build something focused and useful.</h2>
-              <p>
-                Reach out for software engineering roles, full-stack prototypes,
-                UI systems, or product specs that need structure and taste.
-              </p>
-            </div>
-            <div className="contactPanel__actions">
-              {profile.links.email ? (
-                <SealStampCTA href={profile.links.email} variant="gold">
-                  <FiMail aria-hidden="true" /> Email
-                </SealStampCTA>
-              ) : null}
-              {profile.links.github ? (
-                <ButtonLink
-                  href={profile.links.github}
-                  target="_blank"
-                  rel="noreferrer"
-                  variant="secondary"
-                >
-                  <FiGithub aria-hidden="true" /> GitHub
-                </ButtonLink>
-              ) : null}
-              {profile.links.linkedin ? (
-                <ButtonLink
-                  href={profile.links.linkedin}
-                  target="_blank"
-                  rel="noreferrer"
-                  variant="secondary"
-                >
-                  <FiLinkedin aria-hidden="true" /> LinkedIn
-                </ButtonLink>
-              ) : null}
-            </div>
-          </div>
+          <SealStampContactCTA
+            title="Let’s build something focused and useful."
+            description="Reach out for software engineering roles, full-stack prototypes, UI systems, or product specs that need structure and taste."
+            primaryLabel="Email"
+            primaryHref={profile.links.email}
+            email={profile.links.email}
+            secondaryLabel="View GitHub"
+            secondaryHref={profile.links.github}
+          />
         </Container>
-      </section>
+      </InkCurrentReveal>
     </>
   );
 }

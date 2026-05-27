@@ -22,18 +22,19 @@ Generated hero direction:
 
 ## Target Area
 
-Personal portfolio hero visual, WebGL fluid simulation, embedded gold emblem, automatic yin-yang current, transparent liquid-glass rendering, and simplified single-region pointer interaction.
+Personal portfolio hero visual, WebGL fluid simulation, embedded/faint gold emblem, automatic yin-yang current, separated blue and gold/silver fluid halves, transparent liquid-glass rendering, and simplified single-region pointer interaction.
 
 ---
 
 # 1. Purpose
 
-This spec defines the implementation direction for the portfolio hero visual based on the approved reference image.
+This spec defines the implementation direction for the portfolio hero visual based on the approved reference image and the latest visual feedback.
 
 The hero should become a polished **Yin-Yang Fluid Hero**:
 
 ```txt
 large centered gold emblem
+emblem is more faint / embedded
 dark navy rounded hero panel
 no rings
 no bubbles
@@ -42,6 +43,7 @@ one continuous WebGL fluid simulation
 electric-blue/cyan half
 gold/silver/white half
 clear S-shaped yin-yang current
+two halves are visibly separated but still connected
 fluid visibly passing over the emblem
 subtle micro-particles
 premium liquid-glass finish
@@ -53,16 +55,24 @@ This spec intentionally replaces the earlier ring/reactor/bubble direction with 
 
 # 2. Final Visual Direction
 
-The final hero should look like the reference image:
+The final hero should look like the reference image, with two important refinements:
 
 ```txt
-a large gold calligraphic emblem suspended inside a dark liquid-glass panel
-a continuous yin-yang fluid current wraps around and over the emblem
-one half of the current is electric blue / cyan
-the other half is gold / silver / soft white
+1. The emblem should be more faint and embedded so the current can become the hero.
+2. The blue and gold/silver halves should have more separation so the yin-yang shape reads clearly.
+```
+
+The final result should feel like:
+
+```txt
+a large gold calligraphic emblem suspended under a transparent liquid-glass layer
+a continuous yin-yang fluid current flowing over the emblem
+one current half is electric blue / cyan
+the other current half is gold / silver / soft white
 the current forms a clear S-shape
+the halves are not collapsed too close together
 the fluid is bright and readable but still transparent
-the emblem remains large, centered, and premium
+the emblem remains large and centered, but no longer visually overpowers the current
 ```
 
 The visual should not include:
@@ -206,7 +216,7 @@ The markup should be minimal.
 ```tsx
 export function FluidSignatureSeal({
   quality = "cinematic",
-  fluidOpacity = 0.96,
+  fluidOpacity = 1,
   fieldBleed = 44,
 }: FluidSignatureSealProps) {
   return (
@@ -287,31 +297,51 @@ no obvious grid over the fluid
 
 ## 7.2 Emblem
 
-The gold emblem should be:
+The gold emblem should remain large and centered, but it should become more faint and embedded.
+
+Current problem:
 
 ```txt
-large
-centered
-dominant
-embedded under/inside the fluid
-visible through the fluid
-not pushed too far back
-not hidden by the current
+the emblem dominates too much
+the current appears behind the emblem
+the current does not visibly pass over the emblem enough
 ```
 
-Recommended:
+Required behavior:
+
+```txt
+emblem stays large and centered
+emblem opacity is reduced
+emblem appears under/inside the fluid
+fluid visibly passes over the emblem
+emblem remains readable but does not overpower the current
+```
+
+Recommended CSS:
 
 ```css
 .fluidSignatureSeal__emblem {
+  position: relative;
   z-index: 1;
-  opacity: 0.90;
+  opacity: 0.58;
   pointer-events: none;
+  filter:
+    drop-shadow(0 18px 42px rgba(0, 0, 0, 0.28))
+    drop-shadow(0 0 18px rgba(247, 201, 72, 0.10));
 }
 ```
 
+Acceptable tuning range:
+
+```txt
+emblem opacity: 0.52-0.68
+```
+
+Do not go below `0.48` unless the emblem remains clearly identifiable.
+
 ## 7.3 Fluid layer
 
-The fluid layer should sit above the emblem.
+The fluid layer should sit above the emblem and should be visually stronger.
 
 Recommended:
 
@@ -319,7 +349,7 @@ Recommended:
 .fluidSignatureSeal .fluidCanvas,
 .fluidSignatureSeal .fluidCanvasFallback {
   z-index: 2;
-  opacity: var(--fluid-layer-opacity, 0.96);
+  opacity: var(--fluid-layer-opacity, 1);
 }
 ```
 
@@ -339,10 +369,10 @@ Use this palette:
 
 ```ts
 const heroFluidColors = {
-  electricBlue: [0.10, 0.46, 1.0],
-  cyan: [0.54, 0.94, 1.0],
-  gold: [1.0, 0.76, 0.20],
-  silverWhite: [0.92, 0.94, 0.90],
+  electricBlue: [0.05, 0.42, 1.35],
+  cyan: [0.35, 0.95, 1.25],
+  gold: [1.35, 0.82, 0.24],
+  silverWhite: [1.0, 0.98, 0.88],
   deepNavy: [0.01, 0.03, 0.07],
 };
 ```
@@ -382,6 +412,7 @@ gold/silver/white current occupies the other lobe
 current slowly rotates around the center
 current is centered around the emblem
 current is not detached at panel edges
+current halves are separated enough to read as two halves
 ```
 
 ## 9.3 Config fields
@@ -399,32 +430,48 @@ autoCurrentLobeRadius: number;
 autoCurrentLobeSpread: number;
 autoCurrentCenterPull: number;
 autoCurrentSplatsPerSecond: number;
+autoCurrentBridgeCount: number;
+autoCurrentBridgeStrength: number;
+autoCurrentHalfSeparation: number;
 userDisruptionStrength: number;
 userDisruptionRecoverySeconds: number;
+dyeWriteScale: number;
 ```
 
 Recommended cinematic values:
 
 ```ts
 autoCurrentEnabled: true,
-autoCurrentStrength: 0.32,
-autoCurrentRadius: 0.17,
-autoCurrentRotationSpeed: 0.032,
+autoCurrentStrength: 0.52,
+autoCurrentRadius: 0.20,
+autoCurrentRotationSpeed: 0.022,
 autoCurrentRecoverySpeed: 0.65,
-autoCurrentDyeRate: 0.16,
-autoCurrentLobeRadius: 0.026,
-autoCurrentLobeSpread: 0.052,
-autoCurrentCenterPull: 0.16,
-autoCurrentSplatsPerSecond: 10,
+autoCurrentDyeRate: 0.34,
+autoCurrentLobeRadius: 0.044,
+autoCurrentLobeSpread: 0.060,
+autoCurrentCenterPull: 0.26,
+autoCurrentSplatsPerSecond: 16,
+autoCurrentBridgeCount: 7,
+autoCurrentBridgeStrength: 0.82,
+autoCurrentHalfSeparation: 1.22,
 userDisruptionStrength: 1.0,
 userDisruptionRecoverySeconds: 3.8,
+dyeWriteScale: 0.62,
 ```
 
 Important:
 
 ```txt
-autoCurrentRadius should stay near center.
-Do not push lobes to the left/right edges.
+autoCurrentRadius should be large enough that the halves do not collapse together.
+autoCurrentRadius should still stay near center and should not push lobes to the left/right panel edges.
+```
+
+Recommended tuning range:
+
+```txt
+autoCurrentRadius: 0.18-0.24
+autoCurrentLobeSpread: 0.052-0.070
+autoCurrentHalfSeparation: 1.12-1.35
 ```
 
 ---
@@ -437,6 +484,7 @@ Use simulation-level behavior:
 
 ```txt
 paired auto-current splats
+more separated lobe centers
 bridge splats near center
 tangent velocity
 center pull
@@ -451,31 +499,33 @@ At time `t`:
 
 ```ts
 const angle = t * config.autoCurrentRotationSpeed * Math.PI * 2;
+const lobeRadius = config.autoCurrentRadius * config.autoCurrentHalfSeparation;
 
 const yin = {
-  x: 0.5 + Math.cos(angle) * config.autoCurrentRadius,
-  y: 0.5 + Math.sin(angle) * config.autoCurrentRadius,
+  x: 0.5 + Math.cos(angle) * lobeRadius,
+  y: 0.5 + Math.sin(angle) * lobeRadius,
 };
 
 const yang = {
-  x: 0.5 - Math.cos(angle) * config.autoCurrentRadius,
-  y: 0.5 - Math.sin(angle) * config.autoCurrentRadius,
+  x: 0.5 - Math.cos(angle) * lobeRadius,
+  y: 0.5 - Math.sin(angle) * lobeRadius,
 };
 ```
 
 ## 10.2 Bridge splats
 
-Add 2–4 soft bridge splats near the center so the current looks continuous.
+Add 7-9 soft bridge splats near the center so the current looks continuous.
 
 Bridge splats should:
 
 ```txt
 connect the two lobes
 create the S-shaped transition
-use low force
-use low dye
+use low-to-medium force
+use visible dye
 use blue-white and gold-white accents
 stay close to center
+avoid looking like a drawn static line
 ```
 
 ## 10.3 Direction
@@ -564,8 +614,8 @@ Recommended effective radius:
 ```txt
 pointer: 0.045-0.060
 click/tap: 0.075-0.100
-auto-current lobe: 0.026-0.040
-bridge lobe: 0.020-0.034
+auto-current lobe: 0.038-0.056
+bridge lobe: 0.026-0.040
 ```
 
 Do not use one giant Gaussian blob.
@@ -598,19 +648,21 @@ dyeContrast: number;
 baseWaterOpacity: number;
 activeDyeOpacity: number;
 dyeInjectionGain: number;
+dyeWriteScale: number;
 particleColorGain: number;
 ```
 
 Recommended cinematic values:
 
 ```ts
-dyeColorGain: 1.85,
-dyeChromaBoost: 1.34,
-dyeContrast: 1.18,
-baseWaterOpacity: 0.18,
-activeDyeOpacity: 0.90,
-dyeInjectionGain: 1.38,
-particleColorGain: 1.30,
+dyeColorGain: 2.45,
+dyeChromaBoost: 1.48,
+dyeContrast: 1.24,
+baseWaterOpacity: 0.10,
+activeDyeOpacity: 0.98,
+dyeInjectionGain: 1.85,
+dyeWriteScale: 0.62,
+particleColorGain: 1.42,
 ```
 
 ## 13.3 Alpha
@@ -626,6 +678,22 @@ float alpha = mix(
   smoothstep(0.02, 0.62, dyeStrength)
 );
 ```
+
+Remove or greatly reduce center alpha protection.
+
+Replace:
+
+```glsl
+alpha *= mix(0.88, 1.0, centerProtect);
+```
+
+with:
+
+```glsl
+alpha *= mix(0.99, 1.0, centerProtect);
+```
+
+or remove it entirely if the emblem remains readable.
 
 Do not rely on low CSS opacity for transparency.
 
@@ -652,7 +720,7 @@ Recommended:
 particleCount: 220-320,
 particleSize: 1.2-1.8,
 particleOpacity: 0.20-0.30,
-particleColorGain: 1.25-1.35,
+particleColorGain: 1.35-1.50,
 ```
 
 Particles should support the fluid motion, not dominate it.
@@ -679,7 +747,7 @@ Use:
 
 ```css
 .fluidSignatureSeal {
-  --fluid-layer-opacity: 0.96;
+  --fluid-layer-opacity: 1;
   --fluid-field-bleed: 44px;
 
   position: relative;
@@ -701,17 +769,17 @@ Use:
 .fluidSignatureSeal__emblem {
   position: relative;
   z-index: 1;
-  opacity: 0.90;
+  opacity: 0.58;
   pointer-events: none;
   filter:
-    drop-shadow(0 18px 42px rgba(0, 0, 0, 0.36))
-    drop-shadow(0 0 24px rgba(247, 201, 72, 0.16));
+    drop-shadow(0 18px 42px rgba(0, 0, 0, 0.28))
+    drop-shadow(0 0 18px rgba(247, 201, 72, 0.10));
 }
 
 .fluidSignatureSeal .fluidCanvas,
 .fluidSignatureSeal .fluidCanvasFallback {
   z-index: 2;
-  opacity: var(--fluid-layer-opacity, 0.96);
+  opacity: var(--fluid-layer-opacity, 1);
   inset: calc(var(--fluid-field-bleed, 44px) * -1);
   pointer-events: none;
 }
@@ -721,7 +789,7 @@ Use:
   inset: 0;
   z-index: 3;
   pointer-events: none;
-  opacity: 0.10;
+  opacity: 0.08;
   mix-blend-mode: screen;
 }
 ```
@@ -753,21 +821,29 @@ cinematic: {
   fieldBleedPx: 44,
 
   autoCurrentEnabled: true,
-  autoCurrentStrength: 0.32,
-  autoCurrentRadius: 0.17,
-  autoCurrentRotationSpeed: 0.032,
-  autoCurrentDyeRate: 0.16,
-  autoCurrentLobeRadius: 0.026,
-  autoCurrentLobeSpread: 0.052,
-  autoCurrentCenterPull: 0.16,
-  autoCurrentSplatsPerSecond: 10,
+  autoCurrentStrength: 0.52,
+  autoCurrentRadius: 0.20,
+  autoCurrentRotationSpeed: 0.022,
+  autoCurrentDyeRate: 0.34,
+  autoCurrentLobeRadius: 0.044,
+  autoCurrentLobeSpread: 0.060,
+  autoCurrentCenterPull: 0.26,
+  autoCurrentSplatsPerSecond: 16,
+  autoCurrentBridgeCount: 7,
+  autoCurrentBridgeStrength: 0.82,
+  autoCurrentHalfSeparation: 1.22,
 
-  dyeColorGain: 1.85,
-  dyeChromaBoost: 1.34,
-  dyeContrast: 1.18,
-  baseWaterOpacity: 0.18,
-  activeDyeOpacity: 0.90,
-  dyeInjectionGain: 1.38,
+  dyeColorGain: 2.45,
+  dyeChromaBoost: 1.48,
+  dyeContrast: 1.24,
+  baseWaterOpacity: 0.10,
+  activeDyeOpacity: 0.98,
+  dyeInjectionGain: 1.85,
+  dyeWriteScale: 0.62,
+  particleColorGain: 1.42,
+
+  userDisruptionStrength: 1.0,
+  userDisruptionRecoverySeconds: 3.8,
 }
 ```
 
@@ -781,12 +857,15 @@ Reduced motion should render fallback.
 
 - [ ] Hero visually matches the reference direction.
 - [ ] Gold emblem remains large and centered.
+- [ ] Gold emblem is more faint / embedded than before.
+- [ ] Fluid current has stronger visual priority than the emblem.
 - [ ] No rings are rendered.
 - [ ] No bubbles/pearls/droplets are rendered.
 - [ ] No vertical Chinese text is rendered in the hero visual.
 - [ ] Fluid forms a clear S-shaped yin-yang current.
 - [ ] Blue/cyan half is clearly visible.
 - [ ] Gold/silver/white half is clearly visible.
+- [ ] The two halves are more separated and do not collapse into one small center patch.
 - [ ] No green-dominant current remains.
 - [ ] Fluid visibly passes over the emblem.
 - [ ] The center is interactive.
@@ -825,109 +904,143 @@ hero copy rewrite
 # 19. Codex Implementation Prompt
 
 ```txt
-Implement Spec 0018: Yin-Yang Fluid Hero Implementation.
+Implement the updated Spec 0018: Yin-Yang Fluid Hero Implementation.
 
-Reference:
-Use /mnt/data/mystic_emblem_in_glowing_harmony.png as the visual direction. The final hero should keep a large centered gold emblem and a dark rounded hero panel, but remove rings, bubbles, pearls, droplets, haze, and vertical Chinese text. The fluid simulation should form a clear S-shaped yin-yang current with electric blue/cyan on one side and gold/silver/white on the other. The fluid should visibly pass over the emblem.
+Current issue:
+The hero is structurally correct but the emblem is still visually too dominant, the fluid current is still too faint, and the blue/gold halves are too close together. The goal is to make the emblem more faint/embedded while increasing current visibility and separating the yin-yang halves.
 
-Required component changes:
-1. Use a simplified FluidSignatureSeal component.
-2. Keep HeroFluidSimulationPanel as a wrapper if needed.
-3. Markup should include only:
-   - SignatureEmblem
-   - FluidCanvas
-   - optional glass sheen
-4. Remove all ring/bubble/pearl/droplet DOM spans.
-5. Remove ChineseAccentText from the hero visual component.
-6. All visual layers use pointer-events: none.
+Reference direction:
+Large centered gold emblem under a transparent fluid layer. Strong electric-blue/cyan current on one side and gold/silver/white current on the other side. A clearly readable S-shaped yin-yang flow passes over the emblem. No rings, bubbles, vertical Chinese text, or green-dominant fluid.
 
-Required fluid behavior:
-7. Add/keep autonomous yin-yang current.
-8. Current should be centered near the emblem, not detached at the edges.
-9. Current should form a clear S-shape.
-10. Current should slowly rotate around center.
-11. User pointer/tap anywhere displaces and interrupts the current.
-12. Current recovers naturally after 3-4 seconds.
-13. No safe-zone early return; center and emblem area are interactive.
+Files likely to update:
+- src/components/brand/FluidSignatureSeal.tsx
+- src/components/webgl/fluid-lite/fluidLiteConfig.ts
+- src/components/webgl/fluid-lite/autoYinYangCurrent.ts
+- src/components/webgl/fluid-lite/FluidSimulationController.tsx
+- src/components/webgl/fluid-lite/shaders/display.ts
+- src/index.css
 
-Auto-current tuning:
-- autoCurrentStrength: around 0.32
-- autoCurrentRadius: around 0.17
-- autoCurrentRotationSpeed: around 0.032
-- autoCurrentDyeRate: around 0.16
-- autoCurrentLobeRadius: around 0.026
-- autoCurrentLobeSpread: around 0.052
-- autoCurrentCenterPull: around 0.16
-- autoCurrentSplatsPerSecond: around 10
+Required changes:
 
-S-shape construction:
-14. Use paired lobe splats plus bridge splats near center.
-15. Bridge splats should connect the two lobes into a clear S-shaped current.
-16. Do not draw a static S-curve overlay.
+1. Make emblem more faint.
+Set .fluidSignatureSeal__emblem opacity around 0.52-0.68.
+Recommended: 0.58.
+Keep it large and centered.
+Keep it below the fluid canvas.
+Do not move it above the fluid.
 
-Color:
-17. Remove green-dominant current.
-18. Use electric blue/cyan and gold/silver/white.
-19. Use stronger dye colors:
-   electricBlue: [0.10, 0.46, 1.0]
-   cyan: [0.54, 0.94, 1.0]
-   gold: [1.0, 0.76, 0.20]
-   silverWhite: [0.92, 0.94, 0.90]
+2. Make fluid more visible.
+Ensure .fluidCanvas opacity is around 1.
+Let the display shader manage transparency.
+Increase cinematic dye visibility:
+- dyeColorGain: 2.35-2.55
+- dyeChromaBoost: 1.42-1.52
+- dyeContrast: 1.20-1.28
+- baseWaterOpacity: 0.08-0.14
+- activeDyeOpacity: 0.94-0.99
+- dyeInjectionGain: 1.7-1.95
+- particleColorGain: 1.35-1.50
 
-Display shader:
-20. Increase dye color gain/chroma enough so fluid is visible.
-21. Use shader alpha for transparency, not low CSS opacity.
-22. Fluid should visibly pass over emblem.
-23. Avoid broad light beams and dim haze.
+3. Add dyeWriteScale.
+Add dyeWriteScale to FluidLiteConfig.
+Use it in FluidSimulationController instead of the hardcoded dye write multiplier.
 
-Recommended cinematic quality:
-- simResolution: 192
-- dyeResolution: 768
-- pressureIterations: 20
-- diffusionIterations: 4
-- particleCount: around 280
-- simulationFps: 45
-- maxDpr: 1.2
-- interactionRadiusScale: 5
-- fieldBleedPx: 44
-- dyeColorGain: 1.85
-- dyeChromaBoost: 1.34
-- dyeContrast: 1.18
-- baseWaterOpacity: 0.18
-- activeDyeOpacity: 0.90
-- dyeInjectionGain: 1.38
+Replace:
+splat(targets.dye, splatData, dyeColor, 0.26 * force);
 
-CSS:
-24. Remove/disable ring/bubble/pearl/droplet styles.
-25. Use .fluidSignatureSeal as the hero visual root.
-26. Set --fluid-layer-opacity around 0.96 desktop.
-27. Keep field bleed around 44px.
-28. Keep emblem z-index below fluid canvas.
-29. Keep optional glass sheen very subtle.
+With:
+splat(targets.dye, splatData, dyeColor, config.dyeWriteScale * force);
 
-Constraints:
-- no new dependencies
-- one hero Canvas
-- no full-page WebGL
-- no postprocessing bloom
-- no rings
-- no bubbles
-- no green-heavy fluid
-- no vertical Chinese text in hero visual
-- mobile downgrades quality
-- reduced motion uses fallback
+Recommended:
+- cinematic dyeWriteScale: 0.62
+- high dyeWriteScale: 0.52
+- medium dyeWriteScale: 0.40
+- low dyeWriteScale: 0.32
 
-Verification:
-- npm run build
-- npm run lint or document missing ESLint config
-- visually compare against the reference image
-- verify no rings/bubbles/text remain
-- verify S-shaped yin-yang current is clear
-- verify blue and gold/silver halves are visible
-- verify fluid passes over emblem
-- verify pointer/tap anywhere displaces current
-- verify current recovers
-- verify reduced-motion fallback
+4. Separate the yin-yang halves more.
+The two halves are currently too close.
+Increase auto-current spacing but keep it centered:
+- cinematic autoCurrentRadius: 0.18-0.24
+- recommended: 0.20
+- autoCurrentHalfSeparation: 1.12-1.35
+- recommended: 1.22
+- autoCurrentLobeSpread: 0.052-0.070
+- recommended: 0.060
+
+Do not push the halves to the panel edges.
+
+5. Strengthen the auto-current.
+Recommended cinematic values:
+- autoCurrentStrength: 0.48-0.58
+- recommended: 0.52
+- autoCurrentDyeRate: 0.30-0.40
+- recommended: 0.34
+- autoCurrentLobeRadius: 0.038-0.056
+- recommended: 0.044
+- autoCurrentCenterPull: 0.22-0.34
+- recommended: 0.26
+- autoCurrentSplatsPerSecond: 14-18
+- recommended: 16
+- autoCurrentRotationSpeed: 0.018-0.026
+- recommended: 0.022
+
+6. Make the S-bridge stronger.
+Add config:
+- autoCurrentBridgeCount
+- autoCurrentBridgeStrength
+
+Recommended:
+- autoCurrentBridgeCount: 7
+- autoCurrentBridgeStrength: 0.82
+
+Use 7-9 bridge splats near the center.
+Bridge splats should connect the blue/gold halves into a readable S-shape.
+They should not look like a static drawn line.
+
+7. Use stable blended colors.
+Do not switch colors over time using sin/cos.
+Use stable colors:
+- yin = blended electricBlue + cyan
+- yang = blended gold + silverWhite
+
+Do not use green as a major fluid color.
+
+8. Reduce center alpha protection.
+In display.ts, replace:
+alpha *= mix(0.88, 1.0, centerProtect);
+
+With:
+alpha *= mix(0.99, 1.0, centerProtect);
+
+Or remove the center protection if the emblem remains readable.
+
+9. Reduce static haze.
+Lower or remove:
+- .fluidSignatureSeal__waterGlass intensity
+- .heroSection__visual::before intensity
+
+The fluid simulation should create the visible motion and color.
+
+10. Preserve simplified visual model.
+Do not reintroduce:
+- rings
+- bubbles
+- pearls
+- vertical Chinese text
+- region logic
+- safe-zone early return
+- DOM yin-yang overlay
+
+Acceptance:
+- emblem is clearly more faint/embedded
+- fluid current is visibly stronger
+- blue/gold halves are more separated
+- S-shaped yin-yang current is readable
+- fluid visibly passes over the emblem
+- no rings/bubbles/text return
+- pointer/tap anywhere disrupts current
+- npm run build passes
+- npm run lint either passes or fails only because ESLint config is missing
 ```
 
 ---
@@ -938,10 +1051,11 @@ This spec is complete when:
 
 ```txt
 the hero resembles the generated reference image
-the emblem is large and centered
+the emblem is large, centered, and faint enough to sit under the fluid
+the fluid current visually dominates over the emblem
+the blue and gold/silver halves are clearly separated
 the fluid creates a clear electric-blue and gold/silver yin-yang S-current
 there are no rings, bubbles, or vertical Chinese text
-the fluid visibly flows over the emblem
 the user can disrupt the current anywhere
 the result feels premium, custom, and portfolio-ready
 ```

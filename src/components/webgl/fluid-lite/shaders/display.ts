@@ -14,6 +14,9 @@ export const displayShader = `
   uniform float uDyeContrast;
   uniform float uBaseWaterOpacity;
   uniform float uActiveDyeOpacity;
+  uniform float uWavefrontAlphaBias;
+  uniform float uMaxDyeLuminance;
+  uniform float uWhiteClipSoftness;
   uniform vec3 uBaseColor;
   uniform vec3 uGoldBias;
   uniform float uVignetteStrength;
@@ -70,7 +73,7 @@ export const displayShader = `
     float center = smoothstep(0.72, 0.0, distance(vUv, vec2(0.52, 0.48)));
     float current = 0.35 + noise(vUv * 6.0 + uTime * 0.018) * 0.65;
     float vignette = smoothstep(0.92, 0.22, distance(vUv, vec2(0.5)));
-    float dyeStrength = pow(clamp(length(dye.rgb), 0.0, 1.0), 0.82);
+    float dyeStrength = pow(clamp(length(dye.rgb), 0.0, 1.0), 0.86);
     float wisp = smoothstep(0.12, 0.94, noise(vUv * 15.0 + uTime * 0.025));
 
     vec3 boostedDye = dye * uDyeColorGain;
@@ -89,13 +92,20 @@ export const displayShader = `
     color *= mix(0.88, 1.06, vignette * uVignetteStrength);
     color = pow(max(color, vec3(0.0)), vec3(0.9));
 
+    float luminance = dot(color.rgb, vec3(0.2126, 0.7152, 0.0722));
+    if (luminance > uMaxDyeLuminance) {
+      float compression = uMaxDyeLuminance / max(luminance, 0.0001);
+      color.rgb = mix(color.rgb, color.rgb * compression, uWhiteClipSoftness);
+    }
+
     float centerProtect = smoothstep(0.0, 0.32, distance(vUv, vec2(0.5)));
     float alpha = mix(
       uBaseWaterOpacity,
       uActiveDyeOpacity,
-      smoothstep(0.02, 0.62, dyeStrength)
+      smoothstep(0.04, 0.72, dyeStrength)
     );
-    alpha *= mix(0.88, 1.0, centerProtect);
+    alpha *= uWavefrontAlphaBias;
+    alpha *= mix(0.99, 1.0, centerProtect);
 
     gl_FragColor = vec4(color, alpha);
   }

@@ -17,7 +17,7 @@ export type FluidSignatureSealProps = {
 
 export const defaultFluidSignatureSealProps = {
   quality: "cinematic",
-  fluidOpacity: 0.96,
+  fluidOpacity: 0.92,
   fieldBleed: 44,
   emblemDepth: "embedded",
   interactionRadiusScale: 5,
