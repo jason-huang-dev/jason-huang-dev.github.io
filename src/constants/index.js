@@ -21,7 +21,6 @@ import {
   python,
   rutgers,
   cybertigers8075,
-  goldenunicorn,
   headstarterai,
   csRU,
   marketbot,
@@ -49,63 +48,43 @@ export const navLinks = [
 
 const services = [
   {
-    title: 'Full-Stack Development',
-    icon: frontend,
-  },
-  {
-    title: 'Software Development',
+    title: 'Backend & API Engineering',
     icon: backend,
   },
   {
-    title: 'Automation & Scripting',
+    title: 'Full-Stack Product Development',
+    icon: frontend,
+  },
+  {
+    title: 'Automation & Data Pipelines',
     icon: ux,
   },
   {
-    title: 'Cloud Solutions',
+    title: 'Cloud, DevOps & Reliability',
     icon: prototyping,
   },
 ];
 
 const technologies = [
   {
-    name: 'HTML 5',
-    icon: html,
-  },
-  {
     name: 'Python',
     icon: python,
-  },
-  {
-    name: 'Amazon Web Services',
-    icon: aws,
-  },
-  {
-    name: 'C Programming Language',
-    icon: c,
-  },
-  {
-    name: 'Django',
-    icon: django,
-  },
-  {
-    name: 'Fast API',
-    icon: fastapi,
   },
   {
     name: 'Java',
     icon: java,
   },
   {
-    name: 'CSS 3',
-    icon: css,
-  },
-  {
-    name: 'JavaScript',
-    icon: javascript,
+    name: 'C Programming Language',
+    icon: c,
   },
   {
     name: 'TypeScript',
     icon: typescript,
+  },
+  {
+    name: 'JavaScript',
+    icon: javascript,
   },
   {
     name: 'React JS',
@@ -116,77 +95,179 @@ const technologies = [
     icon: nodejs,
   },
   {
-    name: 'postgresql',
+    name: 'Django',
+    icon: django,
+  },
+  {
+    name: 'FastAPI',
+    icon: fastapi,
+  },
+  {
+    name: 'PostgreSQL',
     icon: postgresql,
   },
   {
-    name: 'git',
-    icon: git,
+    name: 'Amazon Web Services',
+    icon: aws,
   },
   {
-    name: 'docker',
+    name: 'Docker',
     icon: docker,
+  },
+  {
+    name: 'Git',
+    icon: git,
   },
   {
     name: 'Postman',
     icon: postman,
   },
+  {
+    name: 'HTML 5',
+    icon: html,
+  },
+  {
+    name: 'CSS 3',
+    icon: css,
+  },
 ];
 
 const experiences = [
   {
-    title: 'BS Computer Science + Economics',
-    company_name: 'Rutgers University',
+    title: 'B.S. Computer Science & B.S. Economics',
+    company_name: 'Rutgers University - New Brunswick',
     icon: rutgers,
     iconBg: '#333333',
     date: 'Sep 2022 - Jan 2026',
   },
   {
-    title: 'Coding Mentor (Volunteer)',
-    company_name: 'Cybertigers',
-    icon: cybertigers8075,
+    title: 'Web Developer & IT Support Technician',
+    company_name: 'Rutgers SC&I IT Helpdesk',
+    icon: rutgers,
     iconBg: '#333333',
-    date: 'Sep 2022 - Present',
+    date: 'Jan 2025 - Jan 2026',
   },
   {
-    title: 'Operations Manager',
-    company_name: 'Golden Unicorn',
-    icon: goldenunicorn,
+    title: 'Software Engineer',
+    company_name: 'TimeMesh - Productivity SaaS Platform',
+    icon: headstarterai,
     iconBg: '#333333',
-    date: 'Oct 2019 - Present',
+    date: 'Jul 2024 - Dec 2024',
   },
   {
     title: 'Software Engineer Fellow',
     company_name: 'Headstarter AI',
     icon: headstarterai,
     iconBg: '#333333',
-    date: 'July 2024 - Sep 2024',
+    date: 'Jul 2024 - Sep 2024',
+  },
+  {
+    title: 'Coding Mentor (Volunteer)',
+    company_name: 'Cybertigers 8075 FIRST Robotics',
+    icon: cybertigers8075,
+    iconBg: '#333333',
+    date: 'Sep 2022 - Sep 2024',
   },
 ];
 
 const projects = [
   {
     id: 'project-1',
-    name: 'Market Bot',
-    description: 'A discrod bot that gathers news and market data',
+    name: 'DockFlow',
+    description:
+      'Warehouse management platform with a modular Django REST backend spanning auth, IAM, inventory, inbound/outbound operations, returns, logistics, fees, work orders, reporting, and marketplace workflows.',
     tags: [
       {
-        name: 'Discord',
+        name: 'Django REST',
+        color: 'green-text-gradient',
+      },
+      {
+        name: 'PostgreSQL',
         color: 'blue-text-gradient',
       },
       {
-        name: 'Python',
-        color: 'yellow-text-gradient',
-      }
+        name: 'CI/CD',
+        color: 'pink-text-gradient',
+      },
     ],
-    image: marketbot,
-    repo: 'https://github.com/jason-huang-dev/Market_Bot',
-    demo: 'https://github.com/jason-huang-dev/Market_Bot',
+    image: csRU,
+    repo: 'https://github.com/jason-huang-dev/DaChongWMS',
+    demo: 'https://github.com/jason-huang-dev/DaChongWMS',
   },
   {
     id: 'project-2',
-    name: 'csRU',
-    description: 'A course manager for the BA/BS Computer Science Track at Rutgers University New-Brunswick.',
+    name: 'ChemFarm',
+    description:
+      'Game-powered STEM learning platform with FastAPI routers, Supabase storage, RLS/RPC-backed data access, and a validated ingestion pipeline for turning curriculum data into playable learning content.',
+    tags: [
+      {
+        name: 'FastAPI',
+        color: 'green-text-gradient',
+      },
+      {
+        name: 'Supabase',
+        color: 'blue-text-gradient',
+      },
+      {
+        name: 'ETL',
+        color: 'yellow-text-gradient',
+      },
+    ],
+    image: marketbot,
+    repo: 'https://github.com/jason-huang-dev/chemfarm',
+    demo: 'https://github.com/jason-huang-dev/chemfarm',
+  },
+  {
+    id: 'project-3',
+    name: 'TimeMesh',
+    description:
+      'Productivity SaaS platform for scheduling workflows, calendar events, and goal planning. Improved API latency from roughly 83ms to 25ms through PostgreSQL indexing and Django REST Framework query rewrites.',
+    tags: [
+      {
+        name: 'React',
+        color: 'light-blue-text-gradient',
+      },
+      {
+        name: 'Django',
+        color: 'green-text-gradient',
+      },
+      {
+        name: 'AWS',
+        color: 'yellow-text-gradient',
+      },
+    ],
+    image: csRU,
+    repo: 'https://github.com/jason-huang-dev',
+    demo: 'https://github.com/jason-huang-dev',
+  },
+  {
+    id: 'project-4',
+    name: 'Video Automation Pipeline',
+    description:
+      'Repeatable script-to-video production pipeline that packages prompts, scripts, audio, captions, storyboards, render assets, QA reports, upload metadata, and logs for short-form content workflows.',
+    tags: [
+      {
+        name: 'Python',
+        color: 'yellow-text-gradient',
+      },
+      {
+        name: 'Remotion',
+        color: 'pink-text-gradient',
+      },
+      {
+        name: 'Makefile',
+        color: 'blue-text-gradient',
+      },
+    ],
+    image: marketbot,
+    repo: 'https://github.com/jason-huang-dev/Shorts',
+    demo: 'https://github.com/jason-huang-dev/Shorts',
+  },
+  {
+    id: 'project-5',
+    name: 'csRU Course Planner',
+    description:
+      'Rutgers Computer Science course planner that helps students map BA/BS requirements, explore courses, and reason through degree planning constraints.',
     tags: [
       {
         name: 'ReactJS',
@@ -200,14 +281,33 @@ const projects = [
         name: 'Docker',
         color: 'blue-text-gradient',
       },
-      {
-        name: 'Docker',
-        color: 'green-text-gradient',
-      }
     ],
     image: csRU,
     repo: 'https://github.com/williamowenwu/csRU',
     demo: 'https://github.com/williamowenwu/csRU',
+  },
+  {
+    id: 'project-6',
+    name: 'Market Bot',
+    description:
+      'Discord-based market research bot that gathers financial news and market data to support faster company and stock analysis workflows.',
+    tags: [
+      {
+        name: 'Discord',
+        color: 'blue-text-gradient',
+      },
+      {
+        name: 'Python',
+        color: 'yellow-text-gradient',
+      },
+      {
+        name: 'APIs',
+        color: 'green-text-gradient',
+      },
+    ],
+    image: marketbot,
+    repo: 'https://github.com/jason-huang-dev/Market_Bot',
+    demo: 'https://github.com/jason-huang-dev/Market_Bot',
   },
 ];
 
@@ -237,8 +337,6 @@ const socials = [
     url: 'https://leetcode.com/jason-huang-dev/',
     icon: leetcode,
   },
-  // Add more social media links here
-]
-
+];
 
 export { services, technologies, experiences, projects, socials };
