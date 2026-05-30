@@ -10,9 +10,9 @@ import { Magnetic } from "../ui/Magnetic";
 import { Reveal } from "../ui/Reveal";
 
 const heroStats = [
+  "Backend/API engineering",
   "Full-stack product systems",
-  "Design systems + UI polish",
-  "Operations-focused dashboards",
+  "Automation + data workflows",
 ];
 
 const HeroFluidSimulationPanel = lazy(() =>
@@ -48,7 +48,12 @@ export function HeroSection() {
           <div className="heroSection__actions">
             <Magnetic>
               <ButtonLink href="#work">
-                Explore Work <FiArrowDownRight aria-hidden="true" />
+                View Projects <FiArrowDownRight aria-hidden="true" />
+              </ButtonLink>
+            </Magnetic>
+            <Magnetic strength={4}>
+              <ButtonLink href="#contact">
+                Contact Me <FiArrowDownRight aria-hidden="true" />
               </ButtonLink>
             </Magnetic>
             {profile.links.resume ? (
@@ -58,7 +63,7 @@ export function HeroSection() {
                   external
                   variant="gold"
                 >
-                  View Resume <FiBriefcase aria-hidden="true" />
+                  Download Resume <FiBriefcase aria-hidden="true" />
                 </SealStampCTA>
               </Magnetic>
             ) : null}

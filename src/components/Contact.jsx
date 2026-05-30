@@ -8,6 +8,9 @@ import { send, sendHover } from '../assets';
 import SocialLinks from './SocialLinks';
 
 const Contact = () => {
+  const emailServiceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+  const emailTemplateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+  const emailPublicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
   const formRef = useRef();
   const [form, setForm] = useState({
     name: '',
@@ -24,22 +27,26 @@ const Contact = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    if (!emailServiceId || !emailTemplateId || !emailPublicKey) {
+      window.location.href = 'mailto:jasonhuangdev@gmail.com';
+      return;
+    }
+
     setLoading(true);
 
-    // sign up on emailjs.com (select the gmail service and connect your account).
-    //click on create a new template then click on save.
     emailjs
       .send(
-        'service_yer1lu3', // paste your ServiceID here (you'll get one when your service is created).
-        'template_pjv49db', // paste your TemplateID here (you'll find it under email templates).
+        emailServiceId,
+        emailTemplateId,
         {
           from_name: form.name,
-          to_name: 'Jason Huang', // put your name here.
+          to_name: 'Jason Huang',
           from_email: form.email,
-          to_email: 'jason232013@gmail.com', //put your email here.
+          to_email: 'jasonhuangdev@gmail.com',
           message: form.message,
         },
-        'RciiuFDgBjCKuOJ8C' //paste your Public Key here. You'll get it in your profile section.
+        emailPublicKey
       )
       .then(
         () => {
@@ -52,10 +59,9 @@ const Contact = () => {
             message: '',
           });
         },
-        (error) => {
+        () => {
           setLoading(false);
-          console.log(error);
-          alert('Something went wrong. Please try again.');
+          alert('Something went wrong. Please email me directly at jasonhuangdev@gmail.com.');
         }
       );
   };
@@ -69,6 +75,11 @@ const Contact = () => {
         className="flex-[0.75] bg-jet p-8 rounded-2xl">
         <p className={styles.sectionSubText}>Get in touch</p>
         <h3 className={styles.sectionHeadTextLight}>Contact.</h3>
+        <p className="mt-4 text-taupe">
+          Have a role, project, or collaboration where backend systems,
+          automation, or full-stack product execution matter? I’d be happy to
+          connect.
+        </p>
         <SocialLinks color='taupe'/>
         <form
           ref={formRef}

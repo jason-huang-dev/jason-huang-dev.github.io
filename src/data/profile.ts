@@ -1,17 +1,19 @@
-import resumeUrl from "../assets/personal/resume.pdf";
+import resumeUrl from "../assets/personal/resume_latest.pdf";
 
 export const profile = {
   name: "Jason Huang",
   title: "Software Engineer",
-  eyebrow: "SOFTWARE ENGINEER · UI SYSTEMS · PRODUCT BUILDER",
-  tagline: "Designing systems that flow with purpose.",
+  role: "Software Engineer",
+  eyebrow: "Software Engineer · Backend & Full-Stack Systems",
+  tagline: "Jason Huang",
   summary:
-    "I build modern software and UI systems with calm precision, where engineering meets clarity and ideas find their natural flow.",
+    "I build reliable product systems across SaaS, education, warehouse operations, automation, and developer tooling — with a focus on clean APIs, practical data models, and measurable engineering outcomes.",
   location: "New Jersey / New York Area",
   links: {
     github: "https://github.com/jason-huang-dev",
     linkedin: "https://www.linkedin.com/in/jasonhuangdev",
+    leetcode: "https://leetcode.com/jason-huang-dev/",
     resume: resumeUrl,
-    email: "mailto:jasonh232013@gmail.com",
+    email: "mailto:jasonhuangdev@gmail.com",
   },
 };

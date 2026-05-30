@@ -5,7 +5,7 @@ import logoback from './backgrounds/logo-background.png'
 import logo from './logo/logo-black.png';
 
 import jason from './personal/jason.png';
-import resumedownload from './personal/resume.pdf';
+import resumedownload from './personal/resume_latest.pdf';
 
 import backend from './icons/backend.png';
 import ux from './icons/ux.png';
@@ -46,6 +46,11 @@ import goldenunicorn from './company/goldenunicorn.png';
 
 import marketbot from './projects/marketbot.png';
 import csRU from './projects/csRU.png';
+import chemfarm from './projects/chemfarm.png';
+import shorts from './projects/shorts.jpg';
+import timemesh from './projects/timemesh.png';
+import uiLibrary from './projects/ui-library.png';
+import dockflow from './projects/dockflow.png';
 
 import linkedin from './socials/linkedin.png';
 import githubsocial from './socials/githubsocial.png';
@@ -95,6 +100,11 @@ export {
   cybertigers8075,
   marketbot,
   csRU,
+  chemfarm,
+  shorts,
+  timemesh,
+  uiLibrary,
+  dockflow,
   linkedin,
   githubsocial,
   youtube,

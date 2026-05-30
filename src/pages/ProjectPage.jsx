@@ -5,7 +5,7 @@ import { projectJsonLd } from '../components/seo/JsonLd';
 import { Seo } from '../components/seo/Seo';
 import { Container } from '../components/ui/Container';
 import { getProjectPage } from '../data/projectPages';
-import { projects } from '../data/projects';
+import { getProjectLinks, projects } from '../data/projects';
 
 const railItems = [
   ['overview', 'Overview'],
@@ -43,6 +43,8 @@ export function ProjectPage() {
     return <Navigate to="/404" replace />;
   }
 
+  const visibleLinks = getProjectLinks(project);
+
   return (
     <>
       <Seo
@@ -62,7 +64,7 @@ export function ProjectPage() {
               <p>{page.subtitle}</p>
               <div className="projectPageHero__actions">
                 <a href="/work">All work</a>
-                {project.links.map((link) => (
+                {visibleLinks.map((link) => (
                   <a
                     href={link.href}
                     key={link.href}

@@ -1,7 +1,7 @@
 import { useEffect, useRef, type KeyboardEvent } from "react";
 import { FiExternalLink, FiX } from "react-icons/fi";
 
-import type { PortfolioProject } from "../../data/projects";
+import { getProjectLinks, type PortfolioProject } from "../../data/projects";
 import { ProjectArtifactPreview } from "./ProjectArtifactPreview";
 import { TechPill } from "./TechPill";
 import { ProjectDetailSection } from "./ProjectDetailSection";
@@ -20,7 +20,7 @@ export function ProjectDetailDrawer({
   const closeButtonRef = useRef<HTMLButtonElement>(null);
   const panelRef = useRef<HTMLElement>(null);
   const titleId = project ? `project-drawer-title-${project.id}` : undefined;
-  const visibleLinks = project?.links.filter((link) => link.href) ?? [];
+  const visibleLinks = project ? getProjectLinks(project) : [];
 
   useEffect(() => {
     if (!open) return undefined;
@@ -103,11 +103,22 @@ export function ProjectDetailDrawer({
 
         <p className="projectDrawer__summary">{project.shortDescription}</p>
 
-        <ProjectArtifactPreview
-          projectId={project.id}
-          accent={project.accent}
-          variant="drawer"
-        />
+        {project.image ? (
+          <figure className="projectDrawer__media">
+            <img
+              src={project.image.src}
+              alt={project.image.alt}
+              loading="lazy"
+              decoding="async"
+            />
+          </figure>
+        ) : (
+          <ProjectArtifactPreview
+            projectId={project.id}
+            accent={project.accent}
+            variant="drawer"
+          />
+        )}
 
         <nav className="projectDrawer__miniNav" aria-label="Project detail sections">
           <a href="#drawer-overview">Overview</a>
@@ -145,7 +156,11 @@ export function ProjectDetailDrawer({
         </div>
 
         <ProjectDetailSection title="Impact">
-          {project.impact ? <p>{project.impact}</p> : null}
+          <ul>
+            {project.impact.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ul>
         </ProjectDetailSection>
 
         <div id="drawer-features">

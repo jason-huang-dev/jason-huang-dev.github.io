@@ -28,304 +28,372 @@ export type ProjectPage = {
   metrics: ProjectMetric[];
   lessons: string[];
   nextSteps: string[];
-  gallery?: {
-    src: string;
-    alt: string;
-    caption?: string;
-  }[];
 };
 
 export const projectPages: ProjectPage[] = [
   {
-    slug: "ui-library",
-    heroKicker: "Design system case study",
+    slug: "dockflow",
+    heroKicker: "Featured backend system",
     subtitle:
-      "A reusable React foundation for consistent product interfaces, tokenized themes, and documentation-minded delivery.",
+      "Warehouse operations platform with modular Django REST APIs for inventory, workflows, reporting, automation, and marketplace integrations.",
     problem:
-      "Product surfaces were being designed and built as one-off UI decisions. The work needed a reusable component language that could keep accessibility, theming, and implementation contracts aligned.",
+      "Warehouse operations need clear service boundaries across inventory, inbound and outbound work, returns, logistics, fees, work orders, reporting, automation, and integrations.",
     constraints: [
-      "Keep the package practical enough to reuse across apps without turning it into a heavy framework.",
-      "Make tokens understandable to both design and engineering workflows.",
-      "Support accessible defaults while preserving room for product-specific expression.",
+      "Keep domain modules separate enough to change without breaking adjacent workflows.",
+      "Preserve API compatibility across versioned and legacy route groups.",
+      "Make automation failures visible through retries, dead-letter states, and alerts.",
     ],
     approach: [
-      "Started from semantic color, spacing, type, and surface tokens before designing component APIs.",
-      "Built components around predictable props, variant systems, and documented usage states.",
-      "Used Storybook as the proof surface so each component could be reviewed independently.",
+      "Modeled backend boundaries around operational domains instead of screen-level features.",
+      "Maintained compatibility paths while evolving newer API groups.",
+      "Added scheduled task and worker-health patterns for operational reliability.",
     ],
     architecture: {
       summary:
-        "The system is organized as a token-first pipeline that flows into themes, providers, components, and documentation.",
+        "DockFlow is structured around modular Django app domains connected by explicit API contracts and operational automation paths.",
       bullets: [
-        "Tokens define color, typography, spacing, radius, and elevation decisions.",
-        "Theme providers translate tokens into application-ready styles.",
-        "Components consume theme contracts instead of hard-coded visual values.",
-        "Storybook examples document behavior, states, and accessibility expectations.",
+        "Authentication and IAM establish access boundaries.",
+        "Inventory, inbound, outbound, returns, and logistics own core warehouse state.",
+        "Reporting and marketplace integrations expose operational outputs.",
+        "Scheduled jobs, heartbeats, retries, dead-letter states, and alerts support automation reliability.",
       ],
     },
     uxDecisions: [
       {
-        title: "Token-first before component-first",
+        title: "Domain-first boundaries",
         context:
-          "A component library without stable tokens quickly becomes a collection of unrelated widgets.",
+          "Warehouse platforms accumulate complexity quickly when every feature shares the same service surface.",
         decision:
-          "Defined semantic visual primitives before finalizing Button, Surface, Typography, and Divider patterns.",
+          "Separated backend work by operational domain so APIs, permissions, and workflows stay easier to reason about.",
         result:
-          "The resulting components feel related and are easier to adapt across product contexts.",
+          "The project demonstrates backend ownership across a broad operations surface without relying on vague platform claims.",
       },
       {
-        title: "Accessible defaults",
+        title: "Compatibility before churn",
         context:
-          "Reusable UI creates risk when teams repeatedly need to remember focus, contrast, and target states.",
+          "Operational systems often need legacy and new route groups to coexist during migration.",
         decision:
-          "Made visible focus, readable contrast, and predictable interactive states part of the component baseline.",
+          "Preserved API compatibility while adding versioned paths for newer behavior.",
         result:
-          "Accessibility becomes a reusable system property instead of a late-stage checklist.",
+          "Clients can keep working while backend contracts evolve.",
       },
     ],
     metrics: [
       {
-        label: "System scope",
-        value: "5+ primitives",
-        description: "Core UI primitives documented as reusable foundations.",
+        label: "Backend scope",
+        value: "20+ domains",
+        description: "Django app boundaries across warehouse operations.",
       },
       {
-        label: "Theme model",
-        value: "Token driven",
-        description: "Visual choices centralized for consistency and iteration.",
+        label: "API model",
+        value: "Versioned",
+        description: "Compatibility across newer and legacy route groups.",
       },
       {
-        label: "Primary proof",
-        value: "Storybook",
-        description: "Component behavior can be reviewed outside a full app.",
+        label: "Reliability",
+        value: "Instrumented",
+        description: "Worker heartbeats, retries, dead-letter states, and alerts.",
       },
     ],
     lessons: [
-      "The hard part of a design system is not the button; it is keeping visual decisions named, reusable, and boring in the right places.",
-      "Documentation should demonstrate constraints and usage, not just render happy-path examples.",
+      "Backend boundaries need to follow real operational ownership, not only frontend navigation.",
+      "Reliability work matters most when failure states become visible and recoverable.",
     ],
     nextSteps: [
-      "Add visual regression coverage for token and theme changes.",
-      "Expand examples for form controls, navigation, and dense dashboard layouts.",
+      "Verify and publish the public demo before exposing a demo link.",
+      "Add project screenshots or architecture diagrams for deeper case-study proof.",
     ],
   },
   {
-    slug: "stock-showdown",
-    heroKicker: "Interactive product case study",
+    slug: "chemfarm",
+    heroKicker: "Featured learning system",
     subtitle:
-      "A market-themed product direction for comparing signals, structuring decisions, and turning noisy financial data into a clear workflow.",
+      "Game-powered STEM learning platform using FastAPI services, Supabase-backed storage, PostgreSQL, and validated ingestion workflows.",
     problem:
-      "Market information is abundant but difficult to act on. The product needed to make comparison, context, and confidence easier to scan without pretending to predict outcomes.",
+      "Curriculum content needs reliable ingestion and normalized storage before it can become playable learning content.",
     constraints: [
-      "Avoid financial advice framing and keep the experience focused on information design.",
-      "Support quick scanning without hiding the assumptions behind each signal.",
-      "Leave room for automated media workflows and review outputs.",
+      "Support content updates without relying on manual database edits.",
+      "Validate parser output before writes affect the learning experience.",
+      "Keep storage and data access practical for a Supabase-backed system.",
     ],
     approach: [
-      "Designed comparison-first cards so users can evaluate options side by side.",
-      "Separated signal intake, provider normalization, workflow logic, and rendered output.",
-      "Kept visual hierarchy calm enough for repeated decision-making sessions.",
+      "Built FastAPI routers for metadata, rendering, asset storage, ingestion, tooling, health checks, and plant generation.",
+      "Converted manual updates into parser-based ingestion with dry-run validation.",
+      "Designed data access around Supabase-backed storage and write controls.",
     ],
     architecture: {
       summary:
-        "The concept separates raw intake from workflow decisions so presentation can evolve without rewriting the data path.",
+        "ChemFarm separates ingestion, validation, gameplay metadata, generated assets, and storage controls so curriculum data can become playable content.",
       bullets: [
-        "Data intake captures market or editorial inputs.",
-        "Provider registry normalizes source-specific details.",
-        "Workflow engine turns inputs into reviewable scenes and outputs.",
-        "Remotion rendering can generate consistent video or poster assets.",
+        "FastAPI routers expose gameplay and tooling endpoints.",
+        "Parser workflows validate source content before normalized writes.",
+        "Supabase and PostgreSQL store content and access-controlled records.",
+        "Health checks and generation endpoints support operational visibility.",
       ],
     },
     uxDecisions: [
       {
-        title: "Comparison over feed behavior",
+        title: "Validation before writes",
         context:
-          "A feed encourages passive scrolling, which is a poor fit for decision support.",
+          "Learning content errors can create broken gameplay states and confusing student feedback.",
         decision:
-          "Structured the experience around side-by-side comparison and explicit signal cards.",
+          "Added dry-run validation to the ingestion path before normalized writes.",
         result:
-          "The user can compare tradeoffs instead of chasing isolated metrics.",
+          "Content updates are easier to review before they affect the product.",
       },
       {
-        title: "Signals with context",
+        title: "Tooling as product surface",
         context:
-          "Numbers without labels can look authoritative while still being ambiguous.",
+          "Internal content workflows determine whether educational products stay maintainable.",
         decision:
-          "Paired each signal with a short explanation and visual priority state.",
+          "Treated ingestion and generation tooling as first-class backend surfaces.",
         result:
-          "The UI communicates why something matters, not only that it changed.",
+          "The project shows practical automation and data-model thinking, not just frontend gameplay.",
       },
     ],
     metrics: [
       {
-        label: "Core model",
-        value: "Compare first",
-        description: "The main interaction is structured around alternatives.",
+        label: "Backend",
+        value: "FastAPI",
+        description: "Routers across gameplay metadata, ingestion, tooling, and health.",
       },
       {
-        label: "Output path",
-        value: "Media ready",
-        description: "Designed with generated review output in mind.",
+        label: "Data layer",
+        value: "Supabase",
+        description: "PostgreSQL-backed storage and write controls.",
       },
       {
-        label: "Status",
-        value: "In progress",
-        description: "Product concept and implementation direction are evolving.",
+        label: "Workflow",
+        value: "Validated ETL",
+        description: "Parser-based ingestion with dry-run checks.",
       },
     ],
     lessons: [
-      "Decision tools need to be honest about uncertainty.",
-      "A focused comparison surface is often more useful than a larger dashboard.",
+      "Educational products need dependable content operations as much as polished gameplay.",
+      "Dry-run validation is a practical way to make data workflows safer.",
     ],
     nextSteps: [
-      "Prototype the first provider registry and sample signal set.",
-      "Add example rendered outputs for review and sharing workflows.",
+      "Verify and publish the public demo before exposing a demo link.",
+      "Add a visual content pipeline diagram to the case study.",
     ],
   },
   {
-    slug: "dachong-wms",
-    heroKicker: "Operations platform case study",
+    slug: "timemesh",
+    heroKicker: "Featured SaaS system",
     subtitle:
-      "A warehouse management direction for multi-tenant inventory, role-aware dashboards, and practical fulfillment workflows.",
+      "Productivity SaaS platform for scheduling workflows, calendar events, and goal planning.",
     problem:
-      "Warehouse teams need fast operational clarity across clients, inventory, and fulfillment status. The system direction needed to support multi-tenant complexity without making daily workflows feel heavy.",
+      "Scheduling products need fast APIs, clear calendar workflows, and deployment checks that keep product iteration reliable.",
     constraints: [
-      "Represent clients, warehouses, users, permissions, inventory, and fulfillment as separate but connected concepts.",
-      "Keep dashboard views scannable for operators who need quick answers.",
-      "Design for growth without overbuilding the first version.",
+      "Keep API latency low enough for repeated calendar interactions.",
+      "Cover frontend, backend, database, and deployment concerns together.",
+      "Move regression feedback into CI instead of relying on local-only checks.",
     ],
     approach: [
-      "Mapped tenant, warehouse, account, and inventory boundaries before designing screens.",
-      "Prioritized dashboard filters, role visibility, and exception states.",
-      "Used a practical full-stack direction with React, Django, PostgreSQL, and Docker.",
+      "Reworked DRF queries and PostgreSQL indexes around high-use scheduling endpoints.",
+      "Built calendar and goal-planning flows across the product stack.",
+      "Moved Postman regression suites into GitHub Actions.",
     ],
     architecture: {
       summary:
-        "The platform direction treats operational entities as explicit boundaries that can scale into a production WMS.",
+        "TimeMesh combines React workflows with Django REST APIs, PostgreSQL data paths, Dockerized deployment, AWS infrastructure, and CI regression checks.",
       bullets: [
-        "Tenant and client records define ownership boundaries.",
-        "Warehouse and inventory records support operational views.",
-        "Role permissions control which workflows and dashboards users can access.",
-        "API contracts connect filtered dashboards to backend state.",
+        "React handles calendar and planning interactions.",
+        "Django REST Framework exposes scheduling APIs.",
+        "PostgreSQL indexes support lower-latency query paths.",
+        "Docker, AWS, and GitHub Actions support deployment and regression feedback.",
       ],
     },
     uxDecisions: [
       {
-        title: "Role-aware dashboards",
+        title: "Latency as product quality",
         context:
-          "Different users need different levels of operational visibility.",
+          "Calendar workflows feel broken when repeated API interactions are slow.",
         decision:
-          "Designed dashboard surfaces around role boundaries and task priority.",
+          "Reduced median API latency from roughly 83ms to 25ms with indexing and query rewrites.",
         result:
-          "The system can show focused views without duplicating product logic.",
+          "The backend work directly supports a smoother scheduling experience.",
       },
       {
-        title: "Exception-first scanning",
+        title: "Regression checks in CI",
         context:
-          "Operations users often need to find what is blocked before reviewing what is normal.",
+          "Manual API checks slow down iteration and are easy to skip.",
         decision:
-          "Prioritized status filters, alerts, and exception cards in the dashboard direction.",
+          "Moved Postman regression suites into GitHub Actions.",
         result:
-          "The interface supports faster triage for inventory and fulfillment issues.",
+          "API feedback became faster and more repeatable.",
       },
     ],
     metrics: [
       {
-        label: "Domain",
-        value: "3PL/WMS",
-        description: "Inventory, clients, roles, dashboards, and fulfillment.",
+        label: "Median API latency",
+        value: "83ms to 25ms",
+        description: "Improved through PostgreSQL indexing and DRF query rewrites.",
       },
       {
-        label: "Architecture",
+        label: "Regression checks",
+        value: "CI-backed",
+        description: "Postman suites moved into GitHub Actions.",
+      },
+      {
+        label: "Stack",
         value: "Full stack",
-        description: "React frontend with Django/PostgreSQL backend direction.",
-      },
-      {
-        label: "Focus",
-        value: "Operations",
-        description: "Built around repeated scanning and action workflows.",
+        description: "React, DRF, PostgreSQL, AWS, Docker, and GitHub Actions.",
       },
     ],
     lessons: [
-      "Operational tools need precise information architecture before visual polish.",
-      "Role boundaries should be modeled early because they shape both data and UI.",
+      "Performance work is strongest when it maps to a user-facing workflow.",
+      "Regression tests are more useful when they run where deployment decisions happen.",
     ],
     nextSteps: [
-      "Define the first dashboard API contract.",
-      "Prototype inventory filters and role-specific navigation.",
+      "Verify and publish the public demo before exposing a demo link.",
+      "Add screenshots of the calendar and goal-planning flows.",
     ],
   },
   {
-    slug: "portfolio-system",
-    heroKicker: "Personal platform case study",
+    slug: "ui-library",
+    heroKicker: "Product system case study",
     subtitle:
-      "A spec-led portfolio system using route-based content, branded interaction, centralized data, and durable deployment.",
+      "Reusable interface system for consistent, polished components across personal products and portfolio experiments.",
     problem:
-      "The portfolio needed to become more than a one-page resume. It needed durable routes, stronger project proof, and a visual identity that could support future notes, case studies, and media.",
+      "Personal product frontends need consistent primitives and branded components so each project does not restart visual and interaction decisions from scratch.",
     constraints: [
-      "Keep the Vite app lightweight and avoid a framework migration.",
-      "Preserve the existing brand direction while improving information architecture.",
-      "Make project proof shareable through direct URLs and metadata.",
+      "Keep primitives reusable across different app surfaces.",
+      "Support quick iteration without sacrificing accessibility basics.",
+      "Make the system useful for portfolio and product experiments.",
     ],
     approach: [
-      "Centralized project and profile data before adding route-level pages.",
-      "Built branded interactions as progressive enhancements instead of content blockers.",
-      "Added SEO, sitemap, robots, and deployment improvements as platform foundations.",
+      "Centralized reusable UI primitives and branded components.",
+      "Documented component behavior through Storybook-oriented examples.",
+      "Aligned styling decisions around shared tokens and frontend conventions.",
     ],
     architecture: {
       summary:
-        "The portfolio is structured as a static React platform with reusable content data, route-level case studies, metadata, and GitHub Pages deployment.",
+        "The UI Library is a reusable frontend foundation made of primitives, branded components, examples, and shared styling conventions.",
       bullets: [
-        "Project data powers cards, work index, and related content.",
-        "Project page data powers reusable case-study sections.",
-        "SEO helpers set route-specific metadata and structured data.",
-        "GitHub Pages workflow builds and deploys the static site artifact.",
+        "React and TypeScript define component contracts.",
+        "Storybook supports isolated review and documentation.",
+        "Tailwind/CSS styling supports practical product composition.",
+        "Shared primitives speed up new project frontend work.",
       ],
     },
     uxDecisions: [
       {
-        title: "Routes over modal-only detail",
+        title: "Reusable primitives first",
         context:
-          "Project drawers are useful for scanning, but they are not durable proof surfaces.",
+          "Polished product work slows down when every button, surface, and state is rebuilt per app.",
         decision:
-          "Added shareable `/work/:slug` pages for case-study depth.",
+          "Centralized reusable UI primitives and branded components.",
         result:
-          "Recruiters and technical readers can open, refresh, and share individual projects.",
+          "New frontends can start from a stronger baseline.",
       },
       {
-        title: "Brand interaction with readable fallback",
+        title: "Consistency as velocity",
         context:
-          "The yin-yang unlock scene created a strong identity moment, but content still needed to win.",
+          "A small portfolio of products benefits from shared visual rules.",
         decision:
-          "Kept decoration behind content and made mobile render as a readable static layout.",
+          "Used the library as a foundation for portfolio and product visual consistency.",
         result:
-          "The scene feels branded without making project details harder to read.",
+          "The project supports faster iteration across frontend surfaces.",
       },
     ],
     metrics: [
       {
-        label: "Route model",
-        value: "Static",
-        description: "Shareable case studies without requiring a backend.",
+        label: "System type",
+        value: "Reusable UI",
+        description: "Shared primitives and branded components.",
       },
       {
-        label: "Content source",
-        value: "Typed data",
-        description: "Centralized project and case-study content.",
+        label: "Docs surface",
+        value: "Storybook",
+        description: "Component examples can be reviewed independently.",
       },
       {
-        label: "Deployment",
-        value: "Pages",
-        description: "GitHub Pages static artifact workflow.",
+        label: "Demo",
+        value: "Pending",
+        description: "Demo link remains hidden until verification passes.",
       },
     ],
     lessons: [
-      "A portfolio should prove how you think, not only list what you used.",
-      "Branded motion needs a content-first endpoint.",
+      "Small design systems are most useful when they solve repeated product friction.",
+      "Reusable UI should be documented through states and constraints, not only screenshots.",
     ],
     nextSteps: [
-      "Add real project media and generated Open Graph images.",
-      "Add route-level analytics events and quality budgets.",
+      "Verify the public Storybook/demo domain before linking it.",
+      "Expand components for forms, navigation, and dense dashboards.",
+    ],
+  },
+  {
+    slug: "video-automation-pipeline",
+    heroKicker: "Automation case study",
+    subtitle:
+      "Repeatable script-to-video workflow for prompts, scripts, audio, captions, storyboards, render assets, QA reports, upload metadata, and logs.",
+    problem:
+      "Video production workflows create handoff risk when prompts, scripts, assets, QA notes, upload metadata, and logs live in separate manual steps.",
+    constraints: [
+      "Keep artifacts predictable across every production stage.",
+      "Support QA checkpoints before publish-ready output.",
+      "Avoid exposing a public demo until a safe viewer exists.",
+    ],
+    approach: [
+      "Organized generation and rendering stages into repeatable command outputs.",
+      "Standardized artifacts for scripts, captions, storyboards, assets, reports, metadata, and logs.",
+      "Used automation to reduce manual handoff risk.",
+    ],
+    architecture: {
+      summary:
+        "The workflow packages content production into staged artifacts that can be generated, reviewed, rendered, and prepared for upload consistently.",
+      bullets: [
+        "Prompt and script stages define source content.",
+        "Audio, captions, and storyboards prepare render inputs.",
+        "Remotion creates render assets.",
+        "QA reports, upload metadata, and logs support review and handoff.",
+      ],
+    },
+    uxDecisions: [
+      {
+        title: "Artifacts over ad hoc files",
+        context:
+          "Manual media workflows are difficult to debug when each run leaves different outputs.",
+        decision:
+          "Standardized each workflow stage around expected artifacts.",
+        result:
+          "Runs are easier to inspect, compare, and hand off.",
+      },
+      {
+        title: "QA before upload",
+        context:
+          "Generated media needs review checkpoints before it becomes public content.",
+        decision:
+          "Included QA reports and logs as production outputs.",
+        result:
+          "The pipeline reduces manual risk without pretending automation removes review.",
+      },
+    ],
+    metrics: [
+      {
+        label: "Workflow",
+        value: "Multi-stage",
+        description: "Prompts through upload metadata and logs.",
+      },
+      {
+        label: "Output",
+        value: "Artifacts",
+        description: "Repeatable files for render and QA handoff.",
+      },
+      {
+        label: "Demo",
+        value: "Disabled",
+        description: "No public demo is shown without a safe viewer.",
+      },
+    ],
+    lessons: [
+      "Automation is most credible when it preserves reviewability.",
+      "Production artifacts should make each stage inspectable after the fact.",
+    ],
+    nextSteps: [
+      "Add a safe public artifact viewer before exposing a demo.",
+      "Add sample QA output screenshots to the case study.",
     ],
   },
 ];

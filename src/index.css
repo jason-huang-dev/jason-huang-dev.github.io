@@ -1263,6 +1263,7 @@ p {
 
 .projectPearlDock__item {
   --project-pearl-glow: rgba(126, 231, 242, 0.24);
+  --project-featured-glow: rgba(246, 190, 72, 0.24);
   position: relative;
   border: 0;
   background: transparent;
@@ -1273,6 +1274,7 @@ p {
 
 .projectPearlDock__item[data-accent='gold'] {
   --project-pearl-glow: rgba(247, 201, 72, 0.28);
+  --project-featured-glow: rgba(247, 201, 72, 0.3);
 }
 
 .projectPearlDock__item[data-accent='jade'] {
@@ -1284,10 +1286,12 @@ p {
 }
 
 .projectPearlDock__pearl {
+  position: relative;
   display: grid;
   place-items: center;
   width: 54px;
   height: 54px;
+  overflow: hidden;
   border: 1px solid var(--border);
   border-radius: var(--radius-full);
   background:
@@ -1301,12 +1305,22 @@ p {
   transition:
     transform 220ms var(--ease-out),
     border-color 220ms ease,
-    box-shadow 220ms ease;
+    box-shadow 220ms ease,
+    background 220ms ease;
+}
+
+.projectPearlDock__image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 7px;
+  object-fit: contain;
+  object-position: center;
+  border-radius: inherit;
 }
 
 .projectPearlDock__item:hover .projectPearlDock__pearl,
-.projectPearlDock__item:focus-visible .projectPearlDock__pearl,
-.projectPearlDock__item[data-active='true'] .projectPearlDock__pearl {
+.projectPearlDock__item:focus-visible .projectPearlDock__pearl {
   border-color: var(--border-strong);
   box-shadow:
     var(--shadow-glass),
@@ -1314,10 +1328,53 @@ p {
   transform: translateY(-4px) scale(1.08);
 }
 
+.projectPearlDock__item[data-featured='true'] .projectPearlDock__pearl {
+  border-color: rgba(246, 190, 72, 0.58);
+  box-shadow:
+    var(--shadow-glass),
+    0 0 0 1px rgba(246, 190, 72, 0.5),
+    0 0 24px var(--project-featured-glow);
+}
+
+.projectPearlDock__item[data-featured='true'] .projectPearlDock__pearl::after {
+  content: '';
+  position: absolute;
+  inset: 4px;
+  border-radius: inherit;
+  border: 1px solid rgba(246, 190, 72, 0.32);
+  pointer-events: none;
+}
+
+.projectPearlDock__item[data-active='true'] .projectPearlDock__pearl {
+  border-color: rgba(125, 230, 255, 0.92);
+  box-shadow:
+    var(--shadow-glass),
+    0 0 0 2px rgba(125, 230, 255, 0.82),
+    0 0 32px rgba(125, 230, 255, 0.34);
+  transform: translateY(-2px) scale(1.04);
+}
+
+.projectPearlDock__item[data-active='true'][data-featured='true'] .projectPearlDock__pearl {
+  border-color: rgba(125, 230, 255, 0.94);
+  box-shadow:
+    var(--shadow-glass),
+    0 0 0 2px rgba(125, 230, 255, 0.86),
+    0 0 0 4px rgba(246, 190, 72, 0.2),
+    0 0 36px rgba(125, 230, 255, 0.36);
+}
+
+.projectPearlDock__item[data-active='true']:hover .projectPearlDock__pearl,
+.projectPearlDock__item[data-active='true']:focus-visible .projectPearlDock__pearl {
+  transform: translateY(-4px) scale(1.09);
+}
+
 .projectPearlDock__label {
   position: absolute;
   left: 50%;
   top: calc(100% + 8px);
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
   white-space: nowrap;
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-full);
@@ -1331,13 +1388,73 @@ p {
   transform: translate(-50%, -4px);
   transition:
     opacity 160ms ease,
-    transform 180ms var(--ease-out);
+    transform 180ms var(--ease-out),
+    border-color 180ms ease;
+}
+
+.projectPearlDock__featuredLabel {
+  display: inline-flex;
+  align-items: center;
+  border-radius: var(--radius-full);
+  color: rgba(246, 190, 72, 0.94);
+  font-size: 0.62rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.projectPearlDock__item[data-featured='true'] .projectPearlDock__label {
+  border-color: rgba(246, 190, 72, 0.36);
 }
 
 .projectPearlDock__item:hover .projectPearlDock__label,
 .projectPearlDock__item:focus-visible .projectPearlDock__label {
   opacity: 1;
   transform: translate(-50%, 0);
+}
+
+@media (max-width: 720px) {
+  .projectPearlDock {
+    justify-content: flex-start;
+    gap: 10px;
+    margin: 20px 0 30px;
+    overflow-x: auto;
+    padding: 0 4px 18px;
+    scrollbar-width: none;
+  }
+
+  .projectPearlDock::-webkit-scrollbar {
+    display: none;
+  }
+
+  .projectPearlDock__item {
+    flex: 0 0 auto;
+  }
+
+  .projectPearlDock__pearl {
+    width: 48px;
+    height: 48px;
+  }
+
+  .projectPearlDock__label {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .projectPearlDock__pearl,
+  .projectPearlDock__label {
+    transition: none;
+  }
+
+  .projectPearlDock__item:hover .projectPearlDock__pearl,
+  .projectPearlDock__item:focus-visible .projectPearlDock__pearl,
+  .projectPearlDock__item[data-active='true'] .projectPearlDock__pearl,
+  .projectPearlDock__item[data-active='true']:hover .projectPearlDock__pearl,
+  .projectPearlDock__item[data-active='true']:focus-visible .projectPearlDock__pearl {
+    transform: none;
+  }
 }
 
 .rippleDivider {
@@ -2271,6 +2388,16 @@ p {
 .signatureProjectCard__description {
   color: var(--text-secondary);
   line-height: 1.62;
+}
+
+.signatureProjectCard__impact {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding-left: 18px;
+  color: var(--text-muted);
+  font-size: 0.88rem;
+  line-height: 1.5;
 }
 
 .signatureProjectCard__tags,

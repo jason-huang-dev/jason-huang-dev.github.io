@@ -1,6 +1,6 @@
 import {
+  FiCloud,
   FiDatabase,
-  FiDroplet,
   FiLayers,
   FiServer,
 } from "react-icons/fi";
@@ -11,31 +11,31 @@ import { Reveal } from "../ui/Reveal";
 
 const systems: SystemItem[] = [
   {
-    icon: FiLayers,
-    title: "UI systems",
-    body: "Reusable components, token-driven styling, responsive surfaces, and documentation-minded frontend architecture.",
-    proof: "Component libraries, tokens, Storybook, reusable surfaces.",
+    icon: FiServer,
+    title: "Backend & API Engineering",
+    body: "Django REST, FastAPI, authentication, route design, validation, and service boundaries.",
+    proof: "Django REST, FastAPI, auth, validation, API contracts.",
     accent: "water",
   },
   {
-    icon: FiServer,
-    title: "Backend foundations",
-    body: "Django, DRF, FastAPI, Node, PostgreSQL, Supabase, auth flows, and API contracts built for maintainable products.",
-    proof: "Auth, API contracts, PostgreSQL, Supabase, Django/DRF.",
+    icon: FiLayers,
+    title: "Full-Stack Product Development",
+    body: "React/Next/Vite frontends connected to practical backend and database workflows.",
+    proof: "React, Vite, APIs, PostgreSQL, product workflows.",
     accent: "gold",
   },
   {
     icon: FiDatabase,
-    title: "Operational clarity",
-    body: "Dashboards, ticket analysis, workflow mapping, and process tools that make complex work easier to scan and act on.",
-    proof: "Ticket dashboards, workflow mapping, runbooks, support tooling.",
+    title: "Automation & Data Pipelines",
+    body: "Scripts, ETL flows, ingestion tools, and repeatable workflows that reduce manual effort.",
+    proof: "ETL, ingestion tooling, scripts, repeatable workflows.",
     accent: "jade",
   },
   {
-    icon: FiDroplet,
-    title: "Product polish",
-    body: "Spec-led delivery, careful interaction states, accessible motion, and brand systems that stay readable under pressure.",
-    proof: "Spec-led implementation, interaction states, accessible motion.",
+    icon: FiCloud,
+    title: "Cloud, DevOps & Reliability",
+    body: "Docker, AWS, Vercel, GitHub Actions, Postman regression checks, and deployment quality gates.",
+    proof: "Docker, AWS, Vercel, GitHub Actions, regression checks.",
     accent: "water",
   },
 ];
@@ -46,10 +46,11 @@ export function SystemsSection() {
       <Container>
         <Reveal className="sectionHeading">
           <p className="eyebrow">Systems</p>
-          <h2>Engineering taste with practical delivery.</h2>
+          <h2>Engineering capability areas.</h2>
           <p>
-            I focus on software surfaces that are structured, readable, and
-            useful: from design systems to backend workflows.
+            My experience combines production support, web development, SaaS
+            engineering, automation, mentoring, and technical ownership across
+            school, fellowship, and independent product work.
           </p>
         </Reveal>
         <div className="systemsGrid">

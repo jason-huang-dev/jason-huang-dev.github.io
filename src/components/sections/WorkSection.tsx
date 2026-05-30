@@ -1,6 +1,6 @@
 import { useCallback, useMemo, useState } from "react";
 
-import { projects } from "../../data/projects";
+import { getProjectLinks, projects } from "../../data/projects";
 import { ProjectDetailDrawer } from "../portfolio/ProjectDetailDrawer";
 import { ProjectFilterChips } from "../portfolio/ProjectFilterChips";
 import { ProjectPearlDock } from "../portfolio/ProjectPearlDock";
@@ -49,10 +49,11 @@ export function WorkSection() {
       <Container>
         <Reveal className="sectionHeading">
           <p className="eyebrow">Case studies</p>
-          <h2>Work in Motion</h2>
+          <h2>Selected product systems.</h2>
           <p>
-            One featured build gets a deeper branded interaction. The rest stay
-            clean, scannable, and easy to open.
+            Selected projects that show how I design, build, and ship product
+            systems — from backend APIs and data models to automation workflows,
+            internal tools, and user-facing applications.
           </p>
         </Reveal>
 
@@ -66,6 +67,7 @@ export function WorkSection() {
         <ProjectPearlDock
           projects={filteredProjects}
           selectedProjectId={selectedProjectId}
+          featuredProjectId={featuredProject?.id}
           onSelect={setSelectedProjectId}
         />
 
@@ -92,7 +94,9 @@ export function WorkSection() {
               description={project.shortDescription}
               tags={project.techStack}
               href={`/work/${project.slug}`}
-              githubHref={project.links.find((link) => link.type === "github")?.href}
+              githubHref={getProjectLinks(project).find((link) => link.type === "github")?.href}
+              demoHref={getProjectLinks(project).find((link) => link.type === "demo")?.href}
+              impacts={project.impact}
               imageSrc={project.image?.src}
               imageAlt={project.image?.alt}
               accent={accentMap[project.accent ?? "water"]}

@@ -1,5 +1,5 @@
 import { type ReactNode } from "react";
-import { FiArrowUpRight, FiGithub } from "react-icons/fi";
+import { FiArrowUpRight, FiExternalLink, FiGithub } from "react-icons/fi";
 import { Link } from "react-router-dom";
 
 import { BrandAsset } from "../brand/BrandAsset";
@@ -11,6 +11,8 @@ export type SignatureProjectCardProps = {
   tags?: string[];
   href?: string;
   githubHref?: string;
+  demoHref?: string;
+  impacts?: string[];
   imageSrc?: string;
   imageAlt?: string;
   featured?: boolean;
@@ -61,6 +63,8 @@ export function SignatureProjectCard({
   tags = [],
   href,
   githubHref,
+  demoHref,
+  impacts = [],
   imageSrc,
   imageAlt = "",
   featured = false,
@@ -95,6 +99,13 @@ export function SignatureProjectCard({
             ))}
           </span>
         ) : null}
+        {impacts.length > 0 ? (
+          <ul className="signatureProjectCard__impact">
+            {impacts.slice(0, 3).map((impact) => (
+              <li key={impact}>{impact}</li>
+            ))}
+          </ul>
+        ) : null}
         <span className="signatureProjectCard__footer">
           {href ? (
             <ProjectAction
@@ -114,6 +125,17 @@ export function SignatureProjectCard({
               aria-label={`Open GitHub repository for ${title}`}
             >
               <FiGithub aria-hidden="true" /> GitHub
+            </a>
+          ) : null}
+          {demoHref ? (
+            <a
+              className="signatureProjectCard__github"
+              href={demoHref}
+              target="_blank"
+              rel="noreferrer"
+              aria-label={`Open live demo for ${title}`}
+            >
+              <FiExternalLink aria-hidden="true" /> Demo
             </a>
           ) : null}
         </span>

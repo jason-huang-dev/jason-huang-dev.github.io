@@ -190,9 +190,9 @@ const projects = [
         color: 'pink-text-gradient',
       },
     ],
-    image: csRU,
-    repo: 'https://github.com/jason-huang-dev/DaChongWMS',
-    demo: 'https://github.com/jason-huang-dev/DaChongWMS',
+    image: dockflow,
+    repo: 'https://github.com/jason-huang-dev',
+    demo: '',
   },
   {
     id: 'project-2',
@@ -213,7 +213,7 @@ const projects = [
         color: 'yellow-text-gradient',
       },
     ],
-    image: marketbot,
+    image: chemfarm,
     repo: 'https://github.com/jason-huang-dev/chemfarm',
     demo: 'https://github.com/jason-huang-dev/chemfarm',
   },
@@ -236,7 +236,7 @@ const projects = [
         color: 'yellow-text-gradient',
       },
     ],
-    image: csRU,
+    image: timemesh,
     repo: 'https://github.com/jason-huang-dev',
     demo: 'https://github.com/jason-huang-dev',
   },
@@ -259,55 +259,9 @@ const projects = [
         color: 'blue-text-gradient',
       },
     ],
-    image: marketbot,
+    image: shorts,
     repo: 'https://github.com/jason-huang-dev/Shorts',
     demo: 'https://github.com/jason-huang-dev/Shorts',
-  },
-  {
-    id: 'project-5',
-    name: 'csRU Course Planner',
-    description:
-      'Rutgers Computer Science course planner that helps students map BA/BS requirements, explore courses, and reason through degree planning constraints.',
-    tags: [
-      {
-        name: 'ReactJS',
-        color: 'light-blue-text-gradient',
-      },
-      {
-        name: 'Python',
-        color: 'yellow-text-gradient',
-      },
-      {
-        name: 'Docker',
-        color: 'blue-text-gradient',
-      },
-    ],
-    image: csRU,
-    repo: 'https://github.com/williamowenwu/csRU',
-    demo: 'https://github.com/williamowenwu/csRU',
-  },
-  {
-    id: 'project-6',
-    name: 'Market Bot',
-    description:
-      'Discord-based market research bot that gathers financial news and market data to support faster company and stock analysis workflows.',
-    tags: [
-      {
-        name: 'Discord',
-        color: 'blue-text-gradient',
-      },
-      {
-        name: 'Python',
-        color: 'yellow-text-gradient',
-      },
-      {
-        name: 'APIs',
-        color: 'green-text-gradient',
-      },
-    ],
-    image: marketbot,
-    repo: 'https://github.com/jason-huang-dev/Market_Bot',
-    demo: 'https://github.com/jason-huang-dev/Market_Bot',
   },
 ];
 

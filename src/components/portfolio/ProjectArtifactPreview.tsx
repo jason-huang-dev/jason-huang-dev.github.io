@@ -10,14 +10,14 @@ function artifactBlocks(projectId: string) {
   switch (projectId) {
     case "ui-library":
       return ["token", "theme", "button", "surface", "docs"];
-    case "stock-showdown":
-      return ["compare", "signal", "chart", "rank", "review"];
-    case "dachong-wms":
+    case "chemfarm":
+      return ["parser", "plants", "assets", "rls", "health"];
+    case "timemesh":
+      return ["calendar", "api", "index", "ci", "goals"];
+    case "dockflow":
       return ["dash", "table", "status", "orders", "roles"];
-    case "certchase":
-      return ["check", "cert", "date", "vendor", "renew"];
-    case "roblox-systems":
-      return ["loop", "reward", "node", "progress", "state"];
+    case "video-automation-pipeline":
+      return ["script", "audio", "caption", "render", "qa"];
     default:
       return ["routes", "seo", "brand", "deploy", "data"];
   }

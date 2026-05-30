@@ -1,7 +1,5 @@
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
 import { styles } from '../styles';
-import { navLinks } from '../constants';
 import { jason, banner, logoback } from '../assets';
 import SocialLinks from './SocialLinks';
 
@@ -49,8 +47,8 @@ const Hero = () => {
               </span>
             </h1>
             <p className={`${styles.heroSubText} mt-2 text-eerieBlack`}>
-              Passionate software engineer with expertise in Computer Science and Economics. <br className="sm:block hidden" />
-              Crafting innovative solutions, exploring artificial intelligence, and building engaging digital experiences.
+              Software engineer focused on backend-heavy full-stack systems. <br className="sm:block hidden" />
+              Building clean APIs, practical data models, automation workflows, and useful product systems.
             </p>
             <SocialLinks />
           </div>

@@ -12,24 +12,24 @@ import { profile } from '../data/profile';
 
 const proofCards = [
   {
-    title: 'Design systems',
-    body: 'Token-driven React component library with documentation and theming foundations.',
+    title: 'Backend APIs',
+    body: 'Django REST and FastAPI systems with practical route design, validation, and service boundaries.',
     href: '/work/ui-library',
   },
   {
-    title: 'Full-stack products',
-    body: 'Route-based, API-minded product surfaces built for maintainable workflows.',
-    href: '/work/portfolio-system',
+    title: 'Data models',
+    body: 'PostgreSQL and Supabase-backed workflows for product systems, ingestion, and automation.',
+    href: '/work/chemfarm',
   },
   {
     title: 'Workflow automation',
-    body: 'Systems thinking for data intake, review flows, and repeatable output generation.',
-    href: '/work/stock-showdown',
+    body: 'Repeatable internal tools and production artifacts that reduce manual handoff risk.',
+    href: '/work/video-automation-pipeline',
   },
   {
-    title: 'Operations dashboards',
-    body: 'Role-aware operational interfaces for inventory, compliance, and fulfillment clarity.',
-    href: '/work/dachong-wms',
+    title: 'Operations systems',
+    body: 'Warehouse and scheduling workflows built around APIs, data, reliability, and product clarity.',
+    href: '/work/dockflow',
   },
 ];
 
@@ -57,8 +57,8 @@ export function HomePage() {
   return (
     <>
       <Seo
-        title="Jason Huang | Software Engineer & Product Builder"
-        description="Software engineer building design systems, full-stack products, workflow automation, and polished interfaces in the New York / New Jersey area."
+        title="Jason Huang — Software Engineer"
+        description="Backend-heavy full-stack software engineer building SaaS, education, warehouse operations, automation, and developer tooling systems with React, Django, FastAPI, PostgreSQL, Supabase, AWS, and Docker."
         pathname="/"
         jsonLd={personJsonLd(profile)}
       />
@@ -79,7 +79,7 @@ export function HomePage() {
         <Container>
           <Reveal className="sectionHeading">
             <p className="eyebrow">Proof points</p>
-            <h2 id="proof-title">Focused systems, not portfolio filler.</h2>
+            <h2 id="proof-title">Backend-heavy systems with product outcomes.</h2>
           </Reveal>
           <div className="proofGrid">
             {proofCards.map((card) => (
@@ -100,12 +100,22 @@ export function HomePage() {
         <Container className="aboutSection__grid">
           <div className="sectionHeading">
             <p className="eyebrow">About</p>
-            <h2>Calm interfaces for complex work.</h2>
+            <h2>Backend, full-stack, and automation work.</h2>
             <p>
-              I am a software engineer in the New Jersey and New York area,
-              building across frontend systems, backend foundations, and
-              operations-heavy products. My best work sits where product
-              clarity, engineering structure, and visual polish meet.
+              I’m a software engineer studying Computer Science and Economics
+              at Rutgers University. My work sits at the intersection of backend
+              systems, full-stack product development, and automation.
+            </p>
+            <p>
+              Recently, I’ve built Django REST and FastAPI backends,
+              PostgreSQL/Supabase data layers, CI/CD workflows, internal tools,
+              and production-style project systems for scheduling, STEM
+              learning, warehouse operations, video automation, and developer
+              tooling.
+            </p>
+            <p>
+              I care about building software that is useful, maintainable, and
+              measurable — not just polished on the surface.
             </p>
           </div>
           <div className="stackPanel">
@@ -128,9 +138,9 @@ export function HomePage() {
       >
         <Container>
           <SealStampContactCTA
-            title="Let’s build something focused and useful."
-            description="Reach out for software engineering roles, full-stack prototypes, UI systems, or product specs that need structure and taste."
-            primaryLabel="Email"
+            title="Let’s build reliable product systems."
+            description="I’m open to software engineering roles and collaborations involving backend systems, full-stack products, automation, internal tools, and data-heavy workflows."
+            primaryLabel="Email Me"
             primaryHref={profile.links.email}
             email={profile.links.email}
             secondaryLabel="View GitHub"

@@ -10,10 +10,11 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint src --ext js,jsx --report-unused-disable-directives --max-warnings 0",
+    "verify:demos": "node scripts/verify-demo-links.mjs",
     "preview": "vite preview --host 0.0.0.0 --port 4173",
-    "quality:lighthouse": "lighthouse http://127.0.0.1:4173 --output html --output json --output-path ./reports/lighthouse --chrome-flags='--headless=new'",
+    "quality:lighthouse": "mkdir -p reports && lighthouse http://127.0.0.1:4173 --output html --output json --output-path ./reports/lighthouse --chrome-flags='--headless=new'",
     "quality:axe": "axe http://127.0.0.1:4173 --exit",
-    "quality:all": "npm run build && npm run quality:lighthouse && npm run quality:axe"
+    "quality:all": "npm run build && npm run verify:demos && npm run quality:lighthouse && npm run quality:axe"
   },
   "dependencies": {
     "@emailjs/browser": "^3.11.0",

@@ -2,24 +2,24 @@ import { FiArrowUpRight } from 'react-icons/fi';
 
 import { Seo } from '../components/seo/Seo';
 import { Container } from '../components/ui/Container';
-import { projects } from '../data/projects';
+import { getProjectLinks, projects } from '../data/projects';
 
 export function WorkIndexPage() {
   return (
     <>
       <Seo
         title="Work | Jason Huang"
-        description="Case studies and project systems by Jason Huang, including UI Library, Stock Showdown, DaChong WMS, and the portfolio platform."
+        description="Case studies and project systems by Jason Huang, including DockFlow, ChemFarm, TimeMesh, UI Library, and automation workflows."
         pathname="/work"
         image="/og/work.png"
       />
       <section className="pageHero">
         <Container>
           <p className="eyebrow">Work</p>
-          <h1>Case studies for product systems, interfaces, and workflows.</h1>
+          <h1>Case studies for backend-heavy product systems.</h1>
           <p>
-            A scannable index of the projects behind the portfolio. Each case
-            study turns the work into problem, constraint, decision, and result.
+            Selected projects that show backend APIs, practical data models,
+            automation workflows, internal tools, and user-facing applications.
           </p>
         </Container>
       </section>
@@ -53,7 +53,7 @@ export function WorkIndexPage() {
                   <a href={`/work/${project.slug}`}>
                     Read case study <FiArrowUpRight aria-hidden="true" />
                   </a>
-                  {project.links.slice(0, 2).map((link) => (
+                  {getProjectLinks(project).slice(0, 2).map((link) => (
                     <a
                       href={link.href}
                       key={link.href}

@@ -33,7 +33,7 @@ export function SealStampContactCTA({
     primaryHref ?? (email ? `mailto:${email.replace(/^mailto:/, "")}` : "#contact");
 
   return (
-    <aside
+    <div
       className={cx(
         "sealStampContactCTA",
         `sealStampContactCTA--${variant}`,
@@ -68,6 +68,6 @@ export function SealStampContactCTA({
           ) : null}
         </span>
       </span>
-    </aside>
+    </div>
   );
 }
