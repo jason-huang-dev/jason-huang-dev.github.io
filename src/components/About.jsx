@@ -37,10 +37,12 @@ const About = () => {
       <motion.p
         variants={fadeIn('', '', 0.1, 1)}
         className="mt-4 text-taupe text-[18px] max-w-3xl leading-[30px]">
-        I’m a software engineer with a robust background in Computer Science and Economics. 
-        I focus on creating innovative solutions and engaging digital experiences, 
-        often exploring the latest advancements in technology, including artificial intelligence. 
-        Dive into my projects to see how I apply these cutting-edge technologies to solve complex problems and deliver impactful results.
+        I’m a software engineer studying Computer Science and Economics at Rutgers University.
+        I build backend-heavy, full-stack products across SaaS, education, warehouse operations,
+        automation, and developer tooling. My recent work includes Django REST and FastAPI systems,
+        PostgreSQL/Supabase data models, cloud deployment workflows, CI/CD automation, and internal
+        tooling that turns messy operational processes into reliable software. I care most about
+        building products that are useful, maintainable, and measurable.
       </motion.p>
 
       <div className="mt-20 flex flex-wrap gap-10">
