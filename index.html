@@ -5,6 +5,29 @@
     <link rel="icon" type="image/svg+xml" href="/brand/svgs/huang-seal.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Jason Huang | Portfolio</title>
+    <script>
+      (() => {
+        const storageKey = 'portfolio-theme-preference';
+        const valid = new Set(['system', 'light', 'dark']);
+        let stored = null;
+        try {
+          stored = localStorage.getItem(storageKey);
+        } catch {
+          stored = null;
+        }
+        const preference = valid.has(stored) ? stored : 'system';
+        if (stored && !valid.has(stored)) {
+          try {
+            localStorage.removeItem(storageKey);
+          } catch {}
+        }
+        const prefersLight = window.matchMedia?.('(prefers-color-scheme: light)').matches;
+        const resolved = preference === 'system' ? (prefersLight ? 'light' : 'dark') : preference;
+
+        document.documentElement.dataset.theme = resolved;
+        document.documentElement.dataset.themePreference = preference;
+      })();
+    </script>
   </head>
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-DHD24KQBLQ"></script>
@@ -15,7 +38,7 @@
 
     gtag('config', 'G-DHD24KQBLQ');
   </script>
-  <body class="bg-night">
+  <body>
     <div id="root"></div>
     <script>
       (function () {

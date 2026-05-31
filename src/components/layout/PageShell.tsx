@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 import { useLocation } from "react-router-dom";
 
 import { WaterBackdrop } from "../brand/WaterBackdrop";
+import { useThemePreference } from "../../hooks/useThemePreference";
 import { Footer } from "./Footer";
 import { Navbar } from "./Navbar";
 import { ScrollProgressRail } from "./ScrollProgressRail";
@@ -21,14 +22,15 @@ type PageShellProps = {
 export function PageShell({ children }: PageShellProps) {
   const location = useLocation();
   const showSectionRail = location.pathname === "/";
+  const theme = useThemePreference();
 
   return (
-    <div className="pageShell">
+    <div className="pageShell" data-resolved-theme={theme.resolvedTheme}>
       <WaterBackdrop />
       <a className="skipLink" href="#main-content">
         Skip to content
       </a>
-      <Navbar />
+      <Navbar theme={theme} />
       {showSectionRail ? <ScrollProgressRail sections={sectionNavItems} /> : null}
       <main id="main-content" tabIndex={-1}>
         {children}

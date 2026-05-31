@@ -8,6 +8,7 @@ import { YinYangProjectScene } from "../portfolio/YinYangProjectScene";
 import { SignatureProjectCard } from "../projects/SignatureProjectCard";
 import { Container } from "../ui/Container";
 import { Reveal } from "../ui/Reveal";
+import { useThemePreference } from "../../hooks/useThemePreference";
 
 const allFilter = "All";
 const accentMap = {
@@ -18,6 +19,7 @@ const accentMap = {
 } as const;
 
 export function WorkSection() {
+  const { resolvedTheme } = useThemePreference();
   const [activeFilter, setActiveFilter] = useState(allFilter);
   const [selectedProjectId, setSelectedProjectId] = useState<string | null>(null);
   const filters = useMemo(
@@ -75,7 +77,7 @@ export function WorkSection() {
           <Reveal>
             <YinYangProjectScene
               project={featuredProject}
-              mode="dark"
+              mode={resolvedTheme}
               onOpen={setSelectedProjectId}
             />
           </Reveal>

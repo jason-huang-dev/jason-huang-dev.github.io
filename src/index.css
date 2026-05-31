@@ -1895,7 +1895,9 @@ p {
 }
 
 .yinYangProjectScene__half--left {
-  transform: translateX(calc(-1 * var(--scene-half-rest-gap)));
+  transform:
+    translateX(calc(-1 * var(--scene-half-rest-gap)))
+    rotate(var(--scene-left-rest-rotate, 0deg));
 }
 
 .yinYangProjectScene__half--right {

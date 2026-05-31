@@ -3,6 +3,7 @@ import { FiFileText } from "react-icons/fi";
 import { profile } from "../../data/profile";
 import { useActiveSection } from "../../hooks/useActiveSection";
 import { BrandMark } from "../brand/BrandMark";
+import { ThemeToggle } from "../theme/ThemeToggle";
 import { ButtonLink } from "../ui/ButtonLink";
 import { Container } from "../ui/Container";
 
@@ -13,7 +14,15 @@ const navLinks = [
   { href: "/#contact", id: "contact", label: "Contact" },
 ];
 
-export function Navbar() {
+type NavbarProps = {
+  theme: {
+    preference: string;
+    resolvedTheme: string;
+    setPreference: (preference: string) => void;
+  };
+};
+
+export function Navbar({ theme }: NavbarProps) {
   const activeId = useActiveSection(["top", "work", "systems", "about", "contact"]);
 
   return (
@@ -45,6 +54,7 @@ export function Navbar() {
             Resume <FiFileText aria-hidden="true" />
           </ButtonLink>
         ) : null}
+        <ThemeToggle {...theme} />
       </Container>
     </header>
   );

@@ -1,0 +1,1043 @@
+:root,
+[data-theme='dark'] {
+  color-scheme: dark;
+
+  --color-bg: #081018;
+  --color-bg-soft: #0d1722;
+  --color-surface: rgba(14, 27, 40, 0.78);
+  --color-surface-strong: rgba(18, 35, 52, 0.92);
+  --color-text: #f7f4ee;
+  --color-text-muted: rgba(247, 244, 238, 0.72);
+  --color-border: rgba(216, 221, 227, 0.14);
+  --color-brand-gold: #d4af6a;
+  --color-brand-gold-strong: #e7c98a;
+  --color-brand-water: #2ea7ff;
+  --color-brand-jade: #47d7ac;
+  --color-focus: #69c7ff;
+  --radius-pill: 999px;
+  --shadow-soft: 0 24px 80px rgba(0, 0, 0, 0.24);
+  --shadow-glow-water: 0 0 60px rgba(46, 167, 255, 0.16);
+  --shadow-glow-gold: 0 0 56px rgba(212, 175, 106, 0.14);
+  --container-max: 1180px;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+:root,
+[data-theme='dark'] {
+  --color-text-strong: #ffffff;
+  --color-link: #f7f4ee;
+  --color-link-hover: #e7c98a;
+  --color-gradient-scrim: rgba(8, 16, 24, 0.68);
+  --color-gradient-scrim-soft: rgba(8, 16, 24, 0.36);
+  --color-current-line: rgba(46, 167, 255, 0.38);
+  --color-current-line-gold: rgba(212, 175, 106, 0.42);
+  --transition-fast: 140ms var(--ease-out);
+  --transition-base: 240ms var(--ease-out);
+  --transition-slow: 520ms var(--ease-out);
+
+  --background: #081018;
+  --background-deep: #030a11;
+  --surface: #0d1722;
+  --surface-soft: rgba(247, 244, 238, 0.06);
+  --surface-strong: rgba(18, 35, 52, 0.92);
+  --panel-crisp: linear-gradient(180deg, rgba(12, 24, 38, 0.88), rgba(7, 15, 26, 0.94));
+  --border-subtle: rgba(216, 221, 227, 0.14);
+  --border: rgba(216, 221, 227, 0.14);
+  --border-strong: rgba(216, 221, 227, 0.28);
+  --text: #f7f4ee;
+  --text-secondary: rgba(247, 244, 238, 0.72);
+  --text-muted: rgba(247, 244, 238, 0.58);
+  --water: #2ea7ff;
+  --water-soft: #69c7ff;
+  --jade: #47d7ac;
+  --gold: #d4af6a;
+  --gold-muted: #a98348;
+  --shadow-glass: 0 24px 80px rgba(0, 0, 0, 0.24), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  --shadow-water: var(--shadow-glow-water);
+  --surface-glass-hover: rgba(247, 244, 238, 0.085);
+  --water-glow-soft: rgba(46, 167, 255, 0.16);
+  --gold-glow-soft: rgba(212, 175, 106, 0.14);
+  --jade-glow-soft: rgba(71, 215, 172, 0.16);
+}
+
+[data-theme='light'] {
+  color-scheme: light;
+
+  --color-bg: #f7f4ee;
+  --color-bg-soft: #e6d7b5;
+  --color-surface: rgba(255, 250, 241, 0.84);
+  --color-surface-strong: rgba(255, 255, 255, 0.94);
+  --color-text: #0d1b2a;
+  --color-text-muted: rgba(13, 27, 42, 0.72);
+  --color-border: rgba(13, 27, 42, 0.14);
+  --color-brand-gold: #d4af6a;
+  --color-brand-gold-strong: #9a6a18;
+  --color-brand-water: #2fa7e2;
+  --color-brand-jade: #167b66;
+  --color-focus: #0b5f8a;
+  --radius-pill: 999px;
+  --shadow-soft: 0 24px 70px rgba(13, 27, 42, 0.12);
+  --shadow-glow-water: 0 0 52px rgba(47, 167, 226, 0.16);
+  --shadow-glow-gold: 0 0 48px rgba(212, 175, 106, 0.16);
+  --container-max: 1180px;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+
+  --color-text-strong: #081018;
+  --color-link: #0d1b2a;
+  --color-link-hover: #0b5f8a;
+  --color-gradient-scrim: rgba(247, 244, 238, 0.88);
+  --color-gradient-scrim-soft: rgba(247, 244, 238, 0.68);
+  --color-current-line: rgba(47, 167, 226, 0.26);
+  --color-current-line-gold: rgba(154, 106, 24, 0.28);
+  --transition-fast: 140ms var(--ease-out);
+  --transition-base: 240ms var(--ease-out);
+  --transition-slow: 520ms var(--ease-out);
+
+  --background: #f7f4ee;
+  --background-deep: #efe4cf;
+  --surface: rgba(255, 250, 241, 0.84);
+  --surface-soft: rgba(13, 27, 42, 0.055);
+  --surface-strong: rgba(255, 255, 255, 0.94);
+  --panel-crisp: linear-gradient(145deg, rgba(255, 255, 255, 0.94), rgba(255, 250, 241, 0.88));
+  --border-subtle: rgba(13, 27, 42, 0.12);
+  --border: rgba(13, 27, 42, 0.14);
+  --border-strong: rgba(13, 27, 42, 0.26);
+  --text: #0d1b2a;
+  --text-secondary: rgba(13, 27, 42, 0.72);
+  --text-muted: rgba(13, 27, 42, 0.58);
+  --water: #2fa7e2;
+  --water-soft: #0b5f8a;
+  --jade: #167b66;
+  --gold: #9a6a18;
+  --gold-muted: #7d5514;
+  --shadow-glass: 0 24px 70px rgba(13, 27, 42, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.74);
+  --shadow-water: 0 0 52px rgba(47, 167, 226, 0.16);
+  --surface-glass-hover: rgba(13, 27, 42, 0.075);
+  --water-glow-soft: rgba(47, 167, 226, 0.12);
+  --gold-glow-soft: rgba(212, 175, 106, 0.16);
+  --jade-glow-soft: rgba(22, 123, 102, 0.12);
+}
+
+body {
+  background:
+    radial-gradient(circle at 12% 8%, rgba(47, 167, 226, 0.13), transparent 28rem),
+    radial-gradient(circle at 88% 4%, rgba(212, 175, 106, 0.16), transparent 24rem),
+    linear-gradient(180deg, var(--color-bg), var(--background-deep) 100%);
+  color: var(--color-text);
+  transition:
+    background var(--transition-slow),
+    color var(--transition-base);
+}
+
+:focus-visible {
+  outline-color: var(--color-focus);
+  box-shadow: 0 0 0 6px color-mix(in srgb, var(--color-focus) 16%, transparent);
+}
+
+.pageShell {
+  background:
+    radial-gradient(circle at 72% 18%, rgba(46, 167, 255, 0.12), transparent 32rem),
+    radial-gradient(circle at 18% 78%, rgba(71, 215, 172, 0.08), transparent 30rem),
+    linear-gradient(180deg, var(--color-bg), var(--background-deep));
+  color: var(--color-text);
+  transition:
+    background var(--transition-slow),
+    color var(--transition-base);
+}
+
+.navbar__inner,
+.proofCard,
+.workIndexCard,
+.metricCard,
+.decisionCard,
+.projectSnapshot,
+.caseStudySection,
+.systemCard,
+.stackPanel,
+.contactPanel,
+.featuredProject__partition,
+.projectDrawer__panel {
+  background: var(--panel-crisp);
+  border-color: var(--color-border);
+  box-shadow: var(--shadow-soft);
+  transition:
+    background var(--transition-base),
+    border-color var(--transition-base),
+    box-shadow var(--transition-base),
+    color var(--transition-base);
+}
+
+.navbar__inner {
+  background: var(--color-surface);
+}
+
+.themeToggle {
+  display: inline-flex;
+  align-items: center;
+  flex: 0 0 auto;
+  gap: 0.25rem;
+  min-height: 2.5rem;
+  padding: 0.25rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  background: var(--color-surface);
+  color: var(--color-text);
+  box-shadow: var(--shadow-soft);
+  transition:
+    background var(--transition-base),
+    color var(--transition-base),
+    border-color var(--transition-base),
+    transform var(--transition-fast),
+    box-shadow var(--transition-base);
+}
+
+.themeToggle:hover {
+  transform: translateY(-1px);
+  border-color: color-mix(in srgb, var(--color-brand-water), var(--color-border) 45%);
+}
+
+.themeToggle__option {
+  min-height: 2rem;
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  font-size: 0.68rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  padding: 0 0.62rem;
+  text-transform: uppercase;
+  transition:
+    background var(--transition-fast),
+    color var(--transition-fast),
+    transform var(--transition-fast);
+}
+
+.themeToggle__option:hover,
+.themeToggle__option:focus-visible,
+.themeToggle__option[data-active='true'] {
+  background: var(--surface-soft);
+  color: var(--color-text);
+}
+
+.themeToggle__option[data-active='true'] {
+  box-shadow: inset 0 0 0 1px var(--color-border);
+}
+
+.themeToggle__option:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 3px;
+}
+
+.featuredProject__medallion {
+  display: grid;
+}
+
+.featuredProject__medallionImage {
+  grid-area: 1 / 1;
+  opacity: 0;
+  transition:
+    opacity var(--transition-base),
+    filter var(--transition-base);
+}
+
+.featuredProject__medallionImage--dark {
+  opacity: 1;
+}
+
+[data-theme='light'] .featuredProject__medallionImage--dark {
+  opacity: 0;
+}
+
+[data-theme='light'] .featuredProject__medallionImage--light {
+  opacity: 1;
+}
+
+.signatureCurrentDivider {
+  color: var(--color-text-muted);
+}
+
+.signatureCurrentDivider__label {
+  color: var(--color-text-muted);
+}
+
+.signatureCurrentDivider__line::before {
+  background:
+    linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.22), transparent),
+    linear-gradient(90deg, var(--color-current-line), var(--color-current-line-gold));
+}
+
+[data-theme='light'] .pageShell {
+  background:
+    radial-gradient(circle at 12% 8%, rgba(47, 167, 226, 0.13), transparent 28rem),
+    radial-gradient(circle at 88% 4%, rgba(212, 175, 106, 0.16), transparent 24rem),
+    linear-gradient(180deg, var(--color-bg), #efe4cf 100%);
+}
+
+[data-theme='light'] .navbar__inner {
+  background: rgba(255, 250, 241, 0.84);
+}
+
+[data-theme='light'] .heroSection {
+  background:
+    linear-gradient(100deg, rgba(247, 244, 238, 0.98) 0%, rgba(247, 244, 238, 0.92) 48%, rgba(230, 215, 181, 0.52) 100%),
+    radial-gradient(circle at 82% 22%, rgba(47, 167, 226, 0.2), transparent 26rem),
+    var(--color-bg);
+  color: var(--color-text);
+}
+
+[data-theme='light'] .heroSection__copy {
+  position: relative;
+  z-index: 1;
+}
+
+[data-theme='light'] .heroSection__summary,
+[data-theme='light'] p {
+  color: var(--color-text-muted);
+}
+
+[data-theme='light'] .eyebrow,
+[data-theme='light'] .proofCard small,
+[data-theme='light'] .workIndexCard__actions a,
+[data-theme='light'] .projectRippleCard__cta,
+[data-theme='light'] .featuredProject__meta,
+[data-theme='light'] .systemCard--interactive strong {
+  color: var(--color-link-hover);
+}
+
+[data-theme='light'] .heroSection__stats span,
+[data-theme='light'] .projectFilters button,
+[data-theme='light'] .techPill,
+[data-theme='light'] .stackCloud span,
+[data-theme='light'] .workIndexCard__tech span {
+  background: rgba(255, 255, 255, 0.52);
+  border-color: var(--color-border);
+  color: var(--color-text-muted);
+}
+
+[data-theme='light'] .heroSection__visual,
+[data-theme='light'] .featuredProject__button {
+  background:
+    radial-gradient(circle at 50% 45%, rgba(47, 167, 226, 0.12), transparent 38%),
+    linear-gradient(145deg, rgba(255, 255, 255, 0.92), rgba(255, 250, 241, 0.8));
+  border-color: var(--color-border);
+  box-shadow: var(--shadow-soft);
+}
+
+[data-theme='light'] .fluidSignatureSeal__waterGlass {
+  background:
+    radial-gradient(circle at 50% 48%, rgba(47, 167, 226, 0.12), transparent 48%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.5), rgba(230, 215, 181, 0.08));
+}
+
+[data-theme='light'] .fluidCanvas,
+[data-theme='light'] .fluidCanvasFallback {
+  opacity: 0.64;
+}
+
+[data-theme='light'] .fluidSignatureSeal__emblem,
+[data-theme='light'] .heroFluidSimulationPanel__signature {
+  opacity: 0.72;
+  filter:
+    drop-shadow(0 18px 42px rgba(13, 27, 42, 0.16))
+    drop-shadow(0 0 18px rgba(47, 167, 226, 0.08));
+}
+
+[data-theme='light'] .waterBackdrop__ring {
+  border-color: rgba(47, 167, 226, 0.12);
+}
+
+[data-theme='light'] .waterBackdrop__grid {
+  opacity: 0.05;
+}
+
+[data-theme='light'] .waterBackdrop__current {
+  background:
+    linear-gradient(90deg, transparent, rgba(47, 167, 226, 0.18), rgba(154, 106, 24, 0.12), transparent);
+  opacity: 0.38;
+}
+
+[data-theme='light'] .waterPearl,
+[data-theme='light'] .rippleDivider span {
+  border-color: rgba(47, 167, 226, 0.2);
+  color: rgba(11, 95, 138, 0.72);
+}
+
+[data-theme='light'] .projectPearlDock__label {
+  background: rgba(255, 250, 241, 0.94);
+}
+
+[data-theme='light'] .projectPearlDock__pearl {
+  background:
+    radial-gradient(circle at 28% 22%, rgba(255, 255, 255, 0.95), transparent 12%),
+    radial-gradient(circle at 38% 32%, rgba(47, 167, 226, 0.16), transparent 34%),
+    rgba(255, 250, 241, 0.9);
+}
+
+[data-theme='light'] .signatureProjectCard,
+[data-theme='light'] .projectRippleCard {
+  background:
+    radial-gradient(circle at 94% 10%, rgba(212, 175, 106, 0.22), transparent 18rem),
+    linear-gradient(145deg, rgba(255, 246, 224, 0.96) 0%, rgba(255, 252, 246, 0.94) 56%, rgba(247, 244, 238, 0.9) 100%);
+  border-color: rgba(154, 106, 24, 0.18);
+  box-shadow:
+    0 24px 70px rgba(154, 106, 24, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.86);
+  color: var(--color-text);
+}
+
+[data-theme='light'] .signatureProjectCard:hover,
+[data-theme='light'] .signatureProjectCard:focus-within,
+[data-theme='light'] .projectRippleCard:hover,
+[data-theme='light'] .projectRippleCard:focus-within,
+[data-theme='light'] .projectRippleCard--selected {
+  border-color: rgba(154, 106, 24, 0.28);
+  box-shadow:
+    0 28px 76px rgba(154, 106, 24, 0.16),
+    0 0 30px rgba(212, 175, 106, 0.14),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+[data-theme='light'] .signatureProjectCard__title,
+[data-theme='light'] .signatureProjectCard__cta,
+[data-theme='light'] .projectRippleCard__content strong {
+  color: var(--color-text);
+}
+
+[data-theme='light'] .signatureProjectCard__description,
+[data-theme='light'] .signatureProjectCard__impact,
+[data-theme='light'] .signatureProjectCard__github,
+[data-theme='light'] .projectRippleCard__content span {
+  color: var(--color-text-muted);
+}
+
+[data-theme='light'] .signatureProjectCard__eyebrow,
+[data-theme='light'] .projectRippleCard__topline {
+  color: var(--color-brand-water);
+}
+
+[data-theme='light'] .signatureProjectCard__tags span,
+[data-theme='light'] .projectRippleCard__tech .techPill,
+[data-theme='light'] .projectRippleCard__icon {
+  background: rgba(255, 255, 255, 0.58);
+  border-color: rgba(154, 106, 24, 0.16);
+  color: rgba(13, 27, 42, 0.72);
+}
+
+[data-theme='light'] .signatureProjectCard__edge {
+  opacity: 0.38;
+  background:
+    linear-gradient(90deg, transparent, rgba(47, 167, 226, 0.18), transparent) top left / 220% 1px no-repeat,
+    linear-gradient(90deg, transparent, rgba(154, 106, 24, 0.24), transparent) bottom right / 220% 1px no-repeat;
+}
+
+[data-theme='light'] .signatureProjectCard__watermark {
+  opacity: 0.035;
+}
+
+[data-theme='light'] .projectRippleCard::before {
+  background:
+    radial-gradient(420px circle at var(--pointer-x, 50%) var(--pointer-y, 50%), rgba(212, 175, 106, 0.18), transparent 42%);
+}
+
+[data-theme='light'] .projectRippleCard::after {
+  background:
+    linear-gradient(115deg, transparent 0 36%, rgba(255, 255, 255, 0.5) 44%, transparent 52%);
+}
+
+[data-theme='light'] .projectRippleCard__ripple {
+  background: radial-gradient(circle, rgba(212, 175, 106, 0.12), transparent 60%);
+}
+
+[data-theme='light'] .projectRippleCard__ripple::before,
+[data-theme='light'] .projectRippleCard__ripple::after {
+  border-color: rgba(154, 106, 24, 0.22);
+}
+
+[data-theme='light'] .systemCard--interactive:hover,
+[data-theme='light'] .systemCard--interactive:focus-visible {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(255, 250, 241, 0.84));
+}
+
+[data-theme='light'] .systemCard__medallion {
+  background: rgba(255, 255, 255, 0.62);
+}
+
+[data-theme='light'] .inkCurrentReveal__glint {
+  background:
+    linear-gradient(105deg, transparent 0 24%, rgba(47, 167, 226, 0.08) 36%, rgba(154, 106, 24, 0.08) 52%, transparent 68%);
+}
+
+[data-theme='light'] .sealStampCTA {
+  background: rgba(154, 106, 24, 0.08);
+  border-color: rgba(154, 106, 24, 0.28);
+  color: var(--color-text);
+}
+
+[data-theme='light'] .sealStampCTA__seal {
+  color: var(--color-brand-gold-strong);
+}
+
+[data-theme='light'] .buttonLink--primary,
+[data-theme='light'] .sealStampContactCTA__primary {
+  background: linear-gradient(135deg, var(--color-brand-water), #a9d8ef);
+  color: #081018;
+}
+
+[data-theme='light'] .buttonLink--secondary,
+[data-theme='light'] .buttonLink--ghost,
+[data-theme='light'] .sealStampContactCTA__secondary {
+  background: rgba(255, 255, 255, 0.56);
+  border-color: var(--color-border);
+  color: var(--color-text);
+}
+
+[data-theme='light'] .sealStampContactCTA {
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.95), rgba(255, 250, 241, 0.88)),
+    radial-gradient(circle at 100% 0%, rgba(212, 175, 106, 0.18), transparent 22rem);
+  border-color: var(--color-border);
+  color: var(--color-text);
+  box-shadow: var(--shadow-soft);
+}
+
+[data-theme='light'] .sealStampContactCTA:hover,
+[data-theme='light'] .sealStampContactCTA:focus-within {
+  border-color: rgba(47, 167, 226, 0.3);
+  box-shadow:
+    var(--shadow-soft),
+    0 0 30px rgba(47, 167, 226, 0.08);
+}
+
+[data-theme='light'] .sealStampContactCTA__seal {
+  background:
+    radial-gradient(circle, rgba(212, 175, 106, 0.12), transparent 62%),
+    rgba(255, 255, 255, 0.58);
+}
+
+[data-theme='light'] .sealStampContactCTA__sealCurrent {
+  background:
+    conic-gradient(from 120deg, transparent, rgba(47, 167, 226, 0.22), transparent 34%, rgba(154, 106, 24, 0.18), transparent 68%);
+}
+
+[data-theme='light'] .projectDrawer__backdrop {
+  background: rgba(247, 244, 238, 0.72);
+}
+
+@media (max-width: 767px) {
+  .themeToggle {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .themeToggle__option {
+    flex: 1 1 0;
+  }
+}
+
+/* -------------------------------------------------------------------------- */
+/* Light Theme Fixes: Drawer, Featured Display, Yin-Yang Scene, Side Scroll   */
+/* -------------------------------------------------------------------------- */
+
+[data-theme='light'] {
+  --light-ink: #0d1b2a;
+  --light-ink-muted: rgba(13, 27, 42, 0.7);
+  --light-ink-soft: rgba(13, 27, 42, 0.56);
+  --light-paper: rgba(255, 250, 241, 0.96);
+  --light-paper-strong: rgba(255, 255, 255, 0.98);
+  --light-sand: rgba(230, 215, 181, 0.52);
+  --light-gold-border: rgba(154, 106, 24, 0.2);
+  --light-water-border: rgba(47, 167, 226, 0.28);
+  --light-water-fill: rgba(47, 167, 226, 0.14);
+  --light-panel-shadow: 0 26px 76px rgba(13, 27, 42, 0.12);
+}
+
+/* -------------------------------------------------------------------------- */
+/* Project drawer / popup                                                     */
+/* -------------------------------------------------------------------------- */
+
+[data-theme='light'] .projectDrawer__panel {
+  background:
+    radial-gradient(circle at 100% 0%, rgba(212, 175, 106, 0.16), transparent 24rem),
+    linear-gradient(
+      145deg,
+      rgba(255, 255, 255, 0.98) 0%,
+      rgba(255, 250, 241, 0.94) 54%,
+      rgba(247, 244, 238, 0.92) 100%
+    );
+  border-color: rgba(13, 27, 42, 0.14);
+  color: var(--light-ink);
+  box-shadow:
+    0 34px 90px rgba(13, 27, 42, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.88);
+}
+
+[data-theme='light'] .projectDrawer__header,
+[data-theme='light'] .projectDrawer__miniNav {
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.98) 0%,
+      rgba(255, 250, 241, 0.94) 68%,
+      rgba(255, 250, 241, 0.82) 100%
+    );
+  border-color: rgba(13, 27, 42, 0.12);
+  color: var(--light-ink);
+  box-shadow: 0 18px 38px rgba(13, 27, 42, 0.08);
+}
+
+[data-theme='light'] .projectDrawer__header h1,
+[data-theme='light'] .projectDrawer__header h2,
+[data-theme='light'] .projectDrawer__header h3,
+[data-theme='light'] .projectDrawer__panel h1,
+[data-theme='light'] .projectDrawer__panel h2,
+[data-theme='light'] .projectDrawer__panel h3 {
+  color: var(--light-ink);
+  text-shadow: none;
+}
+
+[data-theme='light'] .projectDrawer__summary {
+  color: rgba(13, 27, 42, 0.82);
+}
+
+[data-theme='light'] .projectDrawer__panel p,
+[data-theme='light'] .projectDrawer__panel li,
+[data-theme='light'] .projectDrawer__facts span,
+[data-theme='light'] .projectDetailSection ul {
+  color: var(--light-ink-muted);
+}
+
+[data-theme='light'] .projectDetailSection {
+  border-top-color: rgba(13, 27, 42, 0.12);
+}
+
+[data-theme='light'] .projectDetailSection h3,
+[data-theme='light'] .projectDrawer__facts strong,
+[data-theme='light'] .projectDrawer__status {
+  color: var(--color-brand-gold-strong);
+}
+
+[data-theme='light'] .projectDrawer__facts span,
+[data-theme='light'] .projectArtifactPreview,
+[data-theme='light'] .projectDrawer__miniNav a,
+[data-theme='light'] .projectDrawer__links a,
+[data-theme='light'] .projectDrawer__pills .techPill {
+  background: rgba(255, 255, 255, 0.58);
+  border-color: rgba(13, 27, 42, 0.12);
+  color: rgba(13, 27, 42, 0.72);
+}
+
+[data-theme='light'] .projectDrawer__miniNav a:hover,
+[data-theme='light'] .projectDrawer__miniNav a:focus-visible,
+[data-theme='light'] .projectDrawer__links a:hover,
+[data-theme='light'] .projectDrawer__links a:focus-visible {
+  border-color: var(--light-water-border);
+  color: var(--color-brand-water);
+  background: rgba(47, 167, 226, 0.08);
+}
+
+[data-theme='light'] .iconButton {
+  background: rgba(255, 255, 255, 0.74);
+  border-color: rgba(13, 27, 42, 0.14);
+  color: var(--light-ink);
+  box-shadow:
+    0 14px 32px rgba(13, 27, 42, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.78);
+}
+
+[data-theme='light'] .iconButton:hover,
+[data-theme='light'] .iconButton:focus-visible {
+  background: rgba(255, 255, 255, 0.96);
+  border-color: var(--light-water-border);
+  color: #081018;
+}
+
+[data-theme='light'] .projectArtifactPreview__block,
+[data-theme='light'] .yinYangProjectScene__mockGrid span {
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.78),
+      rgba(255, 250, 241, 0.44)
+    );
+  border-color: rgba(13, 27, 42, 0.1);
+}
+
+/* -------------------------------------------------------------------------- */
+/* Featured systems card                                                      */
+/* -------------------------------------------------------------------------- */
+
+[data-theme='light'] .featuredProject__button {
+  background:
+    radial-gradient(circle at 12% 40%, rgba(47, 167, 226, 0.13), transparent 26rem),
+    radial-gradient(circle at 88% 12%, rgba(212, 175, 106, 0.18), transparent 24rem),
+    linear-gradient(
+      145deg,
+      rgba(255, 255, 255, 0.96) 0%,
+      rgba(255, 250, 241, 0.9) 58%,
+      rgba(230, 215, 181, 0.36) 100%
+    );
+  border-color: rgba(154, 106, 24, 0.18);
+  color: var(--light-ink);
+  box-shadow:
+    var(--light-panel-shadow),
+    inset 0 1px 0 rgba(255, 255, 255, 0.86);
+}
+
+[data-theme='light'] .featuredProject__button:hover,
+[data-theme='light'] .featuredProject__button:focus-visible {
+  border-color: rgba(47, 167, 226, 0.34);
+  box-shadow:
+    0 30px 84px rgba(13, 27, 42, 0.14),
+    0 0 38px rgba(47, 167, 226, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+[data-theme='light'] .featuredProject__title,
+[data-theme='light'] .featuredProject__panelTitle {
+  color: var(--light-ink);
+  text-shadow: none;
+}
+
+[data-theme='light'] .featuredProject__summary,
+[data-theme='light'] .featuredProject__role {
+  color: var(--light-ink-muted);
+}
+
+[data-theme='light'] .featuredProject__meta {
+  color: var(--color-brand-water);
+}
+
+[data-theme='light'] .featuredProject__partition {
+  background:
+    radial-gradient(circle at 0% 50%, rgba(47, 167, 226, 0.08), transparent 18rem),
+    linear-gradient(
+      145deg,
+      rgba(255, 255, 255, 0.92) 0%,
+      rgba(255, 250, 241, 0.86) 100%
+    );
+  border-color: rgba(13, 27, 42, 0.12);
+  color: var(--light-ink);
+  box-shadow:
+    0 22px 60px rgba(13, 27, 42, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(14px);
+}
+
+[data-theme='light'] .featuredProject__tech .techPill,
+[data-theme='light'] .featuredProject__previewHeader,
+[data-theme='light'] .featuredProject__previewGrid span {
+  background: rgba(255, 255, 255, 0.58);
+  border-color: rgba(13, 27, 42, 0.12);
+  color: rgba(13, 27, 42, 0.7);
+}
+
+[data-theme='light'] .featuredProject__preview {
+  background:
+    radial-gradient(circle at 82% 18%, rgba(47, 167, 226, 0.14), transparent 32%),
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.8),
+      rgba(255, 250, 241, 0.5)
+    );
+  border-color: rgba(13, 27, 42, 0.12);
+}
+
+[data-theme='light'] .featuredProject__previewLine {
+  background: rgba(13, 27, 42, 0.14);
+}
+
+[data-theme='light'] .featuredProject__previewLine--wide {
+  background: rgba(47, 167, 226, 0.24);
+}
+
+[data-theme='light'] .featuredProject__cta {
+  color: #0873a8;
+}
+
+[data-theme='light'] .featuredProject__medallion {
+  opacity: 0.18;
+  filter:
+    drop-shadow(0 20px 52px rgba(13, 27, 42, 0.12))
+    drop-shadow(0 0 28px rgba(47, 167, 226, 0.1));
+}
+
+[data-theme='light'] .featuredProject__button:hover .featuredProject__medallion,
+[data-theme='light'] .featuredProject__button:focus-visible .featuredProject__medallion {
+  opacity: 0.1;
+}
+
+/* -------------------------------------------------------------------------- */
+/* Yin-yang featured display                                                  */
+/* -------------------------------------------------------------------------- */
+
+[data-theme='light'] .yinYangProjectScene__trigger {
+  background:
+    radial-gradient(circle at 50% 42%, rgba(47, 167, 226, 0.13), transparent 32%),
+    radial-gradient(circle at 78% 70%, rgba(212, 175, 106, 0.12), transparent 30%),
+    linear-gradient(
+      145deg,
+      rgba(255, 255, 255, 0.96) 0%,
+      rgba(255, 250, 241, 0.9) 58%,
+      rgba(230, 215, 181, 0.32) 100%
+    );
+  border-color: rgba(154, 106, 24, 0.18);
+  color: var(--light-ink);
+  box-shadow:
+    var(--light-panel-shadow),
+    inset 0 1px 0 rgba(255, 255, 255, 0.86);
+}
+
+[data-theme='light'] .yinYangProjectScene__trigger::before {
+  border-color: rgba(154, 106, 24, 0.16);
+  background:
+    linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0),
+      rgba(255, 255, 255, 0.5) 12%,
+      rgba(255, 250, 241, 0.28) 50%,
+      rgba(255, 255, 255, 0.5) 88%,
+      rgba(255, 255, 255, 0)
+    );
+  box-shadow: inset 0 0 34px rgba(47, 167, 226, 0.08);
+}
+
+[data-theme='light'] .yinYangProjectScene__trigger::after {
+  background: radial-gradient(circle, rgba(212, 175, 106, 0.12), transparent 62%);
+}
+
+[data-theme='light'] .yinYangProjectScene__closedLabel {
+  color: var(--light-ink-muted);
+}
+
+[data-theme='light'] .yinYangProjectScene__closedTitle,
+[data-theme='light'] .yinYangProjectScene__title {
+  color: var(--light-ink);
+  text-shadow: none;
+}
+
+[data-theme='light'] .yinYangProjectScene__summary,
+[data-theme='light'] .yinYangProjectScene__role {
+  color: var(--light-ink-muted);
+}
+
+[data-theme='light'] .yinYangProjectScene__content::before {
+  background:
+    linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.94),
+      rgba(255, 250, 241, 0.86) 70%,
+      rgba(255, 250, 241, 0)
+    );
+  box-shadow: 0 20px 60px rgba(13, 27, 42, 0.12);
+}
+
+[data-theme='light'] .yinYangProjectScene__cta {
+  color: #0873a8;
+}
+
+[data-theme='light'] .yinYangProjectScene__half,
+[data-theme='light'] .yinYangProjectScene__seal,
+[data-theme='light'] .yinYangProjectScene__emblem {
+  filter:
+    drop-shadow(0 18px 40px rgba(13, 27, 42, 0.16))
+    drop-shadow(0 0 22px rgba(47, 167, 226, 0.08));
+}
+
+[data-theme='light'] .yinYangProjectScene__watermark {
+  border-color: rgba(154, 106, 24, 0.14);
+}
+
+[data-theme='light'] .yinYangProjectScene__preview > img,
+[data-theme='light'] .yinYangProjectScene__mock {
+  background:
+    radial-gradient(circle at 82% 18%, rgba(47, 167, 226, 0.14), transparent 32%),
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.84),
+      rgba(255, 250, 241, 0.58)
+    );
+  border-color: rgba(13, 27, 42, 0.12);
+  box-shadow:
+    0 22px 60px rgba(13, 27, 42, 0.12),
+    0 0 24px rgba(47, 167, 226, 0.08);
+}
+
+[data-theme='light'] .yinYangProjectScene__mockTop {
+  border-bottom-color: rgba(13, 27, 42, 0.1);
+}
+
+[data-theme='light'] .yinYangProjectScene__mockTitle,
+[data-theme='light'] .yinYangProjectScene__mockLine {
+  color: var(--light-ink-soft);
+  background: rgba(13, 27, 42, 0.13);
+}
+
+[data-theme='light'] .yinYangProjectScene__mockLine--active {
+  background: rgba(47, 167, 226, 0.38);
+  box-shadow: 0 0 18px rgba(47, 167, 226, 0.12);
+}
+
+[data-theme='light'] .yinYangProjectScene__mockLine--wide {
+  background: rgba(47, 167, 226, 0.2);
+}
+
+/* Only works if the JSX includes paired dark/light image elements. */
+.yinYangProjectScene__half--light,
+.yinYangProjectScene__seal--light,
+.yinYangProjectScene__emblem--light {
+  opacity: 0;
+}
+
+[data-theme='light'] .yinYangProjectScene__half--dark,
+[data-theme='light'] .yinYangProjectScene__seal--dark,
+[data-theme='light'] .yinYangProjectScene__emblem--dark {
+  opacity: 0;
+}
+
+[data-theme='light'] .yinYangProjectScene__half--light,
+[data-theme='light'] .yinYangProjectScene__seal--light,
+[data-theme='light'] .yinYangProjectScene__emblem--light {
+  opacity: 1;
+}
+
+/* -------------------------------------------------------------------------- */
+/* Side scroll rail                                                           */
+/* -------------------------------------------------------------------------- */
+
+[data-theme='light'] .scrollProgressRail a {
+  color: rgba(13, 27, 42, 0.56);
+}
+
+[data-theme='light'] .scrollProgressRail__dot {
+  background:
+    radial-gradient(circle at 30% 24%, rgba(255, 255, 255, 0.92), transparent 18%),
+    rgba(255, 255, 255, 0.72);
+  border-color: rgba(13, 27, 42, 0.28);
+  box-shadow:
+    0 8px 18px rgba(13, 27, 42, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.76);
+}
+
+[data-theme='light'] .scrollProgressRail__label {
+  color: rgba(13, 27, 42, 0.64);
+  text-shadow: none;
+}
+
+[data-theme='light'] .scrollProgressRail a:hover,
+[data-theme='light'] .scrollProgressRail a:focus-visible,
+[data-theme='light'] .scrollProgressRail a.is-active {
+  color: rgba(13, 27, 42, 0.82);
+}
+
+[data-theme='light'] .scrollProgressRail a:hover .scrollProgressRail__dot,
+[data-theme='light'] .scrollProgressRail a:focus-visible .scrollProgressRail__dot {
+  border-color: rgba(47, 167, 226, 0.48);
+  box-shadow:
+    0 0 0 5px rgba(47, 167, 226, 0.1),
+    0 12px 24px rgba(13, 27, 42, 0.12);
+}
+
+[data-theme='light'] .scrollProgressRail a.is-active .scrollProgressRail__dot {
+  background:
+    radial-gradient(circle at 30% 24%, rgba(255, 255, 255, 0.75), transparent 18%),
+    var(--color-brand-water);
+  border-color: rgba(8, 16, 24, 0.2);
+  box-shadow:
+    0 0 0 5px rgba(47, 167, 226, 0.16),
+    0 14px 30px rgba(47, 167, 226, 0.22);
+}
+
+/* -------------------------------------------------------------------------- */
+/* Horizontal project pearl dock, if present                                  */
+/* -------------------------------------------------------------------------- */
+
+[data-theme='light'] .projectPearlDock__label {
+  background:
+    linear-gradient(
+      90deg,
+      rgba(255, 250, 241, 0.96),
+      rgba(230, 215, 181, 0.68)
+    );
+  border-color: rgba(47, 167, 226, 0.22);
+  color: rgba(13, 27, 42, 0.7);
+  box-shadow:
+    0 12px 26px rgba(13, 27, 42, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.72);
+}
+
+[data-theme='light'] .projectPearlDock__pearl {
+  background:
+    radial-gradient(circle at 28% 22%, rgba(255, 255, 255, 0.95), transparent 12%),
+    radial-gradient(circle at 38% 32%, rgba(47, 167, 226, 0.14), transparent 34%),
+    rgba(255, 250, 241, 0.92);
+  border-color: rgba(13, 27, 42, 0.16);
+  box-shadow:
+    0 14px 32px rgba(13, 27, 42, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.76);
+}
+
+[data-theme='light'] .projectPearlDock__item[data-active='true'] .projectPearlDock__pearl {
+  border-color: rgba(47, 167, 226, 0.74);
+  box-shadow:
+    0 0 0 2px rgba(47, 167, 226, 0.48),
+    0 0 0 5px rgba(47, 167, 226, 0.12),
+    0 16px 34px rgba(47, 167, 226, 0.18);
+}
+
+[data-theme='light'] .projectPearlDock__item[data-featured='true'] .projectPearlDock__pearl {
+  border-color: rgba(154, 106, 24, 0.36);
+  box-shadow:
+    0 0 0 1px rgba(154, 106, 24, 0.22),
+    0 14px 32px rgba(154, 106, 24, 0.12);
+}
+
+/* -------------------------------------------------------------------------- */
+/* Mobile safety                                                              */
+/* -------------------------------------------------------------------------- */
+
+@media (max-width: 767px) {
+  [data-theme='light'] .featuredProject__medallion {
+    opacity: 0.72;
+  }
+
+  [data-theme='light'] .featuredProject__button:hover .featuredProject__medallion,
+  [data-theme='light'] .featuredProject__button:focus-visible .featuredProject__medallion {
+    opacity: 0.72;
+  }
+
+  [data-theme='light'] .yinYangProjectScene__content::before {
+    background:
+      linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.94),
+        rgba(255, 250, 241, 0.86)
+      );
+  }
+
+  [data-theme='light'] .projectPearlDock__label {
+    background: transparent;
+    box-shadow: none;
+  }
+}
+
+/* -------------------------------------------------------------------------- */
+/* Yin-yang scene spacing by theme mode                                       */
+/* -------------------------------------------------------------------------- */
+
+.yinYangProjectScene[data-mode='dark'] {
+  --scene-half-rest-gap: 20px;
+  --scene-left-open-x: calc(-50vw + var(--scene-edge-inset));
+  --scene-right-open-x: calc(50vw - var(--scene-edge-inset));
+  --scene-half-open-scale: 0.72;
+}
+
+.yinYangProjectScene[data-mode='light'] {
+  --scene-half-rest-gap: 84px;
+  --scene-left-rest-rotate: 6deg;
+  --scene-left-open-x: calc(-50vw + var(--scene-edge-inset));
+  --scene-right-open-x: calc(50vw - var(--scene-edge-inset));
+  --scene-half-open-scale: 0.72;
+}

@@ -1,4 +1,4 @@
-import{r as ye,g as f0,j as Xn,S as C_}from"./index-a25c9f44.js";/**
+import{r as ye,g as f0,j as Xn,S as C_}from"./index-38618e85.js";/**
  * @license
  * Copyright 2010-2023 Three.js Authors
  * SPDX-License-Identifier: MIT
