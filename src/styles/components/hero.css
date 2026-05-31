@@ -204,10 +204,11 @@ p {
 .fluidCanvasFallback {
   pointer-events: none;
   background:
-    radial-gradient(circle at 28% 22%, rgba(126, 231, 242, 0.18), transparent 30%),
-    radial-gradient(circle at 68% 62%, rgba(37, 99, 235, 0.18), transparent 32%),
-    radial-gradient(circle at 58% 52%, rgba(247, 201, 72, 0.09), transparent 34%),
-    linear-gradient(135deg, rgba(3, 10, 17, 0.12), rgba(3, 10, 17, 0));
+    radial-gradient(circle at 36% 34%, rgba(126, 231, 242, 0.16), transparent 22%),
+    radial-gradient(circle at 64% 66%, rgba(247, 201, 72, 0.11), transparent 20%),
+    radial-gradient(ellipse at 34% 62%, rgba(126, 231, 242, 0.12), transparent 30%),
+    radial-gradient(ellipse at 68% 38%, rgba(247, 201, 72, 0.08), transparent 30%),
+    linear-gradient(135deg, rgba(3, 10, 17, 0.08), rgba(3, 10, 17, 0));
 }
 
 .heroFluidSimulationPanel__signature {
@@ -572,4 +573,3 @@ p {
 .inkCurrentReveal--visible .inkCurrentReveal__glint {
   animation: inkCurrentGlint 980ms ease-out 120ms both;
 }
-

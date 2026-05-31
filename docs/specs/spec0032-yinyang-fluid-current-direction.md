@@ -1,4 +1,4 @@
-# Spec 0111: Yin-Yang Current Field for Fluid Simulation
+# Spec 0033: Yin-Yang Current Field for Fluid Simulation
 
 ## Status
 

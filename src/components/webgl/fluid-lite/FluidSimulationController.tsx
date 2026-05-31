@@ -205,7 +205,10 @@ export function FluidSimulationController({
 
     const activeSplatLimit = Math.max(
       config.maxActiveSplats,
-      config.autoCurrentBridgeCount + config.wavefrontPointCount * 2 + 7,
+      config.autoCurrentBridgeCount +
+        config.yinYangCurrentSeamPointCount * 2 +
+        config.wavefrontPointCount * 2 +
+        7,
     );
     const pendingSplats = splatsRef.current.splice(0, activeSplatLimit);
     if (pendingSplats.length > 0) {
