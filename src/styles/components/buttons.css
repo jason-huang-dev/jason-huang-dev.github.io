@@ -1,0 +1,114 @@
+.buttonLink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 46px;
+  border: 1px solid transparent;
+  border-radius: var(--radius-full);
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  padding: 0 18px;
+  text-transform: uppercase;
+  transition:
+    transform 200ms ease,
+    border-color 200ms ease,
+    background 200ms ease,
+    color 200ms ease;
+}
+
+.buttonLink:hover {
+  transform: translateY(-2px);
+}
+
+.buttonLink svg,
+.projectRippleCard__cta svg {
+  transition: transform var(--motion-fast) ease;
+}
+
+.buttonLink:hover svg,
+.buttonLink:focus-visible svg,
+.projectRippleCard:hover .projectRippleCard__cta svg,
+.projectRippleCard:focus-within .projectRippleCard__cta svg {
+  transform: translate(3px, -3px);
+}
+
+.magnetic {
+  display: inline-flex;
+  transition: transform var(--motion-base) var(--ease-out);
+  will-change: transform;
+}
+
+.buttonLink--primary {
+  background: linear-gradient(135deg, var(--water-soft), var(--water));
+  color: var(--background-deep);
+  box-shadow: var(--shadow-water);
+}
+
+.buttonLink--secondary,
+.buttonLink--ghost {
+  border-color: var(--border);
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text);
+}
+
+.sealStampCTA {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 48px;
+  border: 1px solid rgba(247, 201, 72, 0.34);
+  border-radius: var(--radius-full);
+  background: rgba(247, 201, 72, 0.08);
+  color: var(--text);
+  font-size: 0.82rem;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  padding: 6px 8px 6px 18px;
+  text-transform: uppercase;
+  transition:
+    transform 200ms var(--ease-out),
+    background 200ms ease,
+    border-color 200ms ease;
+}
+
+.sealStampCTA--water {
+  border-color: rgba(126, 231, 242, 0.34);
+  background: rgba(126, 231, 242, 0.08);
+}
+
+.sealStampCTA:hover,
+.sealStampCTA:focus-visible {
+  border-color: rgba(247, 201, 72, 0.58);
+  background: rgba(247, 201, 72, 0.12);
+  transform: translateY(-2px);
+}
+
+.sealStampCTA__seal {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border: 1px solid rgba(247, 201, 72, 0.6);
+  border-radius: 10px;
+  background: rgba(247, 201, 72, 0.16);
+  color: var(--gold);
+  font-family: var(--font-display), Georgia, serif;
+  font-size: 1.2rem;
+  line-height: 1;
+  transform: rotate(-4deg);
+  transition:
+    transform 180ms var(--ease-out),
+    box-shadow 180ms ease;
+}
+
+.sealStampCTA:hover .sealStampCTA__seal,
+.sealStampCTA:focus-visible .sealStampCTA__seal {
+  transform: rotate(0deg) scale(1.04);
+  box-shadow: 0 0 22px rgba(247, 201, 72, 0.24);
+}
+
+.sealStampCTA:active .sealStampCTA__seal {
+  transform: rotate(0deg) scale(0.94);
+}

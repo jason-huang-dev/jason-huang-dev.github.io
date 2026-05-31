@@ -1,0 +1,575 @@
+.heroSection {
+  position: relative;
+  padding: 86px 0 112px;
+}
+
+.heroSection__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(360px, 0.85fr);
+  gap: 56px;
+  align-items: center;
+  min-height: calc(100vh - 110px);
+}
+
+.heroSection__copy {
+  max-width: 760px;
+}
+
+.eyebrow {
+  margin: 0 0 16px;
+  color: var(--gold);
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  line-height: 1.6;
+  text-transform: uppercase;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin-top: 0;
+}
+
+h1,
+h2 {
+  color: var(--text);
+  font-family: var(--font-display), Georgia, serif;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+}
+
+h1 {
+  max-width: 780px;
+  margin-bottom: 22px;
+  font-size: clamp(4.75rem, 8vw, 8.75rem);
+  letter-spacing: -0.035em;
+  line-height: 0.92;
+}
+
+h2 {
+  margin-bottom: 18px;
+  font-size: clamp(2.75rem, 5.5vw, 5.25rem);
+  line-height: 0.98;
+}
+
+h3 {
+  margin-bottom: 12px;
+  color: var(--text);
+  font-size: 1.05rem;
+  line-height: 1.3;
+}
+
+p {
+  color: var(--text-secondary);
+  line-height: 1.68;
+}
+
+.heroSection__summary {
+  max-width: 680px;
+  margin-bottom: 30px;
+  font-size: clamp(1rem, 1.7vw, 1.22rem);
+}
+
+.heroSection__stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: -12px 0 28px;
+}
+
+.heroSection__stats span {
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-full);
+  background: rgba(255, 255, 255, 0.045);
+  color: var(--text-secondary);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  padding: 8px 11px;
+  text-transform: uppercase;
+}
+
+.heroSection__actions,
+.contactPanel__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.heroSection__visual {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: 480px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  background:
+    radial-gradient(circle at 50% 45%, rgba(126, 231, 242, 0.12), transparent 38%),
+    var(--panel-crisp);
+  box-shadow: var(--shadow-glass);
+  backdrop-filter: blur(10px);
+  overflow: hidden;
+}
+
+.heroSection__visual::before {
+  content: '';
+  position: absolute;
+  inset: -20%;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(46, 167, 255, 0.055), transparent 34%),
+    radial-gradient(circle at 74% 36%, rgba(212, 175, 106, 0.045), transparent 30%);
+  filter: blur(16px);
+  animation: heroAuraShift 12s var(--ease-out) infinite alternate;
+}
+
+.heroWebGLSignaturePanel {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 100%;
+  min-height: 100%;
+  isolation: isolate;
+  overflow: hidden;
+}
+
+.signatureFluidCanvas,
+.signatureFluidFallback {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: auto;
+}
+
+.signatureFluidCanvas canvas {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.signatureFluidFallback {
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 32% 24%, rgba(126, 231, 242, 0.16), transparent 30%),
+    radial-gradient(circle at 70% 68%, rgba(247, 201, 72, 0.1), transparent 34%),
+    linear-gradient(135deg, rgba(37, 99, 235, 0.1), rgba(3, 10, 17, 0));
+}
+
+.heroWebGLSignaturePanel__signature {
+  position: relative;
+  z-index: 3;
+}
+
+.heroFluidSimulationPanel {
+  --fluid-layer-opacity: 0.92;
+  --fluid-field-bleed: 28px;
+
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 100%;
+  min-height: 100%;
+  isolation: isolate;
+  overflow: visible;
+}
+
+.heroFluidSimulationPanel__clip {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  display: grid;
+  place-items: center;
+  border-radius: inherit;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.fluidCanvas,
+.fluidCanvasFallback {
+  position: absolute;
+  inset: calc(var(--fluid-field-bleed, 28px) * -1);
+  z-index: 2;
+  opacity: var(--fluid-layer-opacity, 0.92);
+  pointer-events: none;
+}
+
+.fluidCanvas canvas {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.fluidCanvasFallback {
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 28% 22%, rgba(126, 231, 242, 0.18), transparent 30%),
+    radial-gradient(circle at 68% 62%, rgba(37, 99, 235, 0.18), transparent 32%),
+    radial-gradient(circle at 58% 52%, rgba(247, 201, 72, 0.09), transparent 34%),
+    linear-gradient(135deg, rgba(3, 10, 17, 0.12), rgba(3, 10, 17, 0));
+}
+
+.heroFluidSimulationPanel__signature {
+  position: relative;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.heroFluidSimulationPanel[data-emblem-depth="front"] .heroFluidSimulationPanel__signature {
+  z-index: 6;
+  opacity: 1;
+  filter:
+    drop-shadow(0 18px 42px rgba(0, 0, 0, 0.38))
+    drop-shadow(0 0 20px rgba(247, 201, 72, 0.16));
+}
+
+.heroFluidSimulationPanel[data-emblem-depth="embedded"] .heroFluidSimulationPanel__signature {
+  z-index: 1;
+  opacity: 0.48;
+  filter:
+    drop-shadow(0 18px 42px rgba(0, 0, 0, 0.32))
+    drop-shadow(0 0 14px rgba(247, 201, 72, 0.08));
+}
+
+.heroFluidSimulationPanel[data-emblem-depth="back"] .heroFluidSimulationPanel__signature {
+  z-index: 0;
+  opacity: 0.58;
+  filter:
+    blur(0.2px)
+    drop-shadow(0 0 16px rgba(247, 201, 72, 0.1));
+}
+
+.fluidSignatureSeal {
+  --fluid-layer-opacity: 0.92;
+  --fluid-field-bleed: 44px;
+}
+
+.fluidSignatureSeal__waterGlass,
+.fluidSignatureSeal__glassSheen {
+  position: absolute;
+  pointer-events: none;
+}
+
+.fluidSignatureSeal__waterGlass {
+  inset: 0;
+  z-index: 0;
+  background:
+    radial-gradient(circle at 50% 48%, rgba(3, 10, 17, 0.2), transparent 48%),
+    linear-gradient(135deg, rgba(3, 10, 17, 0.1), rgba(3, 10, 17, 0.01));
+}
+
+.fluidSignatureSeal__emblem {
+  z-index: 1;
+  opacity: 0.48;
+  pointer-events: none;
+  filter:
+    drop-shadow(0 18px 42px rgba(0, 0, 0, 0.32))
+    drop-shadow(0 0 14px rgba(247, 201, 72, 0.08));
+}
+
+.fluidSignatureSeal .fluidCanvas,
+.fluidSignatureSeal .fluidCanvasFallback {
+  z-index: 2;
+  opacity: var(--fluid-layer-opacity, 0.92);
+  inset: calc(var(--fluid-field-bleed, 44px) * -1);
+  pointer-events: none;
+}
+
+.fluidSignatureSeal__glassSheen {
+  inset: 0;
+  z-index: 3;
+  background:
+    linear-gradient(116deg, transparent 0 42%, rgba(255, 255, 255, 0.045) 49%, transparent 58%);
+  mix-blend-mode: screen;
+  opacity: 0.045;
+}
+
+.waterLightField {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  opacity: 0.72;
+}
+
+.waterLightField--medium {
+  opacity: 0.88;
+}
+
+.waterLightField__caustic,
+.waterLightField__glow {
+  position: absolute;
+  pointer-events: none;
+}
+
+.waterLightField__caustic {
+  inset: -20%;
+  background:
+    radial-gradient(circle at 20% 30%, rgba(126, 231, 242, 0.12), transparent 28%),
+    radial-gradient(circle at 70% 55%, rgba(247, 201, 72, 0.08), transparent 30%),
+    linear-gradient(115deg, transparent 0 38%, rgba(126, 231, 242, 0.08) 42%, transparent 48%);
+  filter: blur(10px);
+  animation: waterLightDrift 18s ease-in-out infinite alternate;
+}
+
+.waterLightField__glow {
+  width: 42%;
+  aspect-ratio: 1;
+  border-radius: var(--radius-full);
+  background: radial-gradient(circle, rgba(126, 231, 242, 0.12), transparent 68%);
+}
+
+.waterLightField__glow--one {
+  top: 8%;
+  left: 8%;
+}
+
+.waterLightField__glow--two {
+  right: 8%;
+  bottom: 10%;
+  background: radial-gradient(circle, rgba(247, 201, 72, 0.1), transparent 68%);
+}
+
+.heroSection__orb {
+  position: absolute;
+  border-radius: var(--radius-full);
+  border: 1px solid rgba(126, 231, 242, 0.12);
+}
+
+.heroSection__orb--one {
+  width: 78%;
+  aspect-ratio: 1;
+}
+
+.heroSection__orb--two {
+  width: 56%;
+  aspect-ratio: 1;
+  border-color: rgba(247, 201, 72, 0.14);
+}
+
+.signatureEmblem {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: clamp(220px, 30vw, 430px);
+  aspect-ratio: 1;
+  filter: drop-shadow(0 18px 42px rgba(0, 0, 0, 0.34));
+}
+
+.signatureEmblem__asset {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.signatureEmblem--framed {
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-full);
+}
+
+.signatureEmblem--glow-water {
+  filter: drop-shadow(0 18px 42px rgba(0, 0, 0, 0.34)) drop-shadow(0 0 28px rgba(126, 231, 242, 0.16));
+}
+
+.signatureEmblem--glow-gold {
+  filter: drop-shadow(0 18px 42px rgba(0, 0, 0, 0.34)) drop-shadow(0 0 30px rgba(247, 201, 72, 0.18));
+}
+
+.heroOrbitalSignature {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: clamp(260px, 36vw, 520px);
+  aspect-ratio: 1;
+}
+
+.chineseAccent {
+  position: absolute;
+  right: 30px;
+  bottom: 24px;
+  color: rgba(247, 201, 72, 0.72);
+  font-family: var(--font-display), Georgia, serif;
+  font-size: 0.96rem;
+  letter-spacing: 0.36em;
+  writing-mode: vertical-rl;
+}
+
+.sectionHeading {
+  max-width: 780px;
+  margin-bottom: 32px;
+}
+
+.signatureCurrentDivider {
+  --signature-current-blue: rgba(51, 151, 255, 0.86);
+  --signature-current-cyan: rgba(71, 240, 255, 0.76);
+  --signature-current-gold: rgba(246, 190, 72, 0.86);
+  --signature-current-silver: rgba(245, 240, 214, 0.62);
+  --signature-current-opacity: 1;
+  position: relative;
+  display: grid;
+  justify-items: center;
+  gap: 8px;
+  width: min(620px, calc(100% - 40px));
+  height: 44px;
+  margin: 4px auto -22px;
+  opacity: var(--signature-current-opacity);
+  pointer-events: none;
+}
+
+.signatureCurrentDivider--compact {
+  height: 28px;
+}
+
+.signatureCurrentDivider--cinematic {
+  height: 64px;
+}
+
+.signatureCurrentDivider--left {
+  margin-left: max(20px, calc((100vw - min(1120px, calc(100vw - 40px))) / 2));
+  margin-right: auto;
+  justify-items: start;
+}
+
+.signatureCurrentDivider--right {
+  margin-left: auto;
+  margin-right: max(20px, calc((100vw - min(1120px, calc(100vw - 40px))) / 2));
+  justify-items: end;
+}
+
+.signatureCurrentDivider--blue {
+  --signature-current-gold: rgba(245, 240, 214, 0.3);
+}
+
+.signatureCurrentDivider--gold {
+  --signature-current-blue: rgba(71, 240, 255, 0.3);
+}
+
+.signatureCurrentDivider--quiet {
+  --signature-current-opacity: 0.58;
+}
+
+.signatureCurrentDivider__line {
+  position: relative;
+  align-self: end;
+  width: 100%;
+  max-width: 620px;
+  height: 18px;
+  overflow: hidden;
+  mask-image: linear-gradient(90deg, transparent, #000 14%, #000 86%, transparent);
+}
+
+.signatureCurrentDivider__line::before {
+  content: '';
+  position: absolute;
+  left: 3%;
+  right: 3%;
+  top: 50%;
+  height: 2px;
+  border-radius: var(--radius-full);
+  background:
+    linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.32), transparent),
+    linear-gradient(90deg, var(--signature-current-blue), var(--signature-current-silver), var(--signature-current-gold));
+  box-shadow:
+    0 0 14px rgba(71, 240, 255, 0.16),
+    0 0 18px rgba(246, 190, 72, 0.12);
+  transform: translateY(-50%) skewY(-0.8deg);
+}
+
+.signatureCurrentDivider__current,
+.signatureCurrentDivider__glint {
+  position: absolute;
+  top: 50%;
+  height: 3px;
+  border-radius: var(--radius-full);
+  transform: translateY(-50%);
+}
+
+.signatureCurrentDivider__current--blue {
+  left: -34%;
+  width: 38%;
+  background: linear-gradient(90deg, transparent, var(--signature-current-cyan), var(--signature-current-blue), transparent);
+  animation: signatureCurrentBlue 7.8s ease-in-out infinite;
+}
+
+.signatureCurrentDivider__current--gold {
+  right: -30%;
+  width: 34%;
+  background: linear-gradient(90deg, transparent, var(--signature-current-gold), var(--signature-current-silver), transparent);
+  animation: signatureCurrentGold 8.8s ease-in-out infinite;
+}
+
+.signatureCurrentDivider__glint {
+  left: -12%;
+  width: 12%;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.72);
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.34);
+  animation: signatureCurrentGlint 10s ease-in-out infinite;
+}
+
+.signatureCurrentDivider__label {
+  color: var(--text-muted);
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.inkCurrentReveal {
+  --ink-current-delay: 0ms;
+  position: relative;
+  opacity: 0;
+  filter: blur(10px);
+  transform: translate3d(0, 18px, 0);
+  transition:
+    opacity 700ms ease var(--ink-current-delay),
+    filter 900ms ease var(--ink-current-delay),
+    transform 900ms cubic-bezier(0.22, 1, 0.36, 1) var(--ink-current-delay);
+}
+
+.inkCurrentReveal--left {
+  transform: translate3d(-18px, 0, 0);
+}
+
+.inkCurrentReveal--right {
+  transform: translate3d(18px, 0, 0);
+}
+
+.inkCurrentReveal--none {
+  transform: none;
+}
+
+.inkCurrentReveal--quiet {
+  filter: blur(6px);
+}
+
+.inkCurrentReveal--signature {
+  overflow: hidden;
+}
+
+.inkCurrentReveal--visible {
+  opacity: 1;
+  filter: blur(0);
+  transform: translate3d(0, 0, 0);
+}
+
+.inkCurrentReveal__glint {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  opacity: 0;
+  background:
+    linear-gradient(105deg, transparent 0 24%, rgba(71, 240, 255, 0.12) 36%, rgba(246, 190, 72, 0.12) 52%, transparent 68%);
+  transform: translateX(-80%);
+}
+
+.inkCurrentReveal--visible .inkCurrentReveal__glint {
+  animation: inkCurrentGlint 980ms ease-out 120ms both;
+}
+

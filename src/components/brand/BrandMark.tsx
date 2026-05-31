@@ -47,7 +47,7 @@ export function BrandMark({
       {seal}
       <span className="brandMark__word">
         <strong>Jason Huang</strong>
-        <small>Water · Systems · Clarity</small>
+        <small>Software Engineer</small>
       </span>
     </span>
   );

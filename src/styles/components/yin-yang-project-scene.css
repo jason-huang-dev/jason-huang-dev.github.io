@@ -1,0 +1,689 @@
+.yinYangProjectScene {
+  --scene-edge-inset: 12px;
+  --scene-left-open-x: calc(-50vw + var(--scene-edge-inset));
+  --scene-left-open-y: 0px;
+  --scene-left-open-rotate: -180deg;
+  --scene-right-open-x: calc(50vw - var(--scene-edge-inset));
+  --scene-right-open-y: 0px;
+  --scene-right-open-rotate: 180deg;
+  --scene-half-open-scale: 0.72;
+  --scene-half-rest-gap: 20px;
+  --scene-left-open-opacity: 0.22;
+  --scene-right-open-opacity: 0.36;
+  --scene-emblem-closed-scale: 0.82;
+  --scene-emblem-open-scale: 0.74;
+  --scene-emblem-open-opacity: 0.13;
+  margin: 48px 0 36px;
+}
+
+.yinYangProjectScene__frame {
+  width: 100vw;
+  margin-left: 50%;
+  transform: translateX(-50%);
+}
+
+.yinYangProjectScene__trigger {
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  grid-template-columns: minmax(0, 0.92fr) minmax(360px, 1fr);
+  align-items: center;
+  gap: 42px;
+  width: 100%;
+  min-height: 590px;
+  overflow: hidden;
+  border: 1px solid rgba(126, 231, 242, 0.28);
+  border-radius: 32px;
+  background:
+    radial-gradient(circle at 50% 42%, rgba(126, 231, 242, 0.14), transparent 33%),
+    radial-gradient(circle at 78% 70%, rgba(247, 201, 72, 0.1), transparent 28%),
+    var(--panel-crisp);
+  box-shadow: var(--shadow-glass);
+  cursor: pointer;
+  padding: 44px;
+  text-align: left;
+  transition:
+    border-color 260ms ease,
+    box-shadow 260ms ease,
+    transform 260ms ease;
+}
+
+.yinYangProjectScene__trigger:hover,
+.yinYangProjectScene__trigger:focus-visible {
+  border-color: var(--border-strong);
+  box-shadow: var(--shadow-glass), var(--shadow-water), 0 0 30px rgba(247, 201, 72, 0.12);
+  transform: translateY(-4px);
+}
+
+.yinYangProjectScene__trigger::before,
+.yinYangProjectScene__trigger::after {
+  content: '';
+  position: absolute;
+  pointer-events: none;
+}
+
+.yinYangProjectScene__trigger::before {
+  z-index: 0;
+  inset: 64px 48px;
+  border: 1px solid rgba(247, 201, 72, 0.18);
+  border-radius: 28px;
+  background:
+    linear-gradient(90deg, rgba(247, 201, 72, 0), rgba(247, 201, 72, 0.08) 9%, rgba(247, 201, 72, 0.03) 50%, rgba(247, 201, 72, 0.08) 91%, rgba(247, 201, 72, 0)),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.025));
+  box-shadow: inset 0 0 34px rgba(126, 231, 242, 0.08);
+  opacity: 0;
+  transform: scaleX(0.14);
+  transform-origin: center;
+  transition:
+    opacity 180ms ease 40ms,
+    transform 460ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.yinYangProjectScene__trigger::after {
+  z-index: 0;
+  width: 320px;
+  height: 320px;
+  right: 10%;
+  bottom: 10%;
+  border-radius: var(--radius-full);
+  background: radial-gradient(circle, rgba(247, 201, 72, 0.08), transparent 62%);
+}
+
+.yinYangProjectScene__assetStage {
+  position: absolute;
+  z-index: 1;
+  left: 50%;
+  top: 48%;
+  width: min(46vw, 520px);
+  aspect-ratio: 1;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  transition: opacity 240ms ease;
+}
+
+.yinYangProjectScene__half,
+.yinYangProjectScene__watermark,
+.yinYangProjectScene__seal,
+.yinYangProjectScene__emblem {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  user-select: none;
+}
+
+.yinYangProjectScene__half,
+.yinYangProjectScene__seal,
+.yinYangProjectScene__emblem {
+  object-fit: contain;
+}
+
+.yinYangProjectScene__half {
+  z-index: 1;
+  filter: drop-shadow(0 14px 28px rgba(0, 0, 0, 0.22));
+  transform-origin: center;
+  transition:
+    opacity 280ms ease,
+    transform 480ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.yinYangProjectScene__half--left {
+  transform:
+    translateX(calc(-1 * var(--scene-half-rest-gap)))
+    rotate(var(--scene-left-rest-rotate, 0deg));
+}
+
+.yinYangProjectScene__half--right {
+  transform: translateX(var(--scene-half-rest-gap));
+}
+
+.yinYangProjectScene__watermark {
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(247, 201, 72, 0);
+  border-radius: var(--radius-full);
+  opacity: 1;
+  transform: scale(var(--scene-emblem-closed-scale));
+  transition:
+    border-color 220ms ease,
+    opacity 300ms ease,
+    transform 480ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.yinYangProjectScene__seal {
+  opacity: 0;
+  filter: drop-shadow(0 0 22px rgba(247, 201, 72, 0.14));
+  transform: scale(1.08);
+  transition:
+    opacity 260ms ease 120ms,
+    transform 420ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.yinYangProjectScene__emblem {
+  inset: 21%;
+  width: 58%;
+  height: 58%;
+  opacity: 1;
+  transform: scale(1);
+  transition:
+    opacity 220ms ease 130ms,
+    transform 360ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.yinYangProjectScene__closedLabel {
+  position: absolute;
+  z-index: 5;
+  left: 50%;
+  bottom: 44px;
+  display: grid;
+  justify-items: center;
+  gap: 8px;
+  color: var(--text-secondary);
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-align: center;
+  text-transform: uppercase;
+  transform: translateX(-50%);
+  transition:
+    opacity 260ms ease,
+    transform 260ms ease;
+}
+
+.yinYangProjectScene__closedTitle {
+  color: var(--text);
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(2.6rem, 5vw, 4.8rem);
+  font-weight: 600;
+  letter-spacing: -0.035em;
+  line-height: 0.95;
+  text-transform: none;
+}
+
+.yinYangProjectScene__content,
+.yinYangProjectScene__preview {
+  position: relative;
+  z-index: 4;
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    opacity 220ms ease 180ms,
+    transform 300ms ease 180ms;
+}
+
+.yinYangProjectScene__content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 14px;
+  max-width: 440px;
+  border: 1px solid rgba(126, 231, 242, 0);
+  border-radius: 24px;
+  padding: 20px;
+  transform: translateY(16px);
+}
+
+.yinYangProjectScene__content::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  border-radius: inherit;
+  background:
+    linear-gradient(90deg, rgba(3, 10, 17, 0.88), rgba(3, 10, 17, 0.68) 72%, rgba(3, 10, 17, 0));
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.22);
+  opacity: 0;
+  transform: scaleX(0.96);
+  transform-origin: left;
+  transition:
+    opacity 220ms ease 160ms,
+    transform 300ms ease 160ms;
+}
+
+.yinYangProjectScene__title {
+  color: var(--text);
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(2.6rem, 5.4vw, 4.8rem);
+  font-weight: 600;
+  letter-spacing: -0.035em;
+  line-height: 0.92;
+}
+
+.yinYangProjectScene__summary,
+.yinYangProjectScene__role {
+  color: var(--text-secondary);
+  line-height: 1.65;
+}
+
+.yinYangProjectScene__role {
+  color: var(--text-muted);
+  font-size: 0.92rem;
+}
+
+.yinYangProjectScene__tech {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.yinYangProjectScene__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--water-soft);
+  font-size: 0.86rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  margin-top: 8px;
+  text-transform: uppercase;
+}
+
+.yinYangProjectScene__preview {
+  z-index: 5;
+  justify-self: end;
+  width: min(100%, 430px);
+  transform: scale(0.96);
+}
+
+.yinYangProjectScene__preview > img,
+.yinYangProjectScene__mock {
+  display: block;
+  width: 100%;
+  min-height: 300px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  background:
+    radial-gradient(circle at 82% 18%, rgba(126, 231, 242, 0.18), transparent 32%),
+    linear-gradient(180deg, rgba(10, 28, 43, 0.94), rgba(5, 13, 23, 0.96));
+  box-shadow: var(--shadow-glass), 0 0 28px rgba(126, 231, 242, 0.08);
+}
+
+.yinYangProjectScene__preview > img {
+  object-fit: cover;
+}
+
+.yinYangProjectScene__mockTop {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  height: 46px;
+  border-bottom: 1px solid var(--border-subtle);
+  padding: 0 16px;
+}
+
+.yinYangProjectScene__mockTop > span:not(.yinYangProjectScene__mockTitle) {
+  width: 9px;
+  height: 9px;
+  border-radius: var(--radius-full);
+  background: var(--gold);
+}
+
+.yinYangProjectScene__mockTop > span:nth-child(2) {
+  background: var(--water-soft);
+}
+
+.yinYangProjectScene__mockTop > span:nth-child(3) {
+  background: var(--jade);
+}
+
+.yinYangProjectScene__mockTitle {
+  color: var(--text-muted);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  margin-left: auto;
+  text-transform: uppercase;
+}
+
+.yinYangProjectScene__mockBody {
+  display: grid;
+  gap: 16px;
+  padding: 28px;
+}
+
+.yinYangProjectScene__mockHero {
+  display: grid;
+  grid-template-columns: 74px minmax(0, 1fr);
+  align-items: center;
+  gap: 18px;
+}
+
+.yinYangProjectScene__mockBadge {
+  display: grid;
+  place-items: center;
+  width: 74px;
+  height: 74px;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  color: var(--gold);
+  font-family: var(--font-display), Georgia, serif;
+  font-size: 1.7rem;
+  font-weight: 700;
+}
+
+.yinYangProjectScene__mockRows {
+  display: grid;
+  gap: 10px;
+}
+
+.yinYangProjectScene__mockLine {
+  width: 64%;
+  height: 12px;
+  border-radius: var(--radius-full);
+  background: rgba(184, 201, 211, 0.22);
+}
+
+.yinYangProjectScene__mockLine--active {
+  width: 76%;
+  background: rgba(126, 231, 242, 0.62);
+  box-shadow: 0 0 18px rgba(126, 231, 242, 0.18);
+}
+
+.yinYangProjectScene__mockLine--wide {
+  width: 88%;
+  background: rgba(126, 231, 242, 0.24);
+}
+
+.yinYangProjectScene__mockGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.yinYangProjectScene__mockGrid span {
+  display: grid;
+  align-content: end;
+  gap: 8px;
+  min-height: 84px;
+  border: 1px solid var(--border-subtle);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.045);
+  padding: 12px;
+}
+
+.yinYangProjectScene__mockGrid span span {
+  min-height: 8px;
+  border: 0;
+  border-radius: var(--radius-full);
+  background: rgba(184, 201, 211, 0.2);
+  padding: 0;
+}
+
+.yinYangProjectScene__mockGrid span span:first-child {
+  width: 52%;
+  background: rgba(247, 201, 72, 0.38);
+}
+
+.yinYangProjectScene__mockGrid span span:last-child {
+  width: 78%;
+}
+
+.yinYangProjectScene__trigger:hover .yinYangProjectScene__half--left,
+.yinYangProjectScene__trigger:focus-visible .yinYangProjectScene__half--left,
+.yinYangProjectScene[data-open='true'] .yinYangProjectScene__half--left {
+  opacity: var(--scene-left-open-opacity);
+  transform:
+    translate(var(--scene-left-open-x), var(--scene-left-open-y))
+    rotate(var(--scene-left-open-rotate))
+    scale(var(--scene-half-open-scale));
+}
+
+.yinYangProjectScene__trigger:hover .yinYangProjectScene__half--right,
+.yinYangProjectScene__trigger:focus-visible .yinYangProjectScene__half--right,
+.yinYangProjectScene[data-open='true'] .yinYangProjectScene__half--right {
+  opacity: var(--scene-right-open-opacity);
+  transform:
+    translate(var(--scene-right-open-x), var(--scene-right-open-y))
+    rotate(var(--scene-right-open-rotate))
+    scale(var(--scene-half-open-scale));
+}
+
+.yinYangProjectScene__trigger:hover::before,
+.yinYangProjectScene__trigger:focus-visible::before,
+.yinYangProjectScene[data-open='true'] .yinYangProjectScene__trigger::before {
+  opacity: 1;
+  transform: scaleX(1);
+}
+
+.yinYangProjectScene__trigger:hover .yinYangProjectScene__watermark,
+.yinYangProjectScene__trigger:focus-visible .yinYangProjectScene__watermark,
+.yinYangProjectScene[data-open='true'] .yinYangProjectScene__watermark {
+  border-color: rgba(247, 201, 72, 0.22);
+  opacity: var(--scene-emblem-open-opacity);
+  transform: translateY(28px) scale(var(--scene-emblem-open-scale));
+}
+
+.yinYangProjectScene__trigger:hover .yinYangProjectScene__seal,
+.yinYangProjectScene__trigger:focus-visible .yinYangProjectScene__seal,
+.yinYangProjectScene[data-open='true'] .yinYangProjectScene__seal {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.yinYangProjectScene__trigger:hover .yinYangProjectScene__emblem,
+.yinYangProjectScene__trigger:focus-visible .yinYangProjectScene__emblem,
+.yinYangProjectScene[data-open='true'] .yinYangProjectScene__emblem {
+  opacity: 0;
+  transform: scale(1.28);
+}
+
+.yinYangProjectScene__trigger:hover .yinYangProjectScene__closedLabel,
+.yinYangProjectScene__trigger:focus-visible .yinYangProjectScene__closedLabel,
+.yinYangProjectScene[data-open='true'] .yinYangProjectScene__closedLabel {
+  opacity: 0;
+  transform: translate(-50%, 10px);
+}
+
+.yinYangProjectScene__trigger:hover .yinYangProjectScene__content,
+.yinYangProjectScene__trigger:focus-visible .yinYangProjectScene__content,
+.yinYangProjectScene[data-open='true'] .yinYangProjectScene__content,
+.yinYangProjectScene__trigger:hover .yinYangProjectScene__preview,
+.yinYangProjectScene__trigger:focus-visible .yinYangProjectScene__preview,
+.yinYangProjectScene[data-open='true'] .yinYangProjectScene__preview {
+  opacity: 1;
+  transform: none;
+}
+
+.yinYangProjectScene__trigger:hover .yinYangProjectScene__content::before,
+.yinYangProjectScene__trigger:focus-visible .yinYangProjectScene__content::before,
+.yinYangProjectScene[data-open='true'] .yinYangProjectScene__content::before {
+  opacity: 1;
+  transform: scaleX(1);
+}
+
+@media (max-width: 1024px) {
+  .yinYangProjectScene {
+    --scene-emblem-closed-scale: 0.64;
+    margin: 40px 0 30px;
+  }
+
+  .yinYangProjectScene__trigger {
+    grid-template-columns: 1fr;
+    min-height: auto;
+    gap: 24px;
+    padding: 32px;
+  }
+
+  .yinYangProjectScene__assetStage {
+    position: relative;
+    left: auto;
+    top: auto;
+    justify-self: center;
+    width: min(420px, 72vw);
+    transform: none;
+  }
+
+  .yinYangProjectScene__trigger::before {
+    inset: 28px 24px;
+    opacity: 1;
+    transform: scaleX(1);
+  }
+
+  .yinYangProjectScene__half--left,
+  .yinYangProjectScene__trigger:hover .yinYangProjectScene__half--left,
+  .yinYangProjectScene__trigger:focus-visible .yinYangProjectScene__half--left,
+  .yinYangProjectScene[data-open='true'] .yinYangProjectScene__half--left {
+    opacity: 1;
+    transform:
+      translateX(calc(-1 * var(--scene-half-rest-gap)))
+      rotate(var(--scene-left-rest-rotate, 0deg));
+  }
+
+  .yinYangProjectScene__half--right,
+  .yinYangProjectScene__trigger:hover .yinYangProjectScene__half--right,
+  .yinYangProjectScene__trigger:focus-visible .yinYangProjectScene__half--right,
+  .yinYangProjectScene[data-open='true'] .yinYangProjectScene__half--right {
+    opacity: 1;
+    transform: translateX(var(--scene-half-rest-gap));
+  }
+
+  .yinYangProjectScene__watermark,
+  .yinYangProjectScene__trigger:hover .yinYangProjectScene__watermark,
+  .yinYangProjectScene__trigger:focus-visible .yinYangProjectScene__watermark,
+  .yinYangProjectScene[data-open='true'] .yinYangProjectScene__watermark {
+    border-color: rgba(247, 201, 72, 0);
+    opacity: 1;
+    transform: scale(var(--scene-emblem-closed-scale));
+  }
+
+  .yinYangProjectScene__seal,
+  .yinYangProjectScene__trigger:hover .yinYangProjectScene__seal,
+  .yinYangProjectScene__trigger:focus-visible .yinYangProjectScene__seal,
+  .yinYangProjectScene[data-open='true'] .yinYangProjectScene__seal {
+    opacity: 0;
+    transform: scale(1.08);
+  }
+
+  .yinYangProjectScene__emblem,
+  .yinYangProjectScene__trigger:hover .yinYangProjectScene__emblem,
+  .yinYangProjectScene__trigger:focus-visible .yinYangProjectScene__emblem,
+  .yinYangProjectScene[data-open='true'] .yinYangProjectScene__emblem {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  .yinYangProjectScene__closedLabel {
+    display: none;
+  }
+
+  .yinYangProjectScene__content,
+  .yinYangProjectScene__preview {
+    opacity: 1;
+    pointer-events: auto;
+    transform: none;
+  }
+
+  .yinYangProjectScene__content {
+    max-width: 640px;
+  }
+
+  .yinYangProjectScene__content::before {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+
+  .yinYangProjectScene__preview {
+    justify-self: stretch;
+    width: 100%;
+  }
+}
+
+@media (max-width: 767px) {
+  .yinYangProjectScene {
+    margin: 34px 0 24px;
+  }
+
+  .yinYangProjectScene__trigger {
+    border-radius: 24px;
+    padding: 20px;
+  }
+
+  .yinYangProjectScene__assetStage {
+    width: min(300px, 78vw);
+  }
+
+  .yinYangProjectScene__half--left,
+  .yinYangProjectScene__trigger:hover .yinYangProjectScene__half--left,
+  .yinYangProjectScene__trigger:focus-visible .yinYangProjectScene__half--left,
+  .yinYangProjectScene[data-open='true'] .yinYangProjectScene__half--left {
+    opacity: 1;
+    transform:
+      translateX(calc(-1 * var(--scene-half-rest-gap)))
+      rotate(var(--scene-left-rest-rotate, 0deg));
+  }
+
+  .yinYangProjectScene__half--right,
+  .yinYangProjectScene__trigger:hover .yinYangProjectScene__half--right,
+  .yinYangProjectScene__trigger:focus-visible .yinYangProjectScene__half--right,
+  .yinYangProjectScene[data-open='true'] .yinYangProjectScene__half--right {
+    opacity: 1;
+    transform: translateX(var(--scene-half-rest-gap));
+  }
+
+  .yinYangProjectScene__watermark,
+  .yinYangProjectScene__trigger:hover .yinYangProjectScene__watermark,
+  .yinYangProjectScene__trigger:focus-visible .yinYangProjectScene__watermark,
+  .yinYangProjectScene[data-open='true'] .yinYangProjectScene__watermark {
+    border-color: rgba(247, 201, 72, 0);
+    opacity: 1;
+    transform: scale(var(--scene-emblem-closed-scale));
+  }
+
+  .yinYangProjectScene__seal,
+  .yinYangProjectScene__trigger:hover .yinYangProjectScene__seal,
+  .yinYangProjectScene__trigger:focus-visible .yinYangProjectScene__seal,
+  .yinYangProjectScene[data-open='true'] .yinYangProjectScene__seal {
+    opacity: 0;
+    transform: scale(1.08);
+  }
+
+  .yinYangProjectScene__emblem,
+  .yinYangProjectScene__trigger:hover .yinYangProjectScene__emblem,
+  .yinYangProjectScene__trigger:focus-visible .yinYangProjectScene__emblem,
+  .yinYangProjectScene[data-open='true'] .yinYangProjectScene__emblem {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  .yinYangProjectScene__title {
+    font-size: clamp(2.4rem, 14vw, 3.8rem);
+  }
+
+  .yinYangProjectScene__preview > img,
+  .yinYangProjectScene__mock {
+    min-height: 230px;
+  }
+
+  .yinYangProjectScene__mockBody {
+    padding: 20px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) and (min-width: 1025px) {
+  .yinYangProjectScene__trigger:hover .yinYangProjectScene__half--left,
+  .yinYangProjectScene__trigger:focus-visible .yinYangProjectScene__half--left,
+  .yinYangProjectScene[data-open='true'] .yinYangProjectScene__half--left {
+    transform:
+      translate(var(--scene-left-open-x), var(--scene-left-open-y))
+      scale(var(--scene-half-open-scale));
+  }
+
+  .yinYangProjectScene__trigger:hover .yinYangProjectScene__half--right,
+  .yinYangProjectScene__trigger:focus-visible .yinYangProjectScene__half--right,
+  .yinYangProjectScene[data-open='true'] .yinYangProjectScene__half--right {
+    transform:
+      translate(var(--scene-right-open-x), var(--scene-right-open-y))
+      scale(var(--scene-half-open-scale));
+  }
+
+  .yinYangProjectScene__trigger:hover .yinYangProjectScene__watermark,
+  .yinYangProjectScene__trigger:focus-visible .yinYangProjectScene__watermark,
+  .yinYangProjectScene[data-open='true'] .yinYangProjectScene__watermark {
+    transform: scale(var(--scene-emblem-open-scale));
+  }
+}

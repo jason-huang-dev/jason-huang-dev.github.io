@@ -1,0 +1,238 @@
+/* -------------------------------------------------------------------------- */
+/* Featured systems card                                                      */
+/* -------------------------------------------------------------------------- */
+
+[data-theme='light'] .featuredProject__button {
+  background:
+    radial-gradient(circle at 12% 40%, rgba(47, 167, 226, 0.13), transparent 26rem),
+    radial-gradient(circle at 88% 12%, rgba(212, 175, 106, 0.18), transparent 24rem),
+    linear-gradient(
+      145deg,
+      rgba(255, 255, 255, 0.96) 0%,
+      rgba(255, 250, 241, 0.9) 58%,
+      rgba(230, 215, 181, 0.36) 100%
+    );
+  border-color: rgba(154, 106, 24, 0.18);
+  color: var(--light-ink);
+  box-shadow:
+    var(--light-panel-shadow),
+    inset 0 1px 0 rgba(255, 255, 255, 0.86);
+}
+
+[data-theme='light'] .featuredProject__button:hover,
+[data-theme='light'] .featuredProject__button:focus-visible {
+  border-color: rgba(47, 167, 226, 0.34);
+  box-shadow:
+    0 30px 84px rgba(13, 27, 42, 0.14),
+    0 0 38px rgba(47, 167, 226, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+[data-theme='light'] .featuredProject__title,
+[data-theme='light'] .featuredProject__panelTitle {
+  color: var(--light-ink);
+  text-shadow: none;
+}
+
+[data-theme='light'] .featuredProject__summary,
+[data-theme='light'] .featuredProject__role {
+  color: var(--light-ink-muted);
+}
+
+[data-theme='light'] .featuredProject__meta {
+  color: var(--color-brand-water);
+}
+
+[data-theme='light'] .featuredProject__partition {
+  background:
+    radial-gradient(circle at 0% 50%, rgba(47, 167, 226, 0.08), transparent 18rem),
+    linear-gradient(
+      145deg,
+      rgba(255, 255, 255, 0.92) 0%,
+      rgba(255, 250, 241, 0.86) 100%
+    );
+  border-color: rgba(13, 27, 42, 0.12);
+  color: var(--light-ink);
+  box-shadow:
+    0 22px 60px rgba(13, 27, 42, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(14px);
+}
+
+[data-theme='light'] .featuredProject__tech .techPill,
+[data-theme='light'] .featuredProject__previewHeader,
+[data-theme='light'] .featuredProject__previewGrid span {
+  background: rgba(255, 255, 255, 0.58);
+  border-color: rgba(13, 27, 42, 0.12);
+  color: rgba(13, 27, 42, 0.7);
+}
+
+[data-theme='light'] .featuredProject__preview {
+  background:
+    radial-gradient(circle at 82% 18%, rgba(47, 167, 226, 0.14), transparent 32%),
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.8),
+      rgba(255, 250, 241, 0.5)
+    );
+  border-color: rgba(13, 27, 42, 0.12);
+}
+
+[data-theme='light'] .featuredProject__previewLine {
+  background: rgba(13, 27, 42, 0.14);
+}
+
+[data-theme='light'] .featuredProject__previewLine--wide {
+  background: rgba(47, 167, 226, 0.24);
+}
+
+[data-theme='light'] .featuredProject__cta {
+  color: #0873a8;
+}
+
+[data-theme='light'] .featuredProject__medallion {
+  opacity: 0.18;
+  filter:
+    drop-shadow(0 20px 52px rgba(13, 27, 42, 0.12))
+    drop-shadow(0 0 28px rgba(47, 167, 226, 0.1));
+}
+
+[data-theme='light'] .featuredProject__button:hover .featuredProject__medallion,
+[data-theme='light'] .featuredProject__button:focus-visible .featuredProject__medallion {
+  opacity: 0.1;
+}
+
+/* -------------------------------------------------------------------------- */
+/* Yin-yang featured display                                                  */
+/* -------------------------------------------------------------------------- */
+
+[data-theme='light'] .yinYangProjectScene__trigger {
+  background:
+    radial-gradient(circle at 50% 42%, rgba(47, 167, 226, 0.13), transparent 32%),
+    radial-gradient(circle at 78% 70%, rgba(212, 175, 106, 0.12), transparent 30%),
+    linear-gradient(
+      145deg,
+      rgba(255, 255, 255, 0.96) 0%,
+      rgba(255, 250, 241, 0.9) 58%,
+      rgba(230, 215, 181, 0.32) 100%
+    );
+  border-color: rgba(154, 106, 24, 0.18);
+  color: var(--light-ink);
+  box-shadow:
+    var(--light-panel-shadow),
+    inset 0 1px 0 rgba(255, 255, 255, 0.86);
+}
+
+[data-theme='light'] .yinYangProjectScene__trigger::before {
+  border-color: rgba(154, 106, 24, 0.16);
+  background:
+    linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0),
+      rgba(255, 255, 255, 0.5) 12%,
+      rgba(255, 250, 241, 0.28) 50%,
+      rgba(255, 255, 255, 0.5) 88%,
+      rgba(255, 255, 255, 0)
+    );
+  box-shadow: inset 0 0 34px rgba(47, 167, 226, 0.08);
+}
+
+[data-theme='light'] .yinYangProjectScene__trigger::after {
+  background: radial-gradient(circle, rgba(212, 175, 106, 0.12), transparent 62%);
+}
+
+[data-theme='light'] .yinYangProjectScene__closedLabel {
+  color: var(--light-ink-muted);
+}
+
+[data-theme='light'] .yinYangProjectScene__closedTitle,
+[data-theme='light'] .yinYangProjectScene__title {
+  color: var(--light-ink);
+  text-shadow: none;
+}
+
+[data-theme='light'] .yinYangProjectScene__summary,
+[data-theme='light'] .yinYangProjectScene__role {
+  color: var(--light-ink-muted);
+}
+
+[data-theme='light'] .yinYangProjectScene__content::before {
+  background:
+    linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.94),
+      rgba(255, 250, 241, 0.86) 70%,
+      rgba(255, 250, 241, 0)
+    );
+  box-shadow: 0 20px 60px rgba(13, 27, 42, 0.12);
+}
+
+[data-theme='light'] .yinYangProjectScene__cta {
+  color: #0873a8;
+}
+
+[data-theme='light'] .yinYangProjectScene__half,
+[data-theme='light'] .yinYangProjectScene__seal,
+[data-theme='light'] .yinYangProjectScene__emblem {
+  filter:
+    drop-shadow(0 18px 40px rgba(13, 27, 42, 0.16))
+    drop-shadow(0 0 22px rgba(47, 167, 226, 0.08));
+}
+
+[data-theme='light'] .yinYangProjectScene__watermark {
+  border-color: rgba(154, 106, 24, 0.14);
+}
+
+[data-theme='light'] .yinYangProjectScene__preview > img,
+[data-theme='light'] .yinYangProjectScene__mock {
+  background:
+    radial-gradient(circle at 82% 18%, rgba(47, 167, 226, 0.14), transparent 32%),
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.84),
+      rgba(255, 250, 241, 0.58)
+    );
+  border-color: rgba(13, 27, 42, 0.12);
+  box-shadow:
+    0 22px 60px rgba(13, 27, 42, 0.12),
+    0 0 24px rgba(47, 167, 226, 0.08);
+}
+
+[data-theme='light'] .yinYangProjectScene__mockTop {
+  border-bottom-color: rgba(13, 27, 42, 0.1);
+}
+
+[data-theme='light'] .yinYangProjectScene__mockTitle,
+[data-theme='light'] .yinYangProjectScene__mockLine {
+  color: var(--light-ink-soft);
+  background: rgba(13, 27, 42, 0.13);
+}
+
+[data-theme='light'] .yinYangProjectScene__mockLine--active {
+  background: rgba(47, 167, 226, 0.38);
+  box-shadow: 0 0 18px rgba(47, 167, 226, 0.12);
+}
+
+[data-theme='light'] .yinYangProjectScene__mockLine--wide {
+  background: rgba(47, 167, 226, 0.2);
+}
+
+/* Only works if the JSX includes paired dark/light image elements. */
+.yinYangProjectScene__half--light,
+.yinYangProjectScene__seal--light,
+.yinYangProjectScene__emblem--light {
+  opacity: 0;
+}
+
+[data-theme='light'] .yinYangProjectScene__half--dark,
+[data-theme='light'] .yinYangProjectScene__seal--dark,
+[data-theme='light'] .yinYangProjectScene__emblem--dark {
+  opacity: 0;
+}
+
+[data-theme='light'] .yinYangProjectScene__half--light,
+[data-theme='light'] .yinYangProjectScene__seal--light,
+[data-theme='light'] .yinYangProjectScene__emblem--light {
+  opacity: 1;
+}
+

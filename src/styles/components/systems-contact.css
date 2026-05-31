@@ -1,0 +1,354 @@
+.systemsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.systemCard--interactive {
+  --system-accent: var(--water-soft);
+  --system-glow: var(--water-glow-soft);
+  position: relative;
+  min-height: 310px;
+  overflow: hidden;
+  outline: none;
+  transition:
+    border-color var(--motion-base) ease,
+    transform var(--motion-base) ease,
+    background var(--motion-base) ease;
+}
+
+.systemCard--interactive[data-accent='gold'] {
+  --system-accent: var(--gold);
+  --system-glow: var(--gold-glow-soft);
+}
+
+.systemCard--interactive[data-accent='jade'] {
+  --system-accent: var(--jade);
+  --system-glow: var(--jade-glow-soft);
+}
+
+.systemCard--interactive::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(360px circle at var(--pointer-x, 50%) var(--pointer-y, 50%), var(--system-glow), transparent 44%);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--motion-fast) ease;
+}
+
+.systemCard--interactive:hover,
+.systemCard--interactive:focus-visible {
+  border-color: color-mix(in srgb, var(--system-accent) 52%, transparent);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.075), rgba(7, 15, 26, 0.94));
+  transform: translateY(-3px);
+}
+
+.systemCard--interactive:hover::before,
+.systemCard--interactive:focus-visible::before {
+  opacity: 1;
+}
+
+.systemCard__medallion {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 58px;
+  height: 58px;
+  border: 1px solid var(--border-subtle);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.055);
+  margin-bottom: 24px;
+}
+
+.systemCard__medallion svg {
+  margin: 0;
+  color: var(--system-accent);
+}
+
+.systemCard--interactive h3,
+.systemCard--interactive p,
+.systemCard--interactive strong {
+  position: relative;
+  z-index: 1;
+}
+
+.systemCard--interactive strong {
+  display: block;
+  color: var(--system-accent);
+  font-size: 0.78rem;
+  line-height: 1.5;
+  margin-top: 18px;
+  opacity: 0;
+  transform: translateY(8px);
+  transition:
+    opacity var(--motion-base) ease,
+    transform var(--motion-base) ease;
+}
+
+.systemCard--interactive:hover strong,
+.systemCard--interactive:focus-visible strong {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.systemCard,
+.stackPanel,
+.contactPanel {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--panel-crisp);
+  box-shadow: var(--shadow-glass);
+  backdrop-filter: blur(10px);
+  padding: clamp(24px, 3vw, 36px);
+}
+
+.systemCard > svg {
+  width: 30px;
+  height: 30px;
+  margin-bottom: 24px;
+  color: var(--water-soft);
+}
+
+.aboutSection__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(320px, 0.7fr);
+  gap: 46px;
+  align-items: start;
+}
+
+.stackPanel h3 {
+  font-family: var(--font-display), Georgia, serif;
+  margin-bottom: 22px;
+}
+
+.contactPanel {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 30px;
+  align-items: center;
+  background:
+    radial-gradient(circle at 88% 20%, rgba(35, 183, 197, 0.1), transparent 24rem),
+    var(--panel-crisp);
+}
+
+.sealStampContactCTA {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(180px, 0.34fr);
+  gap: clamp(22px, 4vw, 48px);
+  align-items: center;
+  overflow: hidden;
+  border: 1px solid rgba(246, 190, 72, 0.18);
+  border-radius: var(--radius-lg);
+  background:
+    radial-gradient(circle at 86% 30%, rgba(246, 190, 72, 0.11), transparent 18rem),
+    linear-gradient(145deg, rgba(9, 23, 38, 0.92), rgba(3, 10, 18, 0.96));
+  box-shadow:
+    0 24px 70px rgba(0, 0, 0, 0.36),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  padding: clamp(24px, 4vw, 42px);
+  transition:
+    transform 240ms ease,
+    border-color 240ms ease,
+    box-shadow 240ms ease;
+}
+
+.sealStampContactCTA--inline {
+  grid-template-columns: minmax(0, 1fr) auto;
+  padding: 18px;
+}
+
+.sealStampContactCTA:hover,
+.sealStampContactCTA:focus-within {
+  border-color: rgba(71, 240, 255, 0.24);
+  box-shadow:
+    0 28px 76px rgba(0, 0, 0, 0.42),
+    0 0 26px rgba(71, 240, 255, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  transform: translateY(-2px);
+}
+
+.sealStampContactCTA:active {
+  transform: translateY(1px) scale(0.995);
+}
+
+.sealStampContactCTA__content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.sealStampContactCTA__title {
+  color: var(--text);
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  line-height: 1.04;
+}
+
+.sealStampContactCTA__description {
+  max-width: 680px;
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+.sealStampContactCTA__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.sealStampContactCTA__primary,
+.sealStampContactCTA__secondary {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  gap: 8px;
+  border-radius: var(--radius-full);
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.sealStampContactCTA__primary {
+  overflow: hidden;
+  padding: 0 18px;
+  background: linear-gradient(135deg, #f6be48, #f8efd0);
+  color: rgba(3, 10, 18, 0.96);
+}
+
+.sealStampContactCTA__primary::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  background: linear-gradient(110deg, transparent, rgba(71, 240, 255, 0.36), transparent);
+  transform: translateX(-80%);
+  transition: opacity 220ms ease;
+}
+
+.sealStampContactCTA:hover .sealStampContactCTA__primary::after,
+.sealStampContactCTA:focus-within .sealStampContactCTA__primary::after {
+  opacity: 1;
+  animation: sealStampButtonCurrent 1.25s ease-out both;
+}
+
+.sealStampContactCTA__secondary {
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 0 16px;
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.sealStampContactCTA__primary:focus-visible,
+.sealStampContactCTA__secondary:focus-visible {
+  outline: 2px solid rgba(71, 240, 255, 0.72);
+  outline-offset: 4px;
+}
+
+.sealStampContactCTA__seal {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  justify-self: center;
+  width: clamp(150px, 22vw, 230px);
+  aspect-ratio: 1;
+  border: 1px solid rgba(246, 190, 72, 0.16);
+  border-radius: 34%;
+  background:
+    radial-gradient(circle, rgba(246, 190, 72, 0.12), transparent 62%),
+    rgba(255, 255, 255, 0.03);
+  box-shadow:
+    inset 0 0 30px rgba(246, 190, 72, 0.08),
+    0 0 32px rgba(246, 190, 72, 0.08);
+}
+
+.sealStampContactCTA__sealCurrent {
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  opacity: 0;
+  background:
+    conic-gradient(from 120deg, transparent, rgba(71, 240, 255, 0.42), transparent 34%, rgba(246, 190, 72, 0.28), transparent 68%);
+  filter: blur(8px);
+  transition: opacity 240ms ease;
+}
+
+.sealStampContactCTA:hover .sealStampContactCTA__sealCurrent,
+.sealStampContactCTA:focus-within .sealStampContactCTA__sealCurrent {
+  opacity: 0.78;
+  animation: sealStampCurrent 4.5s linear infinite;
+}
+
+.sealStampContactCTA__sealGlyph {
+  position: relative;
+  width: 78%;
+  opacity: 0.5;
+  filter:
+    drop-shadow(0 14px 30px rgba(0, 0, 0, 0.28))
+    drop-shadow(0 0 18px rgba(246, 190, 72, 0.12));
+}
+
+.projectDrawer {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  display: grid;
+  justify-items: end;
+  padding: 24px;
+}
+
+.projectDrawer__backdrop {
+  position: absolute;
+  inset: 0;
+  border: 0;
+  background: rgba(1, 5, 9, 0.62);
+  backdrop-filter: blur(12px);
+  cursor: pointer;
+}
+
+.projectDrawer__panel {
+  --drawer-accent: var(--water-soft);
+  --drawer-glow: var(--water-glow-soft);
+  position: relative;
+  z-index: 1;
+  width: min(560px, calc(100vw - 48px));
+  max-height: calc(100vh - 48px);
+  overflow: auto;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-xl);
+  background: var(--panel-crisp);
+  box-shadow: var(--shadow-glass), var(--shadow-water);
+  backdrop-filter: blur(10px);
+  padding: 28px;
+  animation: drawerIn 300ms ease;
+}
+
+.projectDrawer__panel[data-accent='gold'] {
+  --drawer-accent: var(--gold);
+  --drawer-glow: var(--gold-glow-soft);
+}
+
+.projectDrawer__panel[data-accent='jade'] {
+  --drawer-accent: var(--jade);
+  --drawer-glow: var(--jade-glow-soft);
+}
+
+.projectDrawer__accentRail {
+  position: absolute;
+  top: 22px;
+  bottom: 22px;
+  left: 0;
+  width: 4px;
+  border-radius: var(--radius-full);
+  background: var(--drawer-accent);
+  box-shadow: 0 0 28px var(--drawer-glow);
+}

@@ -1,0 +1,129 @@
+@keyframes drawerIn {
+  from {
+    opacity: 0;
+    transform: translateX(26px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes signatureCurrentBlue {
+  0%,
+  12% {
+    transform: translate(-6%, -50%);
+  }
+  72%,
+  100% {
+    transform: translate(360%, -50%);
+  }
+}
+
+@keyframes signatureCurrentGold {
+  0%,
+  8% {
+    transform: translate(8%, -50%);
+  }
+  76%,
+  100% {
+    transform: translate(-360%, -50%);
+  }
+}
+
+@keyframes signatureCurrentGlint {
+  0%,
+  56% {
+    opacity: 0;
+    transform: translate(-20%, -50%);
+  }
+  62% {
+    opacity: 1;
+  }
+  76%,
+  100% {
+    opacity: 0;
+    transform: translate(880%, -50%);
+  }
+}
+
+@keyframes inkCurrentGlint {
+  0% {
+    opacity: 0;
+    transform: translateX(-80%);
+  }
+  36% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(80%);
+  }
+}
+
+@keyframes signatureProjectEdge {
+  0%,
+  100% {
+    background-position: 180% top, -80% bottom;
+  }
+  50% {
+    background-position: -80% top, 180% bottom;
+  }
+}
+
+@keyframes sealStampButtonCurrent {
+  from {
+    transform: translateX(-80%);
+  }
+  to {
+    transform: translateX(80%);
+  }
+}
+
+@keyframes sealStampCurrent {
+  to {
+    transform: rotate(1turn);
+  }
+}
+@keyframes drawerUp {
+  from {
+    opacity: 0;
+    transform: translateY(26px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes heroAuraShift {
+  from {
+    transform: translate3d(-1.5%, -1%, 0) scale(1);
+  }
+  to {
+    transform: translate3d(1.5%, 1%, 0) scale(1.04);
+  }
+}
+
+@keyframes waterLightDrift {
+  from {
+    transform: translate3d(-2%, -1%, 0) rotate(-1deg);
+  }
+  to {
+    transform: translate3d(2%, 1%, 0) rotate(1deg);
+  }
+}
+
+@keyframes pearlFloat {
+  from {
+    transform: translate(-50%, -50%) translate3d(-4px, 3px, 0) scale(1);
+  }
+  to {
+    transform: translate(-50%, -50%) translate3d(5px, -6px, 0) scale(1.035);
+  }
+}
+
+@keyframes signatureOrbit {
+  to {
+    transform: rotate(360deg);
+  }
+}

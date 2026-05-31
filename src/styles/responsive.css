@@ -1,0 +1,420 @@
+@media (max-width: 1024px) {
+  .scrollProgressRail {
+    display: none;
+  }
+
+  .heroSection__grid,
+  .aboutSection__grid,
+  .contactPanel {
+    grid-template-columns: 1fr;
+  }
+
+  .heroSection__grid {
+    min-height: auto;
+  }
+
+  .heroSection__visual {
+    min-height: 360px;
+  }
+
+  .waterPearlField--balanced .waterPearl--lg {
+    opacity: 0.55;
+  }
+
+  .projectFilters {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .proofGrid,
+  .workIndexGrid,
+  .metricGrid,
+  .architectureDiagram {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .projectPageHero__grid,
+  .projectPage__layout {
+    grid-template-columns: 1fr;
+  }
+
+  .caseRail {
+    position: static;
+    display: flex;
+    overflow-x: auto;
+    padding-bottom: 6px;
+  }
+
+  .caseRail a {
+    flex: 0 0 auto;
+  }
+
+  .featuredProject__button {
+    min-height: auto;
+    padding: 28px;
+  }
+
+  .featuredProject__rings,
+  .featuredProject__default {
+    display: none;
+  }
+
+  .featuredProject__medallion {
+    position: relative;
+    top: auto;
+    left: auto;
+    width: min(280px, 52vw);
+    margin: 0 auto 24px;
+    opacity: 0.86;
+    transform: none;
+  }
+
+  .featuredProject__partition,
+  .featuredProject__partition--left,
+  .featuredProject__partition--right,
+  .featuredProject__button:hover .featuredProject__partition--left,
+  .featuredProject__button:focus-visible .featuredProject__partition--left,
+  .featuredProject__button:hover .featuredProject__partition--right,
+  .featuredProject__button:focus-visible .featuredProject__partition--right {
+    position: relative;
+    inset: auto;
+    width: 100%;
+    min-height: 0;
+    opacity: 1;
+    transform: none;
+  }
+
+  .featuredProject__button:hover .featuredProject__medallion,
+  .featuredProject__button:focus-visible .featuredProject__medallion {
+    opacity: 0.86;
+    transform: none;
+  }
+
+  .featuredProject__button:hover .featuredProject__default,
+  .featuredProject__button:focus-visible .featuredProject__default {
+    opacity: 1;
+    transform: none;
+  }
+
+  .projectRippleCard,
+  .projectRippleCard--featured,
+  .signatureProjectCard,
+  .signatureProjectCard--featured {
+    grid-column: span 6;
+  }
+
+  .signatureProjectCard--featured,
+  .sealStampContactCTA {
+    grid-template-columns: 1fr;
+  }
+
+  .systemsGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 767px) {
+  .container {
+    width: min(100% - 32px, 1240px);
+  }
+
+  .navbar {
+    padding-top: 10px;
+  }
+
+  .navbar__inner {
+    align-items: flex-start;
+    border-radius: var(--radius-lg);
+    flex-direction: column;
+    padding: 14px;
+  }
+
+  .navbar__links {
+    justify-content: flex-start;
+  }
+
+  .navbar__resume {
+    display: none;
+  }
+
+  .heroSection {
+    padding: 54px 0 72px;
+  }
+
+  .heroSection__grid {
+    gap: 32px;
+  }
+
+  h1 {
+    font-size: clamp(2.65rem, 15vw, 4.4rem);
+  }
+
+  h2 {
+    font-size: clamp(2rem, 10vw, 3rem);
+  }
+
+  .heroSection__visual {
+    min-height: 280px;
+  }
+
+  .heroFluidSimulationPanel {
+    --fluid-layer-opacity: 0.9 !important;
+    --fluid-field-bleed: 20px !important;
+  }
+
+  .signatureEmblem {
+    width: min(220px, 68vw);
+  }
+
+  .chineseAccent {
+    display: none;
+  }
+
+  .workSection,
+  .proofSection,
+  .rippleWorkSection,
+  .systemsSection,
+  .aboutSection,
+  .contactSection {
+    padding: 64px 0;
+  }
+
+  .heroSection__stats,
+  .projectFilters__chips,
+  .projectPearlDock {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding-bottom: 4px;
+  }
+
+  .projectPearlDock {
+    justify-content: flex-start;
+    margin-bottom: 28px;
+  }
+
+  .projectPearlDock__label {
+    position: static;
+    display: block;
+    max-width: 78px;
+    border: 0;
+    background: transparent;
+    white-space: normal;
+    opacity: 1;
+    padding: 0;
+    margin-top: 8px;
+    text-align: center;
+    transform: none;
+  }
+
+  .projectArtifactPreview__body {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .rippleDivider {
+    height: 56px;
+  }
+
+  .projectDrawer__facts {
+    grid-template-columns: 1fr;
+  }
+
+  .projectDrawer__miniNav {
+    position: static;
+  }
+
+  .proofGrid,
+  .workIndexGrid,
+  .caseListGrid,
+  .decisionGrid,
+  .metricGrid,
+  .architectureDiagram {
+    grid-template-columns: 1fr;
+  }
+
+  .pageHero,
+  .projectPageHero,
+  .notFoundPage {
+    padding: 84px 0 44px;
+  }
+
+  .workIndexCard {
+    min-height: auto;
+    padding: 22px;
+  }
+
+  .caseStudySection {
+    padding: 22px;
+  }
+
+  .featuredProject {
+    margin: 34px 0 24px;
+  }
+
+  .featuredProject__button {
+    gap: 16px;
+    border-radius: 24px;
+    padding: 20px;
+  }
+
+  .featuredProject__medallion {
+    width: min(220px, 66vw);
+    margin-bottom: 8px;
+  }
+
+  .featuredProject__partition {
+    border-radius: 18px;
+    padding: 20px;
+  }
+
+  .featuredProject__preview {
+    min-height: 190px;
+  }
+
+  .projectRippleCard,
+  .projectRippleCard--featured,
+  .signatureProjectCard,
+  .signatureProjectCard--featured {
+    grid-column: 1 / -1;
+    min-height: 310px;
+  }
+
+  .signatureCurrentDivider {
+    width: min(100% - 32px, 520px);
+    margin-bottom: -18px;
+  }
+
+  .signatureCurrentDivider--left,
+  .signatureCurrentDivider--right {
+    margin-left: auto;
+    margin-right: auto;
+    justify-items: center;
+  }
+
+  .sealStampContactCTA__seal {
+    width: min(180px, 58vw);
+    order: -1;
+  }
+
+  .systemsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .projectDrawer {
+    align-items: end;
+    padding: 0;
+  }
+
+  .projectDrawer__panel {
+    width: 100%;
+    max-height: 88vh;
+    border-radius: 24px 24px 0 0;
+    padding: 22px 18px;
+    animation: drawerUp 260ms ease;
+  }
+
+  .footer__inner {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 390px) {
+  .buttonLink {
+    width: 100%;
+  }
+
+  .heroSection__actions,
+  .contactPanel__actions {
+    width: 100%;
+  }
+}
+
+@media (hover: none) {
+  .scrollProgressRail,
+  .projectRippleCard::before,
+  .projectRippleCard::after,
+  .systemCard--interactive::before {
+    display: none;
+  }
+
+  .magnetic {
+    transform: none !important;
+  }
+
+  .systemCard--interactive strong {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (max-width: 360px) {
+  h1 {
+    font-size: clamp(2.35rem, 13vw, 3.2rem);
+  }
+
+  .projectRippleCard__button,
+  .featuredProject__partition {
+    padding: 20px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.001ms !important;
+  }
+
+  .heroSection__visual::before {
+    animation: none;
+  }
+
+  .waterLightField__caustic {
+    animation: none;
+  }
+
+  .waterPearl {
+    animation: none;
+  }
+
+  .signatureFluidCanvas,
+  .fluidCanvas {
+    display: none;
+  }
+
+  .signatureCurrentDivider__current,
+  .signatureCurrentDivider__glint,
+  .signatureProjectCard__edge,
+  .sealStampContactCTA__sealCurrent,
+  .sealStampContactCTA__primary::after {
+    animation: none !important;
+  }
+
+  .inkCurrentReveal {
+    opacity: 1;
+    filter: none;
+    transform: none;
+    transition: none;
+  }
+
+  .inkCurrentReveal__glint {
+    display: none;
+  }
+
+  .signatureProjectCard:hover,
+  .signatureProjectCard:focus-within,
+  .sealStampContactCTA:hover,
+  .sealStampContactCTA:focus-within {
+    transform: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) and (min-width: 1025px) {
+  .featuredProject__button:hover .featuredProject__partition--left,
+  .featuredProject__button:focus-visible .featuredProject__partition--left,
+  .featuredProject__button:hover .featuredProject__partition--right,
+  .featuredProject__button:focus-visible .featuredProject__partition--right {
+    transform: translateY(-50%);
+  }
+}

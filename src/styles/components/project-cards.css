@@ -1,0 +1,497 @@
+.rippleWorkGrid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.signatureProjectGrid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.signatureProjectCard {
+  --signature-card-blue: rgba(71, 240, 255, 0.54);
+  --signature-card-gold: rgba(246, 190, 72, 0.52);
+  position: relative;
+  grid-column: span 4;
+  display: grid;
+  min-height: 330px;
+  overflow: hidden;
+  border: 1px solid rgba(125, 218, 255, 0.16);
+  border-radius: var(--radius-lg);
+  background:
+    linear-gradient(145deg, rgba(9, 23, 38, 0.92), rgba(3, 10, 18, 0.96));
+  box-shadow:
+    0 24px 70px rgba(0, 0, 0, 0.36),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  color: var(--text);
+  text-decoration: none;
+  transition:
+    transform 260ms ease,
+    border-color 260ms ease,
+    box-shadow 260ms ease;
+}
+
+.signatureProjectCard--featured {
+  grid-column: span 8;
+  grid-template-columns: minmax(0, 1fr) minmax(240px, 0.8fr);
+}
+
+.signatureProjectCard:hover,
+.signatureProjectCard:focus-within {
+  border-color: rgba(125, 218, 255, 0.28);
+  box-shadow:
+    0 28px 76px rgba(0, 0, 0, 0.42),
+    0 0 28px rgba(71, 240, 255, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  transform: translateY(-3px);
+}
+
+.signatureProjectCard:focus-within {
+  outline: 2px solid rgba(71, 240, 255, 0.72);
+  outline-offset: 4px;
+}
+
+.signatureProjectCard__edge {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.32;
+  background:
+    linear-gradient(90deg, transparent, var(--signature-card-blue), transparent) top left / 220% 1px no-repeat,
+    linear-gradient(90deg, transparent, var(--signature-card-gold), transparent) bottom right / 220% 1px no-repeat;
+  transition: opacity 240ms ease;
+  animation: signatureProjectEdge 8s ease-in-out infinite;
+}
+
+.signatureProjectCard:hover .signatureProjectCard__edge,
+.signatureProjectCard:focus-within .signatureProjectCard__edge {
+  opacity: 0.76;
+}
+
+.signatureProjectCard__watermark {
+  position: absolute;
+  right: -42px;
+  bottom: -46px;
+  width: min(260px, 58%);
+  opacity: 0.05;
+  pointer-events: none;
+  transition:
+    opacity 260ms ease,
+    transform 260ms ease;
+}
+
+.signatureProjectCard:hover .signatureProjectCard__watermark,
+.signatureProjectCard:focus-within .signatureProjectCard__watermark {
+  opacity: 0.075;
+  transform: translate(-8px, -8px);
+}
+
+.signatureProjectCard__content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 14px;
+  padding: 24px;
+}
+
+.signatureProjectCard[data-accent='gold'] {
+  --signature-card-blue: rgba(245, 240, 214, 0.28);
+  --signature-card-gold: rgba(246, 190, 72, 0.72);
+}
+
+.signatureProjectCard[data-accent='blue'] {
+  --signature-card-blue: rgba(71, 240, 255, 0.72);
+  --signature-card-gold: rgba(245, 240, 214, 0.28);
+}
+
+.signatureProjectCard__eyebrow {
+  color: var(--water-soft);
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.signatureProjectCard__title {
+  color: var(--text);
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(1.25rem, 2vw, 1.65rem);
+  line-height: 1.08;
+}
+
+.signatureProjectCard__description {
+  color: var(--text-secondary);
+  line-height: 1.62;
+}
+
+.signatureProjectCard__impact {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding-left: 18px;
+  color: var(--text-muted);
+  font-size: 0.88rem;
+  line-height: 1.5;
+}
+
+.signatureProjectCard__tags,
+.signatureProjectCard__footer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.signatureProjectCard__tags span {
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-full);
+  background: rgba(255, 255, 255, 0.045);
+  color: var(--text-muted);
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 6px 9px;
+}
+
+.signatureProjectCard__footer {
+  align-items: center;
+  margin-top: auto;
+}
+
+.signatureProjectCard__cta,
+.signatureProjectCard__github {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--text);
+  font-size: 0.82rem;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.signatureProjectCard__github {
+  color: var(--text-muted);
+}
+
+.signatureProjectCard__cta:focus-visible,
+.signatureProjectCard__github:focus-visible {
+  outline: 2px solid rgba(71, 240, 255, 0.72);
+  outline-offset: 4px;
+}
+
+.signatureProjectCard__media {
+  position: relative;
+  z-index: 1;
+  margin: 20px;
+  overflow: hidden;
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.signatureProjectCard__media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.projectRippleCard {
+  --card-accent: var(--water-soft);
+  --card-accent-glow: var(--water-glow-soft);
+  position: relative;
+  grid-column: span 4;
+  min-width: 0;
+  min-height: 340px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--panel-crisp);
+  box-shadow: var(--shadow-glass);
+  backdrop-filter: blur(10px);
+  overflow: hidden;
+  transition:
+    transform 260ms ease,
+    border-color 260ms ease,
+    box-shadow 260ms ease;
+}
+
+.projectRippleCard[data-accent='gold'] {
+  --card-accent: var(--gold);
+  --card-accent-glow: var(--gold-glow-soft);
+}
+
+.projectRippleCard[data-accent='jade'] {
+  --card-accent: var(--jade);
+  --card-accent-glow: var(--jade-glow-soft);
+}
+
+.projectRippleCard[data-accent='neutral'] {
+  --card-accent: var(--text-secondary);
+  --card-accent-glow: rgba(184, 201, 211, 0.14);
+}
+
+.projectRippleCard::before,
+.projectRippleCard::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity var(--motion-fast) ease;
+}
+
+.projectRippleCard::before {
+  background:
+    radial-gradient(420px circle at var(--pointer-x, 50%) var(--pointer-y, 50%), var(--card-accent-glow), transparent 42%);
+}
+
+.projectRippleCard::after {
+  background:
+    linear-gradient(115deg, transparent 0 36%, rgba(255, 255, 255, 0.12) 44%, transparent 52%);
+  transform: translateX(-42%);
+}
+
+.projectRippleCard:hover::before,
+.projectRippleCard:focus-within::before,
+.projectRippleCard:hover::after,
+.projectRippleCard:focus-within::after {
+  opacity: 1;
+}
+
+.projectRippleCard--featured {
+  grid-column: span 6;
+  min-height: 380px;
+}
+
+.projectRippleCard:hover,
+.projectRippleCard:focus-within,
+.projectRippleCard--selected {
+  transform: translateY(-4px);
+  border-color: color-mix(in srgb, var(--card-accent) 60%, transparent);
+  box-shadow: var(--shadow-glass), var(--shadow-water);
+}
+
+.projectRippleCard[data-accent='gold']:hover,
+.projectRippleCard[data-accent='gold']:focus-within,
+.projectRippleCard--selected[data-accent='gold'] {
+  border-color: rgba(247, 201, 72, 0.48);
+  box-shadow: var(--shadow-glass), 0 0 26px rgba(247, 201, 72, 0.18);
+}
+
+.projectRippleCard__button {
+  color: inherit;
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  height: 100%;
+  min-height: inherit;
+  border: 0;
+  background: transparent;
+  text-decoration: none;
+  text-align: left;
+  padding: 28px;
+  cursor: pointer;
+}
+
+.projectRippleCard__ripple,
+.projectRippleCard__ripple::before,
+.projectRippleCard__ripple::after {
+  position: absolute;
+  border-radius: var(--radius-full);
+  pointer-events: none;
+}
+
+.projectRippleCard__ripple {
+  inset: auto -80px -95px auto;
+  width: 240px;
+  height: 240px;
+  background: radial-gradient(circle, rgba(126, 231, 242, 0.12), transparent 60%);
+}
+
+.projectRippleCard__ripple::before,
+.projectRippleCard__ripple::after {
+  content: '';
+  inset: 0;
+  border: 1px solid rgba(126, 231, 242, 0.24);
+  opacity: 0.32;
+  transform: scale(0.72);
+  transition:
+    transform 560ms ease,
+    opacity 560ms ease;
+}
+
+.projectRippleCard__ripple::after {
+  transform: scale(0.5);
+}
+
+.projectRippleCard:hover .projectRippleCard__ripple::before,
+.projectRippleCard:focus-within .projectRippleCard__ripple::before {
+  opacity: 0.58;
+  transform: scale(1.15);
+}
+
+.projectRippleCard:hover .projectRippleCard__ripple::after,
+.projectRippleCard:focus-within .projectRippleCard__ripple::after {
+  opacity: 0.42;
+  transform: scale(1.45);
+}
+
+.projectRippleCard__topline,
+.projectRippleCard__cta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  color: var(--gold);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.projectRippleCard__icon {
+  display: grid;
+  place-items: center;
+  width: 58px;
+  height: 58px;
+  margin: 32px 0 22px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: rgba(126, 231, 242, 0.08);
+  color: var(--card-accent);
+  font-family: var(--font-display), Georgia, serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.projectArtifactPreview {
+  --artifact-accent: rgba(126, 231, 242, 0.42);
+  display: block;
+  width: 100%;
+  overflow: hidden;
+  border: 1px solid var(--border-subtle);
+  border-radius: 18px;
+  background:
+    radial-gradient(circle at 78% 18%, var(--artifact-accent), transparent 32%),
+    rgba(255, 255, 255, 0.035);
+  margin: 22px 0 0;
+}
+
+.projectArtifactPreview[data-accent='gold'] {
+  --artifact-accent: rgba(247, 201, 72, 0.32);
+}
+
+.projectArtifactPreview[data-accent='jade'] {
+  --artifact-accent: rgba(101, 214, 173, 0.32);
+}
+
+.projectArtifactPreview--card {
+  min-height: 132px;
+}
+
+.projectArtifactPreview--drawer {
+  min-height: 220px;
+  margin: 20px 0;
+}
+
+.projectArtifactPreview__chrome {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: 34px;
+  border-bottom: 1px solid var(--border-subtle);
+  padding: 0 12px;
+}
+
+.projectArtifactPreview__chrome span {
+  width: 7px;
+  height: 7px;
+  border-radius: var(--radius-full);
+  background: var(--gold);
+}
+
+.projectArtifactPreview__chrome span:nth-child(2) {
+  background: var(--water-soft);
+}
+
+.projectArtifactPreview__chrome span:nth-child(3) {
+  background: var(--jade);
+}
+
+.projectArtifactPreview__body {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 9px;
+  padding: 14px;
+}
+
+.projectArtifactPreview__block {
+  min-height: 72px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.075), rgba(255, 255, 255, 0.025));
+}
+
+.projectArtifactPreview__block--1,
+.projectArtifactPreview__block--3 {
+  min-height: 96px;
+}
+
+.projectArtifactPreview__block--2 {
+  background:
+    linear-gradient(180deg, var(--artifact-accent), rgba(255, 255, 255, 0.025));
+}
+
+.projectRippleCard__content {
+  display: grid;
+  gap: 12px;
+}
+
+.projectRippleCard__content strong {
+  color: var(--text);
+  font-family: var(--font-ui), Inter, system-ui, sans-serif;
+  font-size: clamp(1.35rem, 1.8vw, 1.85rem);
+  line-height: 1.12;
+}
+
+.projectRippleCard__content span {
+  color: var(--text-secondary);
+  line-height: 1.65;
+}
+
+.projectRippleCard__tech,
+.projectDrawer__pills,
+.stackCloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.projectRippleCard__tech {
+  margin-top: auto;
+  padding-top: 28px;
+}
+
+.projectRippleCard__cta {
+  margin-top: 24px;
+  justify-content: flex-start;
+  color: var(--card-accent);
+}
+
+.techPill,
+.stackCloud span {
+  border: 1px solid rgba(126, 231, 242, 0.18);
+  border-radius: var(--radius-full);
+  background: rgba(126, 231, 242, 0.075);
+  color: var(--text);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  padding: 7px 10px;
+}

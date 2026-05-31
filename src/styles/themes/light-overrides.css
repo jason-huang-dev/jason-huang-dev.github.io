@@ -1,0 +1,435 @@
+.featuredProject__medallion {
+  display: grid;
+}
+
+.featuredProject__medallionImage {
+  grid-area: 1 / 1;
+  opacity: 0;
+  transition:
+    opacity var(--transition-base),
+    filter var(--transition-base);
+}
+
+.featuredProject__medallionImage--dark {
+  opacity: 1;
+}
+
+[data-theme='light'] .featuredProject__medallionImage--dark {
+  opacity: 0;
+}
+
+[data-theme='light'] .featuredProject__medallionImage--light {
+  opacity: 1;
+}
+
+.signatureCurrentDivider {
+  color: var(--color-text-muted);
+}
+
+.signatureCurrentDivider__label {
+  color: var(--color-text-muted);
+}
+
+.signatureCurrentDivider__line::before {
+  background:
+    linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.22), transparent),
+    linear-gradient(90deg, var(--color-current-line), var(--color-current-line-gold));
+}
+
+[data-theme='light'] .pageShell {
+  background:
+    radial-gradient(circle at 12% 8%, rgba(47, 167, 226, 0.13), transparent 28rem),
+    radial-gradient(circle at 88% 4%, rgba(212, 175, 106, 0.16), transparent 24rem),
+    linear-gradient(180deg, var(--color-bg), #efe4cf 100%);
+}
+
+[data-theme='light'] .navbar__inner {
+  background: rgba(255, 250, 241, 0.84);
+}
+
+[data-theme='light'] .heroSection {
+  background:
+    linear-gradient(100deg, rgba(247, 244, 238, 0.98) 0%, rgba(247, 244, 238, 0.92) 48%, rgba(230, 215, 181, 0.52) 100%),
+    radial-gradient(circle at 82% 22%, rgba(47, 167, 226, 0.2), transparent 26rem),
+    var(--color-bg);
+  color: var(--color-text);
+}
+
+[data-theme='light'] .heroSection__copy {
+  position: relative;
+  z-index: 1;
+}
+
+[data-theme='light'] .heroSection__summary,
+[data-theme='light'] p {
+  color: var(--color-text-muted);
+}
+
+[data-theme='light'] .eyebrow,
+[data-theme='light'] .proofCard small,
+[data-theme='light'] .workIndexCard__actions a,
+[data-theme='light'] .projectRippleCard__cta,
+[data-theme='light'] .featuredProject__meta,
+[data-theme='light'] .systemCard--interactive strong {
+  color: var(--color-link-hover);
+}
+
+[data-theme='light'] .heroSection__stats span,
+[data-theme='light'] .projectFilters button,
+[data-theme='light'] .techPill,
+[data-theme='light'] .stackCloud span,
+[data-theme='light'] .workIndexCard__tech span {
+  background: rgba(255, 255, 255, 0.52);
+  border-color: var(--color-border);
+  color: var(--color-text-muted);
+}
+
+[data-theme='light'] .heroSection__visual,
+[data-theme='light'] .featuredProject__button {
+  background:
+    radial-gradient(circle at 50% 45%, rgba(47, 167, 226, 0.12), transparent 38%),
+    linear-gradient(145deg, rgba(255, 255, 255, 0.92), rgba(255, 250, 241, 0.8));
+  border-color: var(--color-border);
+  box-shadow: var(--shadow-soft);
+}
+
+[data-theme='light'] .fluidSignatureSeal__waterGlass {
+  background:
+    radial-gradient(circle at 50% 48%, rgba(47, 167, 226, 0.12), transparent 48%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.5), rgba(230, 215, 181, 0.08));
+}
+
+[data-theme='light'] .fluidCanvas,
+[data-theme='light'] .fluidCanvasFallback {
+  opacity: 0.64;
+}
+
+[data-theme='light'] .fluidSignatureSeal__emblem,
+[data-theme='light'] .heroFluidSimulationPanel__signature {
+  opacity: 0.72;
+  filter:
+    drop-shadow(0 18px 42px rgba(13, 27, 42, 0.16))
+    drop-shadow(0 0 18px rgba(47, 167, 226, 0.08));
+}
+
+[data-theme='light'] .waterBackdrop__ring {
+  border-color: rgba(47, 167, 226, 0.12);
+}
+
+[data-theme='light'] .waterBackdrop__grid {
+  opacity: 0.05;
+}
+
+[data-theme='light'] .waterBackdrop__current {
+  background:
+    linear-gradient(90deg, transparent, rgba(47, 167, 226, 0.18), rgba(154, 106, 24, 0.12), transparent);
+  opacity: 0.38;
+}
+
+[data-theme='light'] .waterPearl,
+[data-theme='light'] .rippleDivider span {
+  border-color: rgba(47, 167, 226, 0.2);
+  color: rgba(11, 95, 138, 0.72);
+}
+
+[data-theme='light'] .projectPearlDock__label {
+  background: rgba(255, 250, 241, 0.94);
+}
+
+[data-theme='light'] .projectPearlDock__pearl {
+  background:
+    radial-gradient(circle at 28% 22%, rgba(255, 255, 255, 0.95), transparent 12%),
+    radial-gradient(circle at 38% 32%, rgba(47, 167, 226, 0.16), transparent 34%),
+    rgba(255, 250, 241, 0.9);
+}
+
+[data-theme='light'] .signatureProjectCard,
+[data-theme='light'] .projectRippleCard {
+  background:
+    radial-gradient(circle at 94% 10%, rgba(212, 175, 106, 0.22), transparent 18rem),
+    linear-gradient(145deg, rgba(255, 246, 224, 0.96) 0%, rgba(255, 252, 246, 0.94) 56%, rgba(247, 244, 238, 0.9) 100%);
+  border-color: rgba(154, 106, 24, 0.18);
+  box-shadow:
+    0 24px 70px rgba(154, 106, 24, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.86);
+  color: var(--color-text);
+}
+
+[data-theme='light'] .signatureProjectCard:hover,
+[data-theme='light'] .signatureProjectCard:focus-within,
+[data-theme='light'] .projectRippleCard:hover,
+[data-theme='light'] .projectRippleCard:focus-within,
+[data-theme='light'] .projectRippleCard--selected {
+  border-color: rgba(154, 106, 24, 0.28);
+  box-shadow:
+    0 28px 76px rgba(154, 106, 24, 0.16),
+    0 0 30px rgba(212, 175, 106, 0.14),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+[data-theme='light'] .signatureProjectCard__title,
+[data-theme='light'] .signatureProjectCard__cta,
+[data-theme='light'] .projectRippleCard__content strong {
+  color: var(--color-text);
+}
+
+[data-theme='light'] .signatureProjectCard__description,
+[data-theme='light'] .signatureProjectCard__impact,
+[data-theme='light'] .signatureProjectCard__github,
+[data-theme='light'] .projectRippleCard__content span {
+  color: var(--color-text-muted);
+}
+
+[data-theme='light'] .signatureProjectCard__eyebrow,
+[data-theme='light'] .projectRippleCard__topline {
+  color: var(--color-brand-water);
+}
+
+[data-theme='light'] .signatureProjectCard__tags span,
+[data-theme='light'] .projectRippleCard__tech .techPill,
+[data-theme='light'] .projectRippleCard__icon {
+  background: rgba(255, 255, 255, 0.58);
+  border-color: rgba(154, 106, 24, 0.16);
+  color: rgba(13, 27, 42, 0.72);
+}
+
+[data-theme='light'] .signatureProjectCard__edge {
+  opacity: 0.38;
+  background:
+    linear-gradient(90deg, transparent, rgba(47, 167, 226, 0.18), transparent) top left / 220% 1px no-repeat,
+    linear-gradient(90deg, transparent, rgba(154, 106, 24, 0.24), transparent) bottom right / 220% 1px no-repeat;
+}
+
+[data-theme='light'] .signatureProjectCard__watermark {
+  opacity: 0.035;
+}
+
+[data-theme='light'] .projectRippleCard::before {
+  background:
+    radial-gradient(420px circle at var(--pointer-x, 50%) var(--pointer-y, 50%), rgba(212, 175, 106, 0.18), transparent 42%);
+}
+
+[data-theme='light'] .projectRippleCard::after {
+  background:
+    linear-gradient(115deg, transparent 0 36%, rgba(255, 255, 255, 0.5) 44%, transparent 52%);
+}
+
+[data-theme='light'] .projectRippleCard__ripple {
+  background: radial-gradient(circle, rgba(212, 175, 106, 0.12), transparent 60%);
+}
+
+[data-theme='light'] .projectRippleCard__ripple::before,
+[data-theme='light'] .projectRippleCard__ripple::after {
+  border-color: rgba(154, 106, 24, 0.22);
+}
+
+[data-theme='light'] .systemCard--interactive:hover,
+[data-theme='light'] .systemCard--interactive:focus-visible {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(255, 250, 241, 0.84));
+}
+
+[data-theme='light'] .systemCard__medallion {
+  background: rgba(255, 255, 255, 0.62);
+}
+
+[data-theme='light'] .inkCurrentReveal__glint {
+  background:
+    linear-gradient(105deg, transparent 0 24%, rgba(47, 167, 226, 0.08) 36%, rgba(154, 106, 24, 0.08) 52%, transparent 68%);
+}
+
+[data-theme='light'] .sealStampCTA {
+  background: rgba(154, 106, 24, 0.08);
+  border-color: rgba(154, 106, 24, 0.28);
+  color: var(--color-text);
+}
+
+[data-theme='light'] .sealStampCTA__seal {
+  color: var(--color-brand-gold-strong);
+}
+
+[data-theme='light'] .buttonLink--primary,
+[data-theme='light'] .sealStampContactCTA__primary {
+  background: linear-gradient(135deg, var(--color-brand-water), #a9d8ef);
+  color: #081018;
+}
+
+[data-theme='light'] .buttonLink--secondary,
+[data-theme='light'] .buttonLink--ghost,
+[data-theme='light'] .sealStampContactCTA__secondary {
+  background: rgba(255, 255, 255, 0.56);
+  border-color: var(--color-border);
+  color: var(--color-text);
+}
+
+[data-theme='light'] .sealStampContactCTA {
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.95), rgba(255, 250, 241, 0.88)),
+    radial-gradient(circle at 100% 0%, rgba(212, 175, 106, 0.18), transparent 22rem);
+  border-color: var(--color-border);
+  color: var(--color-text);
+  box-shadow: var(--shadow-soft);
+}
+
+[data-theme='light'] .sealStampContactCTA:hover,
+[data-theme='light'] .sealStampContactCTA:focus-within {
+  border-color: rgba(47, 167, 226, 0.3);
+  box-shadow:
+    var(--shadow-soft),
+    0 0 30px rgba(47, 167, 226, 0.08);
+}
+
+[data-theme='light'] .sealStampContactCTA__seal {
+  background:
+    radial-gradient(circle, rgba(212, 175, 106, 0.12), transparent 62%),
+    rgba(255, 255, 255, 0.58);
+}
+
+[data-theme='light'] .sealStampContactCTA__sealCurrent {
+  background:
+    conic-gradient(from 120deg, transparent, rgba(47, 167, 226, 0.22), transparent 34%, rgba(154, 106, 24, 0.18), transparent 68%);
+}
+
+[data-theme='light'] .projectDrawer__backdrop {
+  background: rgba(247, 244, 238, 0.72);
+}
+
+@media (max-width: 767px) {
+  .themeToggle {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .themeToggle__option {
+    flex: 1 1 0;
+  }
+}
+
+/* -------------------------------------------------------------------------- */
+/* Light Theme Fixes: Drawer, Featured Display, Yin-Yang Scene, Side Scroll   */
+/* -------------------------------------------------------------------------- */
+
+[data-theme='light'] {
+  --light-ink: #0d1b2a;
+  --light-ink-muted: rgba(13, 27, 42, 0.7);
+  --light-ink-soft: rgba(13, 27, 42, 0.56);
+  --light-paper: rgba(255, 250, 241, 0.96);
+  --light-paper-strong: rgba(255, 255, 255, 0.98);
+  --light-sand: rgba(230, 215, 181, 0.52);
+  --light-gold-border: rgba(154, 106, 24, 0.2);
+  --light-water-border: rgba(47, 167, 226, 0.28);
+  --light-water-fill: rgba(47, 167, 226, 0.14);
+  --light-panel-shadow: 0 26px 76px rgba(13, 27, 42, 0.12);
+}
+
+/* -------------------------------------------------------------------------- */
+/* Project drawer / popup                                                     */
+/* -------------------------------------------------------------------------- */
+
+[data-theme='light'] .projectDrawer__panel {
+  background:
+    radial-gradient(circle at 100% 0%, rgba(212, 175, 106, 0.16), transparent 24rem),
+    linear-gradient(
+      145deg,
+      rgba(255, 255, 255, 0.98) 0%,
+      rgba(255, 250, 241, 0.94) 54%,
+      rgba(247, 244, 238, 0.92) 100%
+    );
+  border-color: rgba(13, 27, 42, 0.14);
+  color: var(--light-ink);
+  box-shadow:
+    0 34px 90px rgba(13, 27, 42, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.88);
+}
+
+[data-theme='light'] .projectDrawer__header,
+[data-theme='light'] .projectDrawer__miniNav {
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.98) 0%,
+      rgba(255, 250, 241, 0.94) 68%,
+      rgba(255, 250, 241, 0.82) 100%
+    );
+  border-color: rgba(13, 27, 42, 0.12);
+  color: var(--light-ink);
+  box-shadow: 0 18px 38px rgba(13, 27, 42, 0.08);
+}
+
+[data-theme='light'] .projectDrawer__header h1,
+[data-theme='light'] .projectDrawer__header h2,
+[data-theme='light'] .projectDrawer__header h3,
+[data-theme='light'] .projectDrawer__panel h1,
+[data-theme='light'] .projectDrawer__panel h2,
+[data-theme='light'] .projectDrawer__panel h3 {
+  color: var(--light-ink);
+  text-shadow: none;
+}
+
+[data-theme='light'] .projectDrawer__summary {
+  color: rgba(13, 27, 42, 0.82);
+}
+
+[data-theme='light'] .projectDrawer__panel p,
+[data-theme='light'] .projectDrawer__panel li,
+[data-theme='light'] .projectDrawer__facts span,
+[data-theme='light'] .projectDetailSection ul {
+  color: var(--light-ink-muted);
+}
+
+[data-theme='light'] .projectDetailSection {
+  border-top-color: rgba(13, 27, 42, 0.12);
+}
+
+[data-theme='light'] .projectDetailSection h3,
+[data-theme='light'] .projectDrawer__facts strong,
+[data-theme='light'] .projectDrawer__status {
+  color: var(--color-brand-gold-strong);
+}
+
+[data-theme='light'] .projectDrawer__facts span,
+[data-theme='light'] .projectArtifactPreview,
+[data-theme='light'] .projectDrawer__miniNav a,
+[data-theme='light'] .projectDrawer__links a,
+[data-theme='light'] .projectDrawer__pills .techPill {
+  background: rgba(255, 255, 255, 0.58);
+  border-color: rgba(13, 27, 42, 0.12);
+  color: rgba(13, 27, 42, 0.72);
+}
+
+[data-theme='light'] .projectDrawer__miniNav a:hover,
+[data-theme='light'] .projectDrawer__miniNav a:focus-visible,
+[data-theme='light'] .projectDrawer__links a:hover,
+[data-theme='light'] .projectDrawer__links a:focus-visible {
+  border-color: var(--light-water-border);
+  color: var(--color-brand-water);
+  background: rgba(47, 167, 226, 0.08);
+}
+
+[data-theme='light'] .iconButton {
+  background: rgba(255, 255, 255, 0.74);
+  border-color: rgba(13, 27, 42, 0.14);
+  color: var(--light-ink);
+  box-shadow:
+    0 14px 32px rgba(13, 27, 42, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.78);
+}
+
+[data-theme='light'] .iconButton:hover,
+[data-theme='light'] .iconButton:focus-visible {
+  background: rgba(255, 255, 255, 0.96);
+  border-color: var(--light-water-border);
+  color: #081018;
+}
+
+[data-theme='light'] .projectArtifactPreview__block,
+[data-theme='light'] .yinYangProjectScene__mockGrid span {
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.78),
+      rgba(255, 250, 241, 0.44)
+    );
+  border-color: rgba(13, 27, 42, 0.1);
+}
+

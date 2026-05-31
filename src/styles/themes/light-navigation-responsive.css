@@ -1,0 +1,119 @@
+/* -------------------------------------------------------------------------- */
+/* Side scroll rail                                                           */
+/* -------------------------------------------------------------------------- */
+
+[data-theme='light'] .scrollProgressRail a {
+  color: rgba(13, 27, 42, 0.56);
+}
+
+[data-theme='light'] .scrollProgressRail__dot {
+  background:
+    radial-gradient(circle at 30% 24%, rgba(255, 255, 255, 0.92), transparent 18%),
+    rgba(255, 255, 255, 0.72);
+  border-color: rgba(13, 27, 42, 0.28);
+  box-shadow:
+    0 8px 18px rgba(13, 27, 42, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.76);
+}
+
+[data-theme='light'] .scrollProgressRail__label {
+  color: rgba(13, 27, 42, 0.64);
+  text-shadow: none;
+}
+
+[data-theme='light'] .scrollProgressRail a:hover,
+[data-theme='light'] .scrollProgressRail a:focus-visible,
+[data-theme='light'] .scrollProgressRail a.is-active {
+  color: rgba(13, 27, 42, 0.82);
+}
+
+[data-theme='light'] .scrollProgressRail a:hover .scrollProgressRail__dot,
+[data-theme='light'] .scrollProgressRail a:focus-visible .scrollProgressRail__dot {
+  border-color: rgba(47, 167, 226, 0.48);
+  box-shadow:
+    0 0 0 5px rgba(47, 167, 226, 0.1),
+    0 12px 24px rgba(13, 27, 42, 0.12);
+}
+
+[data-theme='light'] .scrollProgressRail a.is-active .scrollProgressRail__dot {
+  background:
+    radial-gradient(circle at 30% 24%, rgba(255, 255, 255, 0.75), transparent 18%),
+    var(--color-brand-water);
+  border-color: rgba(8, 16, 24, 0.2);
+  box-shadow:
+    0 0 0 5px rgba(47, 167, 226, 0.16),
+    0 14px 30px rgba(47, 167, 226, 0.22);
+}
+
+/* -------------------------------------------------------------------------- */
+/* Horizontal project pearl dock, if present                                  */
+/* -------------------------------------------------------------------------- */
+
+[data-theme='light'] .projectPearlDock__label {
+  background:
+    linear-gradient(
+      90deg,
+      rgba(255, 250, 241, 0.96),
+      rgba(230, 215, 181, 0.68)
+    );
+  border-color: rgba(47, 167, 226, 0.22);
+  color: rgba(13, 27, 42, 0.7);
+  box-shadow:
+    0 12px 26px rgba(13, 27, 42, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.72);
+}
+
+[data-theme='light'] .projectPearlDock__pearl {
+  background:
+    radial-gradient(circle at 28% 22%, rgba(255, 255, 255, 0.95), transparent 12%),
+    radial-gradient(circle at 38% 32%, rgba(47, 167, 226, 0.14), transparent 34%),
+    rgba(255, 250, 241, 0.92);
+  border-color: rgba(13, 27, 42, 0.16);
+  box-shadow:
+    0 14px 32px rgba(13, 27, 42, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.76);
+}
+
+[data-theme='light'] .projectPearlDock__item[data-active='true'] .projectPearlDock__pearl {
+  border-color: rgba(47, 167, 226, 0.74);
+  box-shadow:
+    0 0 0 2px rgba(47, 167, 226, 0.48),
+    0 0 0 5px rgba(47, 167, 226, 0.12),
+    0 16px 34px rgba(47, 167, 226, 0.18);
+}
+
+[data-theme='light'] .projectPearlDock__item[data-featured='true'] .projectPearlDock__pearl {
+  border-color: rgba(154, 106, 24, 0.36);
+  box-shadow:
+    0 0 0 1px rgba(154, 106, 24, 0.22),
+    0 14px 32px rgba(154, 106, 24, 0.12);
+}
+
+/* -------------------------------------------------------------------------- */
+/* Mobile safety                                                              */
+/* -------------------------------------------------------------------------- */
+
+@media (max-width: 767px) {
+  [data-theme='light'] .featuredProject__medallion {
+    opacity: 0.72;
+  }
+
+  [data-theme='light'] .featuredProject__button:hover .featuredProject__medallion,
+  [data-theme='light'] .featuredProject__button:focus-visible .featuredProject__medallion {
+    opacity: 0.72;
+  }
+
+  [data-theme='light'] .yinYangProjectScene__content::before {
+    background:
+      linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.94),
+        rgba(255, 250, 241, 0.86)
+      );
+  }
+
+  [data-theme='light'] .projectPearlDock__label {
+    background: transparent;
+    box-shadow: none;
+  }
+}
